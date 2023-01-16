@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --primary-color: #b1d7ea;
+  --secondary-color: #c1672a;
+  --tertiary-color: #1c1a1a;
+}
+
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #f5f5f9;
+}
+
+.paginationButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: #494949;
+    /* font-size: px; */
+    /* max-width: 500px; */
+  }
+  
+  .previousBtn {
+    color: #494949;
+  }
+  
+  .nextBtn {
+    color: #494949;
+  }
+  
+  /* .paginationActive {
+    background-color: var(--primary-color);
+    color: black;
+    padding: 0px 8px;
+    width: 26px;
+    aspect-ratio: 1/1 ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  } */
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f2f2f2;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    transition: all 0.3s ease-in-out;
+    background: rgb(207, 207, 207);
+    border-radius: 20px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #929292;
+    cursor: pointer;
+  }
+  
