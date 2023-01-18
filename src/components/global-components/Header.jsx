@@ -1,22 +1,28 @@
-import React from 'react'
-import profile from '../../assets/icons/profile2.svg'
-import logout from '../../assets/icons/logout.svg'
-import { Link } from 'react-router-dom'
+import React from "react";
+import profile from "../../assets/icons/profile2.svg";
+import logout from "../../assets/icons/logout.svg";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className='w-full flex justify-end items-center px-10 z-[500] bg-white shadow-md '>
-      <div className='w-full max-w-[200px] flex justify-end items-center gap-4 py-3'>
-        <div>
-          <img src={profile} className='w-[28px] cursor-pointer active:scale-[0.95]' alt="" />
-        </div>
-        <div className='w-[1px] h-[22px] bg-[#414141]'></div>
-        <div>
-          <Link to='/login'><img src={logout} className='w-[25px] cursor-pointer active:scale-[0.95]' alt="" /></Link>
-        </div>
+    <div className="pt-4 flex justify-between items-center w-[95%] mx-auto ">
+      <div>
+        <h1 className="text-3xl">Products</h1>
+        <h1 className="text-gray-500 text-sm mt-2">
+          Total products : <span className="ml-1">52</span>
+        </h1>
+      </div>
+      <div className="flex justify-center items-center">
+        <Link to="/login" className="">
+          <img
+            src={logout}
+            className="w-[25px] cursor-pointer active:scale-[0.95]"
+            alt=""
+          />
+        </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
