@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import order_data from "../mockApi/orderPageApi";
 import search from "../assets/icons/search.png";
 import ReactPaginate from "react-paginate";
+import moment from "moment";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
 const OrdersPage = () => {
   const [searchData, setSearchData] = useState("");
@@ -46,96 +48,134 @@ const OrdersPage = () => {
               </button>
             </div>
           </div>
-          <div className="w-full rounded-[15px] ">
-            <div className="w-full grid grid-cols-10 text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2">
-              {order_data?.titles?.map((data, index) => {
-                return (
-                  <div className="w-full   ">
-                    <h1>{data}</h1>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="w-full  rounded-b-[15px]  text-[13px] text-[#464646] h-[65vh] overflow-y-scroll ">
-              {order_data?.content
-                ?.filter((filterValue) => {
-                  if (searchData === "") {
-                    return filterValue;
-                  } else if (
-                    filterValue?.buyer
-                      ?.toLowerCase()
-                      ?.includes(searchData?.toLowerCase()) ||
-                    filterValue?.order_id
-                      ?.toLowerCase()
-                      ?.includes(searchData?.toLowerCase()) ||
-                    filterValue?.destination_state
-                      ?.toLowerCase()
-                      ?.includes(searchData?.toLowerCase()) ||
-                    filterValue?.status
-                      ?.toLowerCase()
-                      ?.includes(searchData?.toLowerCase())
-                  ) {
-                    return filterValue;
-                  }
-                })
-                .map((data, i) => (
-                  <div
-                    className="grid grid-cols-10 border-b border-b-[#e6e6e69f] py-5"
-                    key={i}
-                  >
-                    <div className="w-full ">
-                      <p className="">{data?.order_id}</p>
+          <div className=" rounded-[15px]   overflow-x-scroll  ">
+            <div className="min-w-[1300px]">
+              <div className="w-full grid grid-cols-9 text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2 gap-2 ">
+                {order_data?.titles?.map((data, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={`w-full 
+                      `}
+                    >
+                      <h1
+                        className={` ${
+                          data === "Actions" ? "mx-auto" : ""
+                        }  w-max text-center`}
+                      >
+                        {data}
+                      </h1>
                     </div>
-                    <div className="w-full ">
-                      <p className="">{data?.created}</p>
+                  );
+                })}
+              </div>
+              <div className="w-full  rounded-b-[15px]  text-[13px] text-[#464646] h-[65vh] overflow-y-scroll ">
+                {order_data?.content
+                  ?.filter((filterValue) => {
+                    if (searchData === "") {
+                      return filterValue;
+                    } else if (
+                      filterValue?.buyer
+                        ?.toLowerCase()
+                        ?.includes(searchData?.toLowerCase()) ||
+                      filterValue?.order_id
+                        ?.toLowerCase()
+                        ?.includes(searchData?.toLowerCase()) ||
+                      filterValue?.destination_state
+                        ?.toLowerCase()
+                        ?.includes(searchData?.toLowerCase()) ||
+                      filterValue?.status
+                        ?.toLowerCase()
+                        ?.includes(searchData?.toLowerCase())
+                    ) {
+                      return filterValue;
+                    }
+                  })
+                  .map((data, i) => (
+                    <div
+                      className="grid grid-cols-9 gap-2 border-b border-b-[#e6e6e69f] py-5 text-black text-sm "
+                      key={i}
+                    >
+                      <div className="w-full flex items-center ">
+                        <p className="text-blue-600 cursor-pointer">
+                          #{data?.order_id}
+                        </p>
+                      </div>
+                      <div className="w-full ">
+                        <p className=" flex flex-col justify-center">
+                          <span>
+                            {moment.unix(data?.created).format("DD MMM YYYY  ")}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {moment.unix(data?.created).format(" hh:mm A")}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="w-full ">
+                        <p className=" flex flex-col justify-center">
+                          <span className="truncate">{data?.buyer?.name}</span>
+                          <span className="text-xs text-gray-500 truncate">
+                            {data?.buyer?.email}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="w-full flex items-center ">
+                        <p className="">{data?.items?.length}</p>
+                      </div>
+                      <div className="w-full flex items-center">
+                        <p className="">{data?.destination_state}</p>
+                      </div>
+                      {/* <div className="w-full flex items-center">
+                        <p className="">₹ {data?.sub_total}</p>
+                      </div>
+                      <div className="w-full flex items-center">
+                        <p className="">₹ {data?.tax}</p>
+                      </div> */}
+                      <div className="w-full flex items-center">
+                        <p className="">₹ {data?.grand_total}</p>
+                      </div>
+                      <div className="w-full flex gap-5 items-center ">
+                        {data?.status === "Booked" && (
+                          <p className="bg-[#e99f15] rounded-full w-[8px] aspect-square"></p>
+                        )}
+                        {data?.status === "Paid" && (
+                          <p className="bg-[#00ac69] rounded-full w-[8px] aspect-square"></p>
+                        )}
+                        {data?.status === "Cancelled" && (
+                          <p className="bg-[#FF0000] rounded-full w-[8px] aspect-square"></p>
+                        )}
+                        <p className="">{data?.status}</p>
+                      </div>
+                      <div className="w-full flex gap-2 items-center ">
+                        {data?.delivery_status === "Dispatched" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#303030] rounded-lg  border">
+                            {data?.delivery_status}
+                          </p>
+                        )}
+                        {data?.delivery_status === "Delivered" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#00ac69] rounded-lg border ">
+                            {data?.delivery_status}
+                          </p>
+                        )}
+                        {data?.delivery_status === "Cancelled" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#FF0000] rounded-lg border ">
+                            {data?.delivery_status}
+                          </p>
+                        )}
+                        {data?.delivery_status === "Returned" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#e99f15] rounded-lg border ">
+                            {data?.delivery_status}
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex cursor-pointer  justify-center items-center px-2">
+                        <div className=" w-fit ">
+                          <KeyboardArrowDownRoundedIcon />
+                        </div>
+                      </div>
                     </div>
-                    <div className="w-full ">
-                      <p className="">{data?.buyer}</p>
-                    </div>
-                    <div className="w-full ">
-                      <p className="">{data?.items?.length}</p>
-                    </div>
-                    <div className="w-full ">
-                      <p className="">{data?.destination_state}</p>
-                    </div>
-                    <div className="w-full ">
-                      <p className="">₹ {data?.sub_total}</p>
-                    </div>
-                    <div className="w-full ">
-                      <p className="">₹ {data?.tax}</p>
-                    </div>
-                    <div className="w-full ">
-                      <p className="">₹ {data?.grand_total}</p>
-                    </div>
-                    <div className="w-full flex gap-2 items-center ">
-                      {data?.status === "Booked" && (
-                        <p className="bg-[#e99f15] rounded-full w-[8px] aspect-square"></p>
-                      )}
-                      {data?.status === "Paid" && (
-                        <p className="bg-[#00ac69] rounded-full w-[8px] aspect-square"></p>
-                      )}
-                      {data?.status === "Cancelled" && (
-                        <p className="bg-[#FF0000] rounded-full w-[8px] aspect-square"></p>
-                      )}
-                      <p className="">{data?.status}</p>
-                    </div>
-                    <div className="w-full flex gap-2 items-center ">
-                      {data?.delivery_status === "Dispatched" && (
-                        <p className="bg-[#1871e6] rounded-full w-[8px] aspect-square "></p>
-                      )}
-                      {data?.delivery_status === "Delivered" && (
-                        <p className="bg-[#00ac69] rounded-full w-[8px] aspect-square"></p>
-                      )}
-                      {data?.delivery_status === "Cancelled" && (
-                        <p className="bg-[#FF0000] rounded-full w-[8px] aspect-square"></p>
-                      )}
-                      {data?.delivery_status === "Returned" && (
-                        <p className="bg-[#e726a7] rounded-full w-[8px] aspect-square"></p>
-                      )}
-                      <p className="">{data?.delivery_status}</p>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+              </div>
             </div>
           </div>
         </div>

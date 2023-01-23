@@ -43,7 +43,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="cursor-default">
       {/* sidebar */}
       {location?.pathname.includes("/login") ? "" : <Sidebar />}
 
