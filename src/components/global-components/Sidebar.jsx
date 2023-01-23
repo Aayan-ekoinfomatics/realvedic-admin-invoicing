@@ -20,9 +20,9 @@ const Sidebar = () => {
       className={`w-[250px] h-screen poppins fixed left-0 bg-gradient-to-t from-[#82c071] to-[#c1e9b6]  z-[500] `}
     >
       <div className="flex flex-col items-end gap-[7px] w-[35px]  rounded-lg cursor-pointer ml-auto m-5">
-        <div className="bg-[white] rounded-lg w-full h-[4px]"></div>
-        <div className="bg-[white] rounded-lg w-full h-[4px]"></div>
-        <div className="bg-[white] rounded-lg w-full h-[4px]"></div>
+        <div className="bg-[#1e1e1e] rounded-lg w-full h-[4px]"></div>
+        <div className="bg-[#1e1e1e] rounded-lg w-full h-[4px]"></div>
+        <div className="bg-[#1e1e1e] rounded-lg w-full h-[4px]"></div>
       </div>
       <div className="w-full flex justify-center items-center mb-8 ">
         <img src={logo} alt="" className="w-[90%]  max-w-[150px]" />

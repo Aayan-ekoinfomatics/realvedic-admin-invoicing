@@ -47,42 +47,31 @@ const OrdersPage = () => {
             </div>
           </div>
           <div className="w-full rounded-[15px] ">
-            <div className="w-full grid grid-cols-6 py-1 text-[14px] font-[500]  rounded-t-[15px]">
-              <div className="w-full flex justify-center items-center py-2">
-                <h1>Sl No.</h1>
-              </div>
-              <div className="w-full flex justify-center items-center py-2">
-                <h1>Order Id</h1>
-              </div>
-              <div className="w-full flex justify-center items-center py-2">
-                <h1>Orders</h1>
-              </div>
-              <div className="w-full flex justify-center items-center py-2">
-                <h1>Sellers</h1>
-              </div>
-              <div className="w-full flex justify-center items-center py-2">
-                <h1>Remarks</h1>
-              </div>
-              <div className="w-full flex justify-center items-center py-2">
-                <h1>Action</h1>
-              </div>
+            <div className="w-full grid grid-cols-10 text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2">
+              {order_data?.titles?.map((data, index) => {
+                return (
+                  <div className="w-full   ">
+                    <h1>{data}</h1>
+                  </div>
+                );
+              })}
             </div>
-            <div className="w-full  rounded-b-[15px] grid grid-cols-6 text-[13px] text-[#464646] max-h-[530px] overflow-y-scroll">
-              {order_data?.orders
+            <div className="w-full  rounded-b-[15px]  text-[13px] text-[#464646] h-[65vh] overflow-y-scroll ">
+              {order_data?.content
                 ?.filter((filterValue) => {
                   if (searchData === "") {
                     return filterValue;
                   } else if (
-                    filterValue?.order
+                    filterValue?.buyer
                       ?.toLowerCase()
                       ?.includes(searchData?.toLowerCase()) ||
                     filterValue?.order_id
                       ?.toLowerCase()
                       ?.includes(searchData?.toLowerCase()) ||
-                    filterValue?.seller
+                    filterValue?.destination_state
                       ?.toLowerCase()
                       ?.includes(searchData?.toLowerCase()) ||
-                    filterValue?.remarks
+                    filterValue?.status
                       ?.toLowerCase()
                       ?.includes(searchData?.toLowerCase())
                   ) {
@@ -90,56 +79,63 @@ const OrdersPage = () => {
                   }
                 })
                 .map((data, i) => (
-                  <React.Fragment key={i}>
-                    <div className="w-full py-4 flex justify-center items-center">
-                      <p className="">{data?.sl_no}</p>
-                    </div>
-                    <div className="w-full py-4 flex justify-center items-center">
+                  <div
+                    className="grid grid-cols-10 border-b border-b-[#e6e6e69f] py-5"
+                    key={i}
+                  >
+                    <div className="w-full ">
                       <p className="">{data?.order_id}</p>
                     </div>
-                    <div className="w-full py-4 flex justify-center items-center">
-                      <p className="">{data?.order}</p>
+                    <div className="w-full ">
+                      <p className="">{data?.created}</p>
                     </div>
-                    <div className="w-full py-4 flex justify-center items-center">
-                      <p className="">{data?.seller}</p>
+                    <div className="w-full ">
+                      <p className="">{data?.buyer}</p>
                     </div>
-                    <div className="w-full py-4 flex justify-center items-center">
-                      <p className="">{data?.remarks}</p>
+                    <div className="w-full ">
+                      <p className="">{data?.items?.length}</p>
                     </div>
-                    <div className="w-full py-4 flex justify-center items-center gap-6">
-                      <div>
-                        <img
-                          src={data?.edit}
-                          className="cursor-pointer w-[15px]"
-                          alt=""
-                        />
-                      </div>
-                      <div>
-                        <img
-                          src={data?.delete}
-                          className="cursor-pointer w-[16px]"
-                          alt=""
-                        />
-                      </div>
+                    <div className="w-full ">
+                      <p className="">{data?.destination_state}</p>
                     </div>
-                  </React.Fragment>
+                    <div className="w-full ">
+                      <p className="">₹ {data?.sub_total}</p>
+                    </div>
+                    <div className="w-full ">
+                      <p className="">₹ {data?.tax}</p>
+                    </div>
+                    <div className="w-full ">
+                      <p className="">₹ {data?.grand_total}</p>
+                    </div>
+                    <div className="w-full flex gap-2 items-center ">
+                      {data?.status === "Booked" && (
+                        <p className="bg-[#e99f15] rounded-full w-[8px] aspect-square"></p>
+                      )}
+                      {data?.status === "Paid" && (
+                        <p className="bg-[#00ac69] rounded-full w-[8px] aspect-square"></p>
+                      )}
+                      {data?.status === "Cancelled" && (
+                        <p className="bg-[#FF0000] rounded-full w-[8px] aspect-square"></p>
+                      )}
+                      <p className="">{data?.status}</p>
+                    </div>
+                    <div className="w-full flex gap-2 items-center ">
+                      {data?.delivery_status === "Dispatched" && (
+                        <p className="bg-[#1871e6] rounded-full w-[8px] aspect-square "></p>
+                      )}
+                      {data?.delivery_status === "Delivered" && (
+                        <p className="bg-[#00ac69] rounded-full w-[8px] aspect-square"></p>
+                      )}
+                      {data?.delivery_status === "Cancelled" && (
+                        <p className="bg-[#FF0000] rounded-full w-[8px] aspect-square"></p>
+                      )}
+                      {data?.delivery_status === "Returned" && (
+                        <p className="bg-[#e726a7] rounded-full w-[8px] aspect-square"></p>
+                      )}
+                      <p className="">{data?.delivery_status}</p>
+                    </div>
+                  </div>
                 ))}
-            </div>
-            <div className="w-full flex justify-center items-center pt-5 mt-5 text-[13px] border-t">
-              {/* <ReactPaginate
-                                previousLabel={'<'}
-                                className='flex justify-between items-center w-full max-w-[300px]'
-                                // previousLabel={<img src={left_arrow} />}
-                                nextLabel={'>'}
-                                // nextLabel={<img src={right_arrow} />}
-                                pageCount={pageCount}
-                                onPageChange={changePage}
-                                containerClassName={'paginationButtons'}
-                                previousLinkClassName={'previousBtn'}
-                                nextLinkClassName={'nextBtn'}
-                                disabledClassName={'paginationDisabled'}
-                                activeClassName={'paginationActive'}
-                            /> */}
             </div>
           </div>
         </div>
