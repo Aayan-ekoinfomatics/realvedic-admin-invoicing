@@ -23,8 +23,8 @@ const OrdersPage = () => {
 
   return (
     <div className="w-full">
-      <div className="w-[95%] mx-auto mt-10">
-        <div className="w-full bg-white rounded-[15px] py-5 px-4 shadow-md">
+      <div className="w-[95%] mx-auto pt-10">
+        <div className="w-full bg-white rounded-[15px] py-5 px-4 shadow-md invisible">
           <div className="flex justify-between items-center gap-5">
             {/* search */}
             <div className="w-full bg-gray-100 flex justify-start items-center px-4 my-4 rounded-md">

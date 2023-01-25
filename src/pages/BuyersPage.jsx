@@ -22,8 +22,8 @@ const BuyersPage = () => {
 
   return (
     <div className="w-full">
-      <div className="w-[95%] mx-auto mt-10 ">
-        <div className="w-full bg-white rounded-[15px] py-5 px-4 shadow-md">
+      <div className="w-[95%] mx-auto pt-10 ">
+        <div className="w-full bg-white rounded-[15px] py-5 px-4 shadow-md invisible">
           <div className="w-full  border-b flex justify-start items-center px-4 my-4">
             <span className="">
               <img src={search} className="w-[15px]" />

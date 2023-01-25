@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/routing-components/ProtectedRoute";
 import BuyersPage from "./pages/BuyersPage";
 import { BASE_ADDRESS } from "./base_address/base_address";
 import axios from "axios";
+import InvoicePage from "./pages/InvoicePage";
 
 function App() {
   const location = useLocation();
@@ -43,12 +44,12 @@ function App() {
   }, []);
 
   return (
-    <div className="cursor-default">
+    <div className="cursor-default bg-[#FBFFF4]">
       {/* sidebar */}
       {location?.pathname.includes("/login") ? "" : <Sidebar />}
 
       <div className="w-full pl-[250px] poppins">
-        {location?.pathname.includes("/login") ? "" : <Header />}
+        {/* {location?.pathname.includes("/login") ? "" : <Header />} */}
 
         <Routes>
           {/* <Route path='*' element={<Navigate to={localStorage.getItem("status") === 'true' ? '/admin-dashboard' : '/login'} replace={true} />} /> */}
@@ -65,8 +66,8 @@ function App() {
             <Route element={<OrdersPage />} path={'/orders'} />
           </Route> */}
           {/* <Route path='/admin-dashboard' element={<Dashboard />} /> */}
+          <Route element={<InvoicePage />} path={"/invoices"} />
           <Route element={<ProductsPage />} path={"/products"} />
-          <Route element={<OrdersPage />} path={"/orders"} />
           <Route element={<BuyersPage />} path={"/buyers"} />
 
           {/* <Route element={<Dashboard />} path={'/'} /> */}

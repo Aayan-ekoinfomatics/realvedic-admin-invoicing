@@ -7,7 +7,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <div className="pt-4 flex justify-between items-start w-[95%] mx-auto ">
+    <div className="pt-4 flex justify-between items-start w-[95%] mx-auto bg-[#FBFFF4]">
       <div className="">
         <h1 className="text-3xl capitalize">
           {location?.pathname?.split("/")}
