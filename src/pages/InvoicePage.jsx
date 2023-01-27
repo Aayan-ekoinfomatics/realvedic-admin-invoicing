@@ -1,11 +1,18 @@
-import React from "react";
-
+import React, { useState } from "react";
+// mock data
+import order_data from "../mockApi/orderPageApi";
+// time
+import moment from "moment";
 // assets
 import invoice_icon_static from "../assets/img/sidebar/invoice_icon_static.svg";
 import add_icon from "../assets/img/mainPages/add_icon.svg";
 import search_icon from "../assets/img/mainPages/search_icon.svg";
+import down_arrow from "../assets/img/mainPages/down-arrow.svg";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
 const InvoicePage = () => {
+  // local states
+  const [searchData, setSearchData] = useState("");
   return (
     <div>
       <div className="flex justify-between items-center w-[90%] mx-auto pt-5">
@@ -22,11 +29,11 @@ const InvoicePage = () => {
         </div>
       </div>
 
-      {/* search filters */}
-      <div className=" w-[90%] mx-auto mt-5">
-        <div className="border-[#7d9383] border-2 rounded-full bg-white flex overflow-hidden px-5">
+      {/* search and filters */}
+      <div className=" w-[90%] mx-auto mt-5 flex">
+        <div className="border-[#7d9383] border-2 rounded-full bg-white flex overflow-hidden px-5 w-full max-w-[400px]">
           <label htmlFor="search_order" className=" p-2  pr-0">
-            <img src={search_icon} className="w-[25px] " alt="" />
+            <img src={search_icon} className="w-[25px]" alt="" />
           </label>
           <input
             type="text"
@@ -35,7 +42,169 @@ const InvoicePage = () => {
           />
         </div>
 
-        <div></div>
+        <div className="w-full flex gap-5 justify-end">
+          <div className="border-[#7d9383] border-2 rounded-full bg-white px-5 flex gap-3 items-center">
+            <h1>Quantity</h1>
+            <div>
+              <img src={down_arrow} alt="quantity" />
+            </div>
+          </div>
+
+          <div className="border-[#7d9383] border-2 rounded-full bg-white px-5 flex gap-3 items-center">
+            <h1>Date</h1>
+            <div>
+              <img src={down_arrow} alt="date" />
+            </div>
+          </div>
+
+          <div className="border-[#7d9383] border-2 rounded-full bg-white px-5 flex gap-3 items-center">
+            <h1>Status</h1>
+            <div>
+              <img src={down_arrow} alt="status" />
+            </div>
+          </div>
+
+          <div className="border-[#7d9383] border-2 rounded-full bg-white px-5 flex gap-3 items-center">
+            <h1>More Filters</h1>
+            <div>
+              <img src={down_arrow} alt="more filters" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* invoices */}
+      <div className=" w-[90%] mx-auto mt-10">
+        <div className=" rounded-[25px]   overflow-x-scroll border-[#7d9383] border-2 bg-white  p-5">
+          <div className="min-w-[1300px]">
+            <div className="w-full grid grid-cols-9 text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2 pb-5 gap-2 ">
+              {order_data?.titles?.map((data, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={`w-full 
+                      `}
+                  >
+                    <h1
+                      className={` ${
+                        data === "Actions" ? "mx-auto" : ""
+                      }  w-max text-center`}
+                    >
+                      {data}
+                    </h1>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="w-full  rounded-b-[15px]  text-[13px] text-[#464646] h-[65vh] overflow-y-scroll ">
+              {order_data?.content
+                ?.filter((filterValue) => {
+                  if (searchData === "") {
+                    return filterValue;
+                  } else if (
+                    filterValue?.buyer
+                      ?.toLowerCase()
+                      ?.includes(searchData?.toLowerCase()) ||
+                    filterValue?.order_id
+                      ?.toLowerCase()
+                      ?.includes(searchData?.toLowerCase()) ||
+                    filterValue?.destination_state
+                      ?.toLowerCase()
+                      ?.includes(searchData?.toLowerCase()) ||
+                    filterValue?.status
+                      ?.toLowerCase()
+                      ?.includes(searchData?.toLowerCase())
+                  ) {
+                    return filterValue;
+                  }
+                })
+                .map((data, i) => (
+                  <div
+                    className="grid grid-cols-9 gap-2 border-b border-b-[#e6e6e69f] py-5 text-black text-sm "
+                    key={i}
+                  >
+                    <div className="w-full flex items-center ">
+                      <p className="text-black font-medium cursor-pointer">
+                        #{data?.order_id}
+                      </p>
+                    </div>
+                    <div className="w-full ">
+                      <p className=" flex flex-col justify-center">
+                        <span>
+                          {moment.unix(data?.created).format("DD MMM YYYY  ")}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {moment.unix(data?.created).format(" hh:mm A")}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="w-full ">
+                      <p className=" flex flex-col justify-center">
+                        <span className="truncate">{data?.buyer?.name}</span>
+                        <span className="text-xs text-gray-500 truncate">
+                          {data?.buyer?.email}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="w-full flex items-center ">
+                      <p className="">{data?.items?.length}</p>
+                    </div>
+                    <div className="w-full flex items-center">
+                      <p className="">{data?.destination_state}</p>
+                    </div>
+                    {/* <div className="w-full flex items-center">
+                        <p className="">₹ {data?.sub_total}</p>
+                      </div>
+                      <div className="w-full flex items-center">
+                        <p className="">₹ {data?.tax}</p>
+                      </div> */}
+                    <div className="w-full flex items-center">
+                      <p className="">₹ {data?.grand_total}</p>
+                    </div>
+                    <div className="w-full flex gap-5 items-center ">
+                      {data?.status === "Booked" && (
+                        <p className="bg-[#e99f15] rounded-full w-[8px] aspect-square"></p>
+                      )}
+                      {data?.status === "Paid" && (
+                        <p className="bg-[#00ac69] rounded-full w-[8px] aspect-square"></p>
+                      )}
+                      {data?.status === "Cancelled" && (
+                        <p className="bg-[#FF0000] rounded-full w-[8px] aspect-square"></p>
+                      )}
+                      <p className="">{data?.status}</p>
+                    </div>
+                    <div className="w-full flex gap-2 items-center ">
+                      {data?.delivery_status === "Dispatched" && (
+                        <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#303030] rounded-lg  border">
+                          {data?.delivery_status}
+                        </p>
+                      )}
+                      {data?.delivery_status === "Delivered" && (
+                        <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#00ac69] rounded-lg border ">
+                          {data?.delivery_status}
+                        </p>
+                      )}
+                      {data?.delivery_status === "Cancelled" && (
+                        <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#FF0000] rounded-lg border ">
+                          {data?.delivery_status}
+                        </p>
+                      )}
+                      {data?.delivery_status === "Returned" && (
+                        <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#e99f15] rounded-lg border ">
+                          {data?.delivery_status}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex cursor-pointer  justify-center items-center px-2">
+                      <div className=" w-fit ">
+                        <KeyboardArrowDownRoundedIcon />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

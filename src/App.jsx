@@ -55,7 +55,7 @@ function App() {
           {/* <Route path='*' element={<Navigate to={localStorage.getItem("status") === 'true' ? '/admin-dashboard' : '/login'} replace={true} />} /> */}
           <Route
             path="/"
-            element={<Navigate to={"/orders"} replace={true} />}
+            element={<Navigate to={"/invoices"} replace={true} />}
           />
 
           <Route element={<Login />} path={"/login"} />
