@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import product_data from "../mockApi/productPageApi";
 import search from "../assets/icons/search.png";
+
 import ReactPaginate from "react-paginate";
 import buyer_data from "../mockApi/buyPageApi";
 

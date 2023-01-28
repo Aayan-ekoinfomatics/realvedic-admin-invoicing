@@ -48,7 +48,7 @@ function App() {
       {/* sidebar */}
       {location?.pathname.includes("/login") ? "" : <Sidebar />}
 
-      <div className="w-full pl-[250px] poppins">
+      <div className="w-full pl-[60px] 2xl:pl-[250px] poppins">
         {/* {location?.pathname.includes("/login") ? "" : <Header />} */}
 
         <Routes>

@@ -1,9 +1,9 @@
 import delete_btn from "../assets/icons/delete.svg";
 import edit from "../assets/icons/edit.png";
 
-const order_data = {
+const invoice_data = {
   titles: [
-    "Order ID",
+    "Invoice ID",
     "Created",
     "Buyer",
     "Items",
@@ -17,7 +17,7 @@ const order_data = {
   ],
   content: [
     {
-      order_id: 5446546,
+      invoice_id: 5446546,
       created: 1674461923,
       buyer: {
         name: "Alok Nath",
@@ -32,7 +32,7 @@ const order_data = {
       delivery_status: "Delivered",
     },
     {
-      order_id: 5446547,
+      invoice_id: 5446547,
       created: 1684829920,
       buyer: {
         name: "Utkarsh Gupta",
@@ -52,7 +52,7 @@ const order_data = {
       delivery_status: "Dispatched",
     },
     {
-      order_id: 5446548,
+      invoice_id: 5446548,
       created: 1674452572,
       buyer: {
         name: "Priyangshu Das",
@@ -67,7 +67,7 @@ const order_data = {
       delivery_status: "Cancelled",
     },
     {
-      order_id: 5446549,
+      invoice_id: 5446549,
       created: 1674452725,
       buyer: {
         name: "Neetu Kaur",
@@ -88,7 +88,7 @@ const order_data = {
       delivery_status: "Returned",
     },
     {
-      order_id: 5446546,
+      invoice_id: 5446546,
       created: 1674461923,
       buyer: {
         name: "Alok Nath",
@@ -103,7 +103,7 @@ const order_data = {
       delivery_status: "Delivered",
     },
     {
-      order_id: 5446547,
+      invoice_id: 5446547,
       created: 1684829920,
       buyer: {
         name: "Utkarsh Gupta",
@@ -123,7 +123,7 @@ const order_data = {
       delivery_status: "Dispatched",
     },
     {
-      order_id: 5446548,
+      invoice_id: 5446548,
       created: 1674452572,
       buyer: {
         name: "Priyangshu Das",
@@ -138,7 +138,7 @@ const order_data = {
       delivery_status: "Cancelled",
     },
     {
-      order_id: 5446549,
+      invoice_id: 5446549,
       created: 1674452725,
       buyer: {
         name: "Neetu Kaur",
@@ -159,7 +159,7 @@ const order_data = {
       delivery_status: "Returned",
     },
     {
-      order_id: 5446546,
+      invoice_id: 5446546,
       created: 1674461923,
       buyer: {
         name: "Alok Nath",
@@ -174,7 +174,7 @@ const order_data = {
       delivery_status: "Delivered",
     },
     {
-      order_id: 5446547,
+      invoice_id: 5446547,
       created: 1684829920,
       buyer: {
         name: "Utkarsh Gupta",
@@ -194,7 +194,7 @@ const order_data = {
       delivery_status: "Dispatched",
     },
     {
-      order_id: 5446548,
+      invoice_id: 5446548,
       created: 1674452572,
       buyer: {
         name: "Priyangshu Das",
@@ -209,7 +209,7 @@ const order_data = {
       delivery_status: "Cancelled",
     },
     {
-      order_id: 5446549,
+      invoice_id: 5446549,
       created: 1674452725,
       buyer: {
         name: "Neetu Kaur",
@@ -264,4 +264,4 @@ const order_data = {
   ],
 };
 
-export default order_data;
+export default invoice_data;
