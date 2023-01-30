@@ -12,9 +12,30 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import delete_icon from "../assets/icons/delete_icon.svg";
 import edit_icon from "../assets/icons/edit_icon.svg";
 
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { DateRangePicker } from "react-date-range";
+import { DateRange } from "react-date-range";
+
 const InvoicePage = () => {
   // local states
   const [searchData, setSearchData] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [calendarStatus, setCalendarStatus] = useState(false);
+
+  function handleSelect(ranges) {
+    console.log(ranges); // native Date object
+    setStartDate(ranges?.selection?.startDate);
+    setEndDate(ranges?.selection?.endDate);
+  }
+
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: "selection",
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center w-[90%] mx-auto pt-5">
@@ -41,6 +62,7 @@ const InvoicePage = () => {
             type="text"
             id="search_order"
             className="w-full outline-none p-2"
+            onChange={(e) => setSearchData(e?.target?.value)}
           />
         </div>
 
@@ -51,12 +73,44 @@ const InvoicePage = () => {
               <img src={down_arrow} alt="quantity" />
             </div>
           </div> */}
-
-          <div className="border-[#7d9383] border-2 p-2 rounded-full bg-white px-5 flex gap-3 items-center">
-            <h1>Date</h1>
-            <div>
-              <img src={down_arrow} alt="date" />
+          <div className="relative">
+            <div
+              onClick={() => setCalendarStatus(!calendarStatus)}
+              className="border-[#7d9383] border-2 p-2 rounded-full  bg-white px-5 flex gap-3 items-center cursor-pointer"
+            >
+              <h1>Date</h1>
+              <div
+                className={` ${
+                  calendarStatus ? "-rotate-180" : "rotate-0"
+                } transition-all `}
+              >
+                <img src={down_arrow} alt="date" />
+              </div>
             </div>
+
+            {calendarStatus && (
+              <div
+                onClick={() => setCalendarStatus(false)}
+                className="fixed inset-0 bg-black bg-opacity-10 z-[500]"
+              ></div>
+            )}
+
+            {calendarStatus && (
+              <div className="z-[550] absolute top-[120%] border-[#7d9383] border-2 rounded-3xl overflow-hidden left-0 shadow-2xl p-3 bg-white  ">
+                <DateRange
+                  ranges={[selectionRange]}
+                  rangeColors={["#227638", "#e93008"]}
+                  onChange={handleSelect}
+                  moveRangeOnFirstSelection={false}
+                  // showMonthAndYearPickers={false}
+                  // showSelectionPreview={false}
+
+                  // editableDateInputs={true}
+                  // direction={"horizontal"}
+                  // scroll={{ enabled: true }}
+                />
+              </div>
+            )}
           </div>
 
           <div className="border-[#7d9383] border-2 p-2 rounded-full bg-white px-5 flex gap-3 items-center">
@@ -106,16 +160,22 @@ const InvoicePage = () => {
                     if (searchData === "") {
                       return filterValue;
                     } else if (
-                      filterValue?.buyer
+                      filterValue?.buyer?.name
+                        ?.toLowerCase()
+                        ?.includes(searchData?.toLowerCase()) ||
+                      filterValue?.buyer?.email
                         ?.toLowerCase()
                         ?.includes(searchData?.toLowerCase()) ||
                       filterValue?.invoice_id
-                        ?.toLowerCase()
+                        ?.toString()
                         ?.includes(searchData?.toLowerCase()) ||
                       filterValue?.destination_state
                         ?.toLowerCase()
                         ?.includes(searchData?.toLowerCase()) ||
                       filterValue?.status
+                        ?.toLowerCase()
+                        ?.includes(searchData?.toLowerCase()) ||
+                      filterValue?.delivery_status
                         ?.toLowerCase()
                         ?.includes(searchData?.toLowerCase())
                     ) {
