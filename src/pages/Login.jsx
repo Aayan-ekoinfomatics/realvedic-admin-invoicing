@@ -1,82 +1,102 @@
 import React, { useRef, useState } from "react";
-import logo from "../assets/icons/logo.svg";
-import eye from "../assets/icons/eye.png";
-import eye_close from "../assets/icons/hidden.png";
-import { useNavigate } from "react-router-dom";
+// icons
+import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
+import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 
 const Login = () => {
-  const [passwordEyeCanSee, setPasswordEyeCanSee] = useState(false);
-  const [errorText, setErrorText] = useState("");
-
-  const navigate = useNavigate();
-
+  // local variables
   const emailRef = useRef();
   const passwordRef = useRef();
-
-  const loginSubmit = (e) => {
-    e.preventDefault();
-    navigate("/");
-    // if(emailRef.current.value !== 'demo@demo.com') {
-    //     setErrorText('Invalid Email')
-    // }
-    // else if (passwordRef !== 'demo123') {
-    //     setErrorText('Invalid Password')
-    // }else if(emailRef.current.value === 'demo@demo.com' && passwordRef.current.value === 'demo123'){
-    //     localStorage.setItem('status', 'true')
-    //     setErrorText('')
-    //     navigate('/')
-    // }
-  };
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
 
   return (
-    <>
-      <div
-        // style={{ backgroundImage: `url(` + bg_pattern + `)` }}
-        className={`w-full h-screen  fixed inset-0 z-[700] bg-cover bg-no-repeat bg-center gradient-bg`}
-      ></div>
+    <div className="area">
+      <ul className="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
 
-      {/* login component */}
-      <form
-        onSubmit={loginSubmit}
-        className="bg-[white] shadow-2xl fixed top-[50%] right-[50%] translate-x-[50%] translate-y-[-50%] w-[90%] max-w-[400px]   rounded-lg  z-[710] "
-      >
-        <div className="w-full  flex justify-center items-center ">
-          <img src={logo} className="w-full max-w-[120px] " alt="" />
-        </div>
-        <div className="w-full p-3 mt-2">
-          <div className="w-full">
+      <div className="fixed inset-0 h-screen flex justify-center items-center p-5">
+        <div className="bg-white p-5 rounded-xl w-full max-w-[350px]">
+          <div className="flex justify-center items-center gap-5 flex-col">
+            <img src="../realvedic_logo_big.svg" alt="" />
+            {/* <h1 className="text-lg tracking-wider ">Admin Panel</h1> */}
+          </div>
+
+          <form
+            onSubmit={(e) => {
+              e?.preventDefault();
+
+              if (
+                emailRef?.current?.value?.length > 0 &&
+                passwordRef?.current?.value?.length > 0
+              ) {
+                console.log("Login calls");
+              } else {
+                console.log("No calls");
+              }
+            }}
+          >
+            {/* email */}
             <input
-              type="text"
               ref={emailRef}
-              className=" my-2 p-2 w-full outline-none  border-b-2 focus:border-b-[#82c071] rounded-md  transition-all"
-              placeholder="Email"
+              autoFocus
+              type="text"
+              className="p-3 mt-5 block bg-gray-100 w-full rounded-lg outline-[#208a499d]"
+              placeholder="Username"
+              onKeyDown={(e) => {
+                if (e.code == "ArrowDown") {
+                  passwordRef.current.focus();
+                }
+              }}
             />
-          </div>
-          <div className="w-full flex justify-center items-end bg-white    my-5    ">
-            <input
-              type={passwordEyeCanSee ? "text" : "password"}
-              ref={passwordRef}
-              className=" p-2 w-full outline-none group border-b-2 rounded-bl-md peer focus:border-b-[#82c071]"
-              placeholder="Password"
-            />
-            <span className=" pb-2 border-b-2 flex justify-center items-center rounded-br-md peer-focus:border-b-[#82c071]">
-              <img
-                src={passwordEyeCanSee ? eye_close : eye}
-                className="w-[22px] cursor-pointer opacity-60"
-                alt=""
-                onClick={() => setPasswordEyeCanSee(!passwordEyeCanSee)}
+            {/* password */}
+            <div className=" rounded-lg mt-5 relative ">
+              <input
+                ref={passwordRef}
+                type={passwordVisibility ? "text" : "password"}
+                className="p-3  block bg-gray-100 w-full rounded-lg outline-[#208a499d]"
+                placeholder="Password"
+                onKeyDown={(e) => {
+                  if (e.code == "ArrowUp") {
+                    emailRef.current.focus();
+                  }
+                }}
               />
-            </span>
-          </div>
+              {/* visibility toggle */}
+              <div
+                onClick={() => {
+                  setPasswordVisibility(!passwordVisibility);
+                  passwordRef.current.focus();
+                }}
+                className="absolute right-1 top-1 bottom-1  p-2 rounded-lg bg-gray-100 text-gray-400 outline-[#208a499d] "
+              >
+                {passwordVisibility ? (
+                  <VisibilityOffRoundedIcon />
+                ) : (
+                  <RemoveRedEyeRoundedIcon />
+                )}
+              </div>
+            </div>
+            {/* submit button */}
+            <button
+              type="submit"
+              className="py-3 rounded-xl bg-[#208a48] text-white w-full text-center mt-5 transition-all active:scale-95 bg-opacity-90 hover:bg-opacity-100"
+            >
+              Login
+            </button>
+          </form>
         </div>
-        <div className="w-full">{errorText}</div>
-        <div className="w-full flex justify-center items-center p-3  ">
-          <button className="p-3 w-full bg-[#82c071]  hover:bg-opacity-80 active:bg-opacity-80 focus:bg-opacity-80 outline-none transition-all text-white font-medium tracking-widest rounded-[10px] active:scale-[0.95]">
-            Login
-          </button>
-        </div>
-      </form>
-    </>
+      </div>
+    </div>
   );
 };
 

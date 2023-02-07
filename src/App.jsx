@@ -44,11 +44,17 @@ function App() {
   }, []);
 
   return (
-    <div className="cursor-default bg-[#FBFFF4]">
+    <div className="cursor-default bg-[#FBFFF4] min-h-[100vh]">
       {/* sidebar */}
       {location?.pathname.includes("/login") ? "" : <Sidebar />}
 
-      <div className="w-full pl-[60px] 2xl:pl-[250px] poppins">
+      <div
+        className={
+          location?.pathname.includes("/login")
+            ? "w-full  poppins"
+            : "w-full pl-[60px] 2xl:pl-[250px] poppins"
+        }
+      >
         {/* {location?.pathname.includes("/login") ? "" : <Header />} */}
 
         <Routes>

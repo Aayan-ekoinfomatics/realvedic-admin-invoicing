@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // mock data
-import invoice_data from "../mockApi/orderPageApi";
+import invoice_data from "../mockApi/invoicePageApi";
 // time
 import moment from "moment";
 // assets
@@ -16,6 +16,8 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import { DateRange } from "react-date-range";
+import axios from "axios";
+import { MonthList } from "../helpers/date_list/date_list";
 
 const InvoicePage = () => {
   // local states
@@ -23,6 +25,8 @@ const InvoicePage = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [calendarStatus, setCalendarStatus] = useState(false);
+
+  const [imageArray, setImageArray] = useState([]);
 
   function handleSelect(ranges) {
     console.log(ranges); // native Date object
@@ -36,12 +40,46 @@ const InvoicePage = () => {
     key: "selection",
   };
 
+  const activeFilter = [
+    {
+      filter_type: "Date",
+      value:
+        JSON.stringify(startDate) === JSON.stringify(endDate)
+          ? new Date(startDate)?.getDate() +
+            " " +
+            MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
+            " " +
+            new Date(startDate)?.getFullYear()
+          : // new Date(startDate)?.getFullYear()?.toString()?.split("")[2] +
+            // "" +
+            // new Date(startDate)?.getFullYear()?.toString()?.split("")[3]
+            new Date(startDate)?.getDate() +
+            " " +
+            MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
+            " " +
+            new Date(startDate)?.getFullYear() +
+            "  - " +
+            new Date(endDate)?.getDate() +
+            " " +
+            MonthList[new Date(endDate)?.getMonth(endDate)]?.short_name +
+            " " +
+            new Date(endDate)?.getFullYear(),
+    },
+
+    // {
+    //   filter_type: "Delivery Status",
+    //   value: "In Transit",
+    // },
+  ];
+
   return (
     <div>
-      <div className="flex justify-between items-center w-[90%] mx-auto pt-5">
+      <div className="flex   justify-between items-start sm:items-center w-[90%] mx-auto pt-5">
         <div className="flex ">
           <img src={invoice_icon_static} alt="" />
-          <h1 className="p-5 text-xl font-semibold text-[#464646]">Invoices</h1>
+          <h1 className="p-3 sm:p-5 text-lg sm:text-xl font-semibold text-[#464646]">
+            Invoices
+          </h1>
         </div>
 
         <div>
@@ -66,7 +104,7 @@ const InvoicePage = () => {
           />
         </div>
 
-        <div className="w-full flex gap-5 justify-start lg:justify-end">
+        <div className="w-full flex flex-wrap gap-5 justify-between sm:justify-start lg:justify-end">
           {/* <div className="border-[#7d9383] border-2 p-3 rounded-full bg-white px-5 flex gap-3 items-center">
             <h1>Quantity</h1>
             <div>
@@ -76,7 +114,7 @@ const InvoicePage = () => {
           <div className="relative">
             <div
               onClick={() => setCalendarStatus(!calendarStatus)}
-              className="border-[#7d9383] border-2 p-2 rounded-full  bg-white px-5 flex gap-3 items-center cursor-pointer"
+              className="border-[#7d9383] border-2 p-2 rounded-full  bg-white px-3 sm:px-5 flex gap-3 items-center cursor-pointer"
             >
               <h1>Date</h1>
               <div
@@ -96,15 +134,15 @@ const InvoicePage = () => {
             )}
 
             {calendarStatus && (
-              <div className="z-[550] absolute top-[120%] border-[#7d9383] border-2 rounded-3xl overflow-hidden left-0 shadow-2xl p-3 bg-white  ">
+              <div className="z-[550] absolute top-[120%] border-[#7d9383] border-2 rounded-3xl overflow-hidden left-0 lg:left-auto lg:right-0 shadow-2xl p-3 bg-white  ">
                 <DateRange
                   ranges={[selectionRange]}
                   rangeColors={["#227638", "#e93008"]}
                   onChange={handleSelect}
                   moveRangeOnFirstSelection={false}
+                  className="text-[8px] sm:text-[10px] lg:text-[12px]"
                   // showMonthAndYearPickers={false}
                   // showSelectionPreview={false}
-
                   // editableDateInputs={true}
                   // direction={"horizontal"}
                   // scroll={{ enabled: true }}
@@ -113,20 +151,34 @@ const InvoicePage = () => {
             )}
           </div>
 
-          <div className="border-[#7d9383] border-2 p-2 rounded-full bg-white px-5 flex gap-3 items-center">
+          <div className="border-[#7d9383] border-2 p-2 rounded-full bg-white px-3 sm:px-5 flex gap-3 items-center">
             <h1>Status</h1>
             <div>
               <img src={down_arrow} alt="status" />
             </div>
           </div>
 
-          <div className="border-[#7d9383] border-2 p-2 rounded-full bg-white px-5 flex gap-3 items-center">
+          <div className="border-[#7d9383] border-2 p-2 rounded-full bg-white px-3 sm:px-5 flex gap-3 items-center">
             <h1>More Filters</h1>
             <div>
               <img src={down_arrow} alt="more filters" />
             </div>
           </div>
         </div>
+      </div>
+
+      {/* active filters */}
+      <div className="w-[90%] mx-auto mt-5 flex gap-2 flex-wrap">
+        {activeFilter?.map((data, index) => {
+          return (
+            <div
+              key={index}
+              className="p-3 rounded-full bg-white w-fit border text-xs"
+            >
+              <span>{data?.value}</span>
+            </div>
+          );
+        })}
       </div>
 
       {/* invoices */}

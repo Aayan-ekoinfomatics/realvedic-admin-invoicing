@@ -1,6 +1,3 @@
-import delete_btn from "../assets/icons/delete.svg";
-import edit from "../assets/icons/edit.png";
-
 const invoice_data = {
   titles: [
     "Invoice ID",
