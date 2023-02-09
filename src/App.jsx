@@ -13,6 +13,7 @@ import BuyersPage from "./pages/BuyersPage";
 import { BASE_ADDRESS } from "./base_address/base_address";
 import axios from "axios";
 import InvoicePage from "./pages/InvoicePage";
+import ProductsEditPage from "./pages/ProductsEditPage";
 
 function App() {
   const location = useLocation();
@@ -74,7 +75,12 @@ function App() {
           {/* <Route path='/admin-dashboard' element={<Dashboard />} /> */}
           <Route element={<InvoicePage />} path={"/invoices"} />
           <Route element={<ProductsPage />} path={"/products"} />
+          <Route
+            element={<ProductsEditPage />}
+            path={"/products/:product_id"}
+          />
           <Route element={<BuyersPage />} path={"/buyers"} />
+          <Route element={<OrdersPage />} path={"/orders"} />
 
           {/* <Route element={<Dashboard />} path={'/'} /> */}
         </Routes>
