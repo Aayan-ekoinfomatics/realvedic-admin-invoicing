@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
+import cross from '../assets/icons/cross.svg'
 
 const ProductsEditPage = () => {
   const [pageData, setPageData] = useState({
@@ -159,6 +160,12 @@ const ProductsEditPage = () => {
 
   const [activeMeta, setActiveMeta] = useState(0);
 
+  const [popUpModal, setPopUpModal] = useState(false);
+
+  const [activeInputID, setActiveInputID] = useState();
+
+
+
   useEffect(() => {
     setPageData({
       images: ["", "", "", ""],
@@ -169,6 +176,7 @@ const ProductsEditPage = () => {
       hsn: 354564646464,
       variants_data: [
         {
+          id: 1,
           variant_name: "100g",
           price: 50,
           quantity: 80,
@@ -176,6 +184,7 @@ const ProductsEditPage = () => {
         },
 
         {
+          id: 2,
           variant_name: "200g",
           price: 100,
           quantity: 50,
@@ -183,12 +192,14 @@ const ProductsEditPage = () => {
         },
 
         {
+          id: 3,
           variant_name: "250g",
           price: 150,
           quantity: 120,
           sku: 115245245467,
         },
         {
+          id: 4,
           variant_name: "100g",
           price: 50,
           quantity: 80,
@@ -196,6 +207,7 @@ const ProductsEditPage = () => {
         },
 
         {
+          id: 5,
           variant_name: "200g",
           price: 100,
           quantity: 50,
@@ -203,6 +215,7 @@ const ProductsEditPage = () => {
         },
 
         {
+          id: 6,
           variant_name: "250g",
           price: 150,
           quantity: 120,
@@ -311,8 +324,13 @@ const ProductsEditPage = () => {
     });
   }, []);
 
+
+  useEffect(() => {
+    console.log('pageData' , pageData?.variants_data);
+  }, [pageData])
+
   return (
-    <div className="p-5 pt-0">
+    <div className="p-5 pt-0 relative">
       {/* all content */}
       <div>
         {/* header */}
@@ -332,7 +350,7 @@ const ProductsEditPage = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row gap-10">
+        <div className="flex flex-col xl:flex-row gap-10">
           <div className="flex-1">
             {/* image container */}
             <div className="flex gap-5">
@@ -386,19 +404,17 @@ const ProductsEditPage = () => {
                         status: !openDropdown?.status,
                       })
                     }
-                    className={` text-gray-500 ${
-                      openDropdown?.status ? "-rotate-180" : "rotate-0"
-                    } transition-all `}
+                    className={` text-gray-500 ${openDropdown?.status ? "-rotate-180" : "rotate-0"
+                      } transition-all `}
                   >
                     <KeyboardArrowDownRoundedIcon />
                   </span>
 
                   <div
-                    className={` ${
-                      openDropdown?.status
-                        ? "max-h-[900px] border border-gray-400  rounded-md mt-2 bg-white shadow-2xl"
-                        : "max-h-0"
-                    } transition-all duration-150  ease-in-out absolute  right-0 left-0  top-[99%] overflow-hidden`}
+                    className={` ${openDropdown?.status
+                      ? "max-h-[900px] border border-gray-400  rounded-md mt-2 bg-white shadow-2xl"
+                      : "max-h-0"
+                      } transition-all duration-150  ease-in-out absolute  right-0 left-0  top-[99%] overflow-hidden`}
                   >
                     {pageData?.status_list?.map((data, index) => {
                       return (
@@ -431,9 +447,66 @@ const ProductsEditPage = () => {
               <div className="mb-2 flex justify-between mr-5">
                 <h1>All Variants</h1>
 
-                <button className="px-5 py-2 rounded-xl   transition-all active:scale-95 text-[#208a48] bg-white font-medium  border   border-[#208a48] hover:bg-[#208a48] hover:bg-opacity-5 hover:text-[#208a48]">
+                <button onClick={() => setPopUpModal(!popUpModal)} className="px-5 py-2 rounded-xl   transition-all active:scale-95 text-[#208a48] bg-white font-medium  border   border-[#208a48] hover:bg-[#208a48] hover:bg-opacity-5 hover:text-[#208a48]">
                   + Add Variants
                 </button>
+                <div className={`w-[30vw] translate-y-[70%] mx-auto h-[37vh] fixed inset-0 z-[90] border-2 rounded-[15px] border-[#227638] bg-white ${popUpModal ? 'block' : 'hidden'}`}>
+
+
+                  <div className="w-full flex justify-end items-center p-4">
+                    <span><img src={cross} className='w-[16px] cursor-pointer' onClick={() => setPopUpModal(false)} alt="" /></span>
+                  </div>
+
+                  <div className="w-full">
+                    <h1 className="text-[18px] pl-5">
+                      Create new variant
+                    </h1>
+                  </div>
+
+                  <div className="w-full px-5 mt-8">
+                    <div className="w-full">
+                      <div className="grid grid-cols-2 gap-5 justify-items-center place-items-center">
+                        <div className="w-full flex flex-col justify-start items-start">
+                          <label className="text-[13px]">Variant</label>
+                          <input
+                            type="number"
+                            className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
+                          />
+                        </div>
+                        <div className="w-full flex flex-col justify-start items-start">
+                          <label className="text-[13px]">Price</label>
+                          <input
+                            type="number"
+                            className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
+                          />
+                        </div>
+                        <div className="w-full flex flex-col justify-start items-start">
+                          <label className="text-[13px]">Quantity</label>
+                          <input
+                            type="number"
+                            className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
+                          />
+                        </div>
+                        <div className="w-full flex flex-col justify-start items-start">
+                          <label className="text-[13px]">SKU</label>
+                          <input
+                            type="number"
+                            className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-full flex justify-end items-center mt-10">
+                      <button className="py-2 px-4 bg-[#35854b] text-[14px] rounded-[7px] text-white">SUBMIT</button>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className={`w-full h-screen fixed inset-0 bg-black opacity-30 z-[80] ${popUpModal ? 'block' : 'hidden'}`} onClick={() => setPopUpModal(false)}>
+
+                </div>
+
               </div>
               <div className="w-full overflow-x-scroll">
                 <div className="grid grid-cols-5 gap-5  py-5">
@@ -448,24 +521,76 @@ const ProductsEditPage = () => {
                 <div className="h-[200px] overflow-y-scroll py-5  min-w-[800px]">
                   {pageData?.variants_data?.map((data, index) => {
                     return (
-                      <div key={index} className="grid grid-cols-5 gap-5 mb-5 ">
+                      <div onClick={() => setActiveInputID(data?.id)} key={index} className="grid grid-cols-5 gap-5 mb-5 ">
                         <h1>{data?.variant_name}</h1>
+
+                        {/* price */}
                         <div className="flex gap-1 items-center rounded-md px-2 border-gray-400 border">
                           <span>₹</span>
                           <input
                             type="number"
                             defaultValue={data?.price}
+                            onChange={(e) =>
+                              setPageData({
+                                ...pageData,
+                                variants_data: pageData?.variants_data?.map((variant_data, variant_key) => {
+                                  if (variant_data?.id === activeInputID) {
+                                    return {
+                                      ...variant_data,
+                                      price: e?.target?.value,
+                                    }
+                                  }else {
+                                    return variant_data
+                                  }
+                                }),
+                              })
+                            }
                             className="p-2  block   w-full outline-none"
                           />
                         </div>
+
+                            {/* quantity */}
                         <input
                           type="number"
                           defaultValue={data?.quantity}
+                          onChange={(e) =>
+                            setPageData({
+                              ...pageData,
+                              variants_data: pageData?.variants_data?.map((variant_data, variant_key) => {
+                                if (variant_data?.id === activeInputID) {
+                                  return {
+                                    ...variant_data,
+                                    quantity: e?.target?.value,
+                                  }
+                                }else {
+                                  return variant_data
+                                }
+                              }),
+                            })
+                          }
+
                           className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
                         />
+
+                        {/* sku */}
                         <input
                           type="text"
                           defaultValue={data?.sku}
+                          onChange={(e) =>
+                            setPageData({
+                              ...pageData,
+                              variants_data: pageData?.variants_data?.map((variant_data, variant_key) => {
+                                if (variant_data?.id === activeInputID) {
+                                  return {
+                                    ...variant_data,
+                                    sku: e?.target?.value,
+                                  }
+                                }else {
+                                  return variant_data
+                                }
+                              }),
+                            })
+                          }
                           className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
                         />
                         <div className=" text-center text-gray-500  flex justify-center items-center">
@@ -495,9 +620,6 @@ const ProductsEditPage = () => {
                           type="text"
                           className="p-2  block rounded-md w-full outline-none"
                           value={data?.n_value}
-                          // onChange={(e) =>
-                          //   setPageData({ ...pageData, name: e?.target?.value })
-                          // }
                         />
                         <span className="p-2 text-gray-500">
                           {data?.n_unit}
@@ -569,19 +691,17 @@ const ProductsEditPage = () => {
                   </div>
 
                   <span
-                    className={` text-gray-500 ${
-                      openDropdown?.sibling_product ? "-rotate-180" : "rotate-0"
-                    } transition-all `}
+                    className={` text-gray-500 ${openDropdown?.sibling_product ? "-rotate-180" : "rotate-0"
+                      } transition-all `}
                   >
                     <KeyboardArrowDownRoundedIcon />
                   </span>
 
                   <div
-                    className={` ${
-                      openDropdown?.sibling_product
-                        ? "max-h-[900px] border border-gray-400  rounded-md mt-2 bg-white shadow-2xl"
-                        : "max-h-0"
-                    } transition-all duration-150  ease-in-out absolute  right-0 left-0  top-[99%] overflow-hidden`}
+                    className={` ${openDropdown?.sibling_product
+                      ? "max-h-[900px] border border-gray-400  rounded-md mt-2 bg-white shadow-2xl"
+                      : "max-h-0"
+                      } transition-all duration-150  ease-in-out absolute  right-0 left-0  top-[99%] overflow-hidden`}
                   >
                     {pageData?.status_list?.map((data, index) => {
                       return (
