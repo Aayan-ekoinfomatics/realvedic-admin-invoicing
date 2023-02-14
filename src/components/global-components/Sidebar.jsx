@@ -53,14 +53,14 @@ const Sidebar = () => {
           <Link
             to="/invoices"
             className={`relative flex w-full gap-3   ${
-              location?.pathname === "/invoices"
+              location?.pathname?.includes("/invoices")
                 ? "text-[#164E21] bg-[#FBFFF4]"
                 : "text-white"
             } p-6 justify-start items-center `}
           >
             <img
               src={
-                location?.pathname === "/invoices"
+                location?.pathname?.includes("/invoices")
                   ? invoice_icon_active
                   : invoice_icon_inactive
               }
@@ -70,7 +70,7 @@ const Sidebar = () => {
             <p className="hidden 2xl:block">Invoices</p>
 
             {/* before and after */}
-            {location?.pathname === "/invoices" && (
+            {location?.pathname?.includes("/invoices") && (
               <>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-bl-2xl bg-[#227638] top-[calc(100%-10px)] rotate-180"></div>
@@ -81,14 +81,14 @@ const Sidebar = () => {
           <Link
             to="/buyers"
             className={`relative flex w-full gap-3   ${
-              location?.pathname === "/buyers"
+              location?.pathname?.includes("/buyers")
                 ? "text-[#164E21] bg-[#FBFFF4]"
                 : "text-white"
             } p-6    justify-start items-center `}
           >
             <img
               src={
-                location?.pathname === "/buyers"
+                location?.pathname?.includes("/buyers")
                   ? buyer_icon_active
                   : buyer_icon_inactive
               }
@@ -98,7 +98,7 @@ const Sidebar = () => {
             <p className="hidden 2xl:block">Buyers</p>
 
             {/* before and after */}
-            {location?.pathname === "/buyers" && (
+            {location?.pathname?.includes("/buyers") && (
               <>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-bl-2xl bg-[#227638] top-[calc(100%-10px)] rotate-180"></div>
@@ -109,14 +109,14 @@ const Sidebar = () => {
           <Link
             to="/products"
             className={`relative flex w-full gap-3   ${
-              location?.pathname === "/products"
+              location?.pathname?.includes("/products")
                 ? "text-[#164E21] bg-[#FBFFF4]"
                 : "text-white"
             } p-6    justify-start items-center `}
           >
             <img
               src={
-                location?.pathname === "/products"
+                location?.pathname?.includes("/products")
                   ? products_icon_active
                   : products_icon_inactive
               }
@@ -126,7 +126,7 @@ const Sidebar = () => {
             <p className="hidden 2xl:block">Products</p>
 
             {/* before and after */}
-            {location?.pathname === "/products" && (
+            {location?.pathname?.includes("/products") && (
               <>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-bl-2xl bg-[#227638] top-[calc(100%-10px)] rotate-180"></div>
@@ -137,14 +137,14 @@ const Sidebar = () => {
           <Link
             to="/orders"
             className={`relative flex w-full gap-3   ${
-              location?.pathname === "/orders"
+              location?.pathname?.includes("/orders")
                 ? "text-[#164E21] bg-[#FBFFF4]"
                 : "text-white"
             } p-6    justify-start items-center `}
           >
             <img
               src={
-                location?.pathname === "/orders"
+                location?.pathname?.includes("/orders")
                   ? order_icon_active
                   : order_icon_inactive
               }
@@ -154,7 +154,7 @@ const Sidebar = () => {
             <p className="hidden 2xl:block">Orders</p>
 
             {/* before and after */}
-            {location?.pathname === "/orders" && (
+            {location?.pathname?.includes("/orders") && (
               <>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-bl-2xl bg-[#227638] top-[calc(100%-10px)] rotate-180"></div>

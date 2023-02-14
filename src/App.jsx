@@ -14,6 +14,7 @@ import { BASE_ADDRESS } from "./base_address/base_address";
 import axios from "axios";
 import InvoicePage from "./pages/InvoicePage";
 import ProductsEditPage from "./pages/ProductsEditPage";
+import OrdersEditPage from "./pages/OrdersEditPage";
 
 function App() {
   const location = useLocation();
@@ -81,6 +82,9 @@ function App() {
           />
           <Route element={<BuyersPage />} path={"/buyers"} />
           <Route element={<OrdersPage />} path={"/orders"} />
+          <Route
+            element={<OrdersEditPage />}
+            path={"/orders/:order_id"} />
 
           {/* <Route element={<Dashboard />} path={'/'} /> */}
         </Routes>

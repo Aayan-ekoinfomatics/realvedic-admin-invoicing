@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import cross from '../assets/icons/cross.svg'
+import { BASE_ADDRESS } from "../base_address/base_address";
 
 const ProductsEditPage = () => {
   const [pageData, setPageData] = useState({
@@ -168,7 +169,7 @@ const ProductsEditPage = () => {
 
   useEffect(() => {
     setPageData({
-      images: ["", "", "", ""],
+      images: [{ img_id: 1, img_link: cross }, { img_id: 2, img_link: cross }, { img_id: 3, img_link: cross }, { img_id: 4, img_link: cross }],
       name: "Angaya Podi",
       id: 554254,
       status: "In Stock",
@@ -231,21 +232,25 @@ const ProductsEditPage = () => {
 
       nutritional_info: [
         {
+          id: 1,
           n_name: "Total Fat",
           n_value: 5,
           n_unit: "g",
         },
         {
+          id: 2,
           n_name: "Protien",
           n_value: 10,
           n_unit: "g",
         },
         {
+          id: 3,
           n_name: "Carbohydrate",
           n_value: 16,
           n_unit: "g",
         },
         {
+          id: 4,
           n_name: "Energy",
           n_value: 8,
           n_unit: "kcal",
@@ -254,25 +259,26 @@ const ProductsEditPage = () => {
 
       meta_fields: [
         {
+          id: 1,
           m_name: "Label 1",
           m_value: "Lorem Ipsum1",
         },
         {
+          id: 2,
           m_name: "Label 2",
           m_value: "Lorem Ipsum2",
         },
         {
+          id: 3,
           m_name: "Label 3",
           m_value: "Lorem Ipsum3",
         },
         {
+          id: 4,
           m_name: "Label 4",
           m_value: "Lorem Ipsum4",
         },
-        {
-          m_name: "Label 5",
-          m_value: "Lorem Ipsum5",
-        },
+     
       ],
 
       reviews: [
@@ -326,8 +332,10 @@ const ProductsEditPage = () => {
 
 
   useEffect(() => {
-    console.log('pageData' , pageData?.variants_data);
-  }, [pageData])
+    // console.log('pageData', pageData)
+    // console.log('activeInputID', activeInputID);
+    console.log('activeMeta', activeMeta);
+  }, [activeMeta])
 
   return (
     <div className="p-5 pt-0 relative">
@@ -354,16 +362,68 @@ const ProductsEditPage = () => {
           <div className="flex-1">
             {/* image container */}
             <div className="flex gap-5">
-              <div className="bg-gray-50 rounded-lg  aspect-square w-full max-w-[400px] border border-dashed border-gray-500">
-                {/* image 1 */}
+
+
+              <div className="bg-gray-50 rounded-lg  aspect-square w-full max-w-[400px] border border-dashed border-gray-500" onClick={() => { setActiveInputID(pageData?.images[0]?.img_id) }}>
+                <label htmlFor="file_image" className="relative w-full flex aspect-square">
+                  <input type="file" name='file' className='opacity-0 h-full w-[98%] z-[200] ' accept="image/*"
+                    onChange={(e) => {
+                      setPageData({
+                        ...pageData,
+                        images: pageData?.images?.map((img_data, img_index) => {
+                          if (img_index === 0) {
+                            return {
+                              ...img_data,
+                              img_link: e?.target?.files[0]
+                            }
+                          }
+                        })
+                      })
+                    }}
+                  />
+                  <img id='file_image' src={pageData?.images[0]?.img_link} className={`w-full absolute top-0 left-0 aspect-square z-[100] `} />
+                </label>
               </div>
 
               <div className="flex flex-col gap-5">
-                <div className="bg-gray-50 rounded-lg  aspect-square w-[100px] border border-dashed border-gray-500"></div>
+                {
+                  pageData?.images?.map((data, i) => {
+                    if (i !== 0) {
+                      return (
+                        <div key={i} className="bg-gray-50 rounded-lg  aspect-square w-[100px] border border-dashed border-gray-500" onClick={() => {
+                          setActiveInputID(data?.img_id)
+                        }} >
+                          <label htmlFor="file_image" className="relative w-full flex aspect-square">
+                            <input type="file" name='file' className='opacity-0 z-[200]' accept="image/*"
+                              onChange={(e) => {
+                                // console.log('active id', activeInputID)
+                                setPageData({
+                                  ...pageData,
+                                  images: pageData?.images?.map((img_data, img_index) => {
+                                    if (img_data?.img_id === activeInputID) {
+                                      return {
+                                        ...img_data,
+                                        img_link: e?.target?.files[0]
+                                      }
+                                    } else {
+                                      return img_data
+                                    }
+                                  })
+                                })
+                                // console.log(e?.target?.files)
+                              }}
+                            />
+                            <img id='file_image' src={data?.img_link} className={`w-full absolute top-0 left-0 aspect-square z-[100] `} />
+                          </label>
+                        </div>
+                      )
+                    }
+                  })
+                }
 
-                <div className="bg-gray-50 rounded-lg  aspect-square w-[100px] border border-dashed border-gray-500"></div>
+                {/* <div className="bg-gray-50 rounded-lg  aspect-square w-[100px] border border-dashed border-gray-500"></div>
 
-                <div className="bg-gray-50 rounded-lg  aspect-square w-[100px] border border-dashed border-gray-500"></div>
+                <div className="bg-gray-50 rounded-lg  aspect-square w-[100px] border border-dashed border-gray-500"></div> */}
               </div>
             </div>
 
@@ -463,6 +523,8 @@ const ProductsEditPage = () => {
                     </h1>
                   </div>
 
+
+                  {/* pop - up */}
                   <div className="w-full px-5 mt-8">
                     <div className="w-full">
                       <div className="grid grid-cols-2 gap-5 justify-items-center place-items-center">
@@ -539,7 +601,7 @@ const ProductsEditPage = () => {
                                       ...variant_data,
                                       price: e?.target?.value,
                                     }
-                                  }else {
+                                  } else {
                                     return variant_data
                                   }
                                 }),
@@ -549,7 +611,7 @@ const ProductsEditPage = () => {
                           />
                         </div>
 
-                            {/* quantity */}
+                        {/* quantity */}
                         <input
                           type="number"
                           defaultValue={data?.quantity}
@@ -562,7 +624,7 @@ const ProductsEditPage = () => {
                                     ...variant_data,
                                     quantity: e?.target?.value,
                                   }
-                                }else {
+                                } else {
                                   return variant_data
                                 }
                               }),
@@ -585,7 +647,7 @@ const ProductsEditPage = () => {
                                     ...variant_data,
                                     sku: e?.target?.value,
                                   }
-                                }else {
+                                } else {
                                   return variant_data
                                 }
                               }),
@@ -615,11 +677,26 @@ const ProductsEditPage = () => {
                       <label className="text-gray-700 text-sm">
                         {data?.n_name}
                       </label>
-                      <div className="flex items-end gap-1 bg-gray-50  border-gray-400 border rounded-md">
+                      <div className="flex items-end gap-1 bg-gray-50  border-gray-400 border rounded-md" onClick={() => setActiveInputID(data?.id)}>
                         <input
                           type="text"
                           className="p-2  block rounded-md w-full outline-none"
                           value={data?.n_value}
+                          onChange={(e) => {
+                            setPageData({
+                              ...pageData,
+                              nutritional_info: pageData?.nutritional_info?.map((nutrition_data, nutrition_index) => {
+                                if (nutrition_data?.id === activeInputID) {
+                                  return {
+                                    ...nutrition_data,
+                                    n_value: e?.target?.value,
+                                  }
+                                } else {
+                                  return nutrition_data
+                                }
+                              })
+                            })
+                          }}
                         />
                         <span className="p-2 text-gray-500">
                           {data?.n_unit}
@@ -657,6 +734,21 @@ const ProductsEditPage = () => {
                     cols={50}
                     className=" max-w-full border border-dashed border-black outline-none w-full h-full block p-3 text-sm text-gray-700"
                     value={pageData?.meta_fields[activeMeta]?.m_value}
+                    onChange={(e) => {
+                      console.log(e?.target?.value)
+                      setPageData({
+                      ...pageData,
+                      meta_fields: pageData?.meta_fields?.map((meta_data, meta_index) => {
+                        if (meta_index === activeMeta) {
+                          return {
+                            ...meta_data,
+                            m_value: e?.target?.value
+                          }
+                        }else {
+                          return meta_data
+                        }
+                      })
+                    })}}
                   />
                 </div>
               </div>
@@ -731,7 +823,7 @@ const ProductsEditPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
