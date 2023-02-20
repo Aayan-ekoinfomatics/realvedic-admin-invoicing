@@ -10,11 +10,11 @@ import { Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/routing-components/ProtectedRoute";
 import BuyersPage from "./pages/BuyersPage";
-import { BASE_ADDRESS } from "./base_address/base_address";
 import axios from "axios";
 import InvoicePage from "./pages/InvoicePage";
 import ProductsEditPage from "./pages/ProductsEditPage";
 import OrdersEditPage from "./pages/OrdersEditPage";
+import { VITE_BASE_ADDRESS } from "./base_address/base_address";
 
 function App() {
   const location = useLocation();
@@ -24,24 +24,8 @@ function App() {
     formdata?.append("email", "vivek.k@ekoinfomatics.com");
     formdata?.append("password", "12345678");
 
-    // fetch(BASE_ADDRESS + "login", {
-    //   method: "POST",
-    //   body: formdata,
-    // })
-    //   .then((response) => {
-    //     //handle response
-    //     console.log("response", response?.headers?.get("Authorization"));
-    //   })
-    //   .then((data) => {
-    //     //handle data
-    //     console.log("data", data);
-    //   })
-    //   .catch((error) => {
-    //     //handle error
-    //   });
-
     axios
-      .post(BASE_ADDRESS + "login", formdata)
+      .post(VITE_BASE_ADDRESS + "login", formdata)
       ?.then((res) => console.log(res));
   }, []);
 
@@ -82,9 +66,7 @@ function App() {
           />
           <Route element={<BuyersPage />} path={"/buyers"} />
           <Route element={<OrdersPage />} path={"/orders"} />
-          <Route
-            element={<OrdersEditPage />}
-            path={"/orders/:order_id"} />
+          <Route element={<OrdersEditPage />} path={"/orders/:order_id"} />
 
           {/* <Route element={<Dashboard />} path={'/'} /> */}
         </Routes>

@@ -21,6 +21,7 @@ import { MonthList } from "../helpers/date_list/date_list";
 import product_data from "../mockApi/productPageApi";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 
 const ProductsPage = () => {
   // local states
@@ -78,9 +79,8 @@ const ProductsPage = () => {
 
   // api call
   useEffect(() => {
-    axios.get("http://192.168.1.2:5000/ccall")?.then((res) => {
-      console.log("ccall response", res?.data);
-
+    axios.get(VITE_BASE_ADDRESS + "/adminProductView")?.then((res) => {
+      console.log("adminProductView response", res?.data);
       setPageData(res?.data);
     });
   }, []);
@@ -126,7 +126,7 @@ const ProductsPage = () => {
             formData?.append("image_array", JSON.stringify(imageArray));
 
             axios
-              .post("http://192.168.1.2:5000/newImageUpload", formData)
+              .post("http://192.168.1.18:8000/newImageUpload", formData)
               ?.then((res) => {
                 console.log(res?.data);
               });
