@@ -4,6 +4,8 @@ import delete_icon from "../assets/icons/delete_icon.svg";
 import item from '../assets/img/mock-images/about-us.png'
 import arrow_down from '../assets/icons/arrow-small-down-white.svg'
 import arrow_up from '../assets/icons/arrow-up-white.svg'
+import profile from '../assets/icons/profile-circle.svg'
+import location from '../assets/icons/location.svg'
 
 const OrdersEditPage = () => {
 
@@ -132,7 +134,7 @@ const OrdersEditPage = () => {
           <div className='w-full md:w-[65%] flex flex-col gap-5 md:gap-8'>
 
             {/* items */}
-            <div className='w-full bg-white shadow-md border rounded-[10px] pb-1'>
+            <div className='w-full bg-white shadow-md border-2 border-[#7d9383] rounded-[15px] pb-1'>
 
               {/* table */}
               <div className='w-full pt-5'>
@@ -190,7 +192,7 @@ const OrdersEditPage = () => {
             </div>
 
             {/* payment summary */}
-            <div className='w-full bg-white border shadow-md rounded-[10px] p-4'>
+            <div className='w-full bg-white border-2 border-[#7d9383] shadow-md rounded-[15px] p-4'>
               <div className='w-full'>
                 <h1 className='text-[16px] font-[500]'>Payment Summary</h1>
               </div>
@@ -226,7 +228,7 @@ const OrdersEditPage = () => {
 
 
             {/* customer details and delivery status toggle */}
-            <div className='w-full bg-white shadow-md border rounded-[10px] py-4'>
+            <div className='w-full bg-white shadow-md border-2 border-[#7d9383] rounded-[15px] py-4'>
 
 
               {/* delivery status toggle */}
@@ -269,37 +271,41 @@ const OrdersEditPage = () => {
 
               {/* customer details */}
               <div className='w-full'>
-                <div className='w-full my-4 px-4'>
-                  <h1 className='text-[16px] font-[500]'>Customer Details</h1>
+                <div className='w-full my-4 px-4 flex justify-start gap-2 items-center'>
+                  <span><img src={profile} className='w-[24px]' alt="" /></span><h1 className='text-[16px] font-[500]'>Customer Details</h1>
                 </div>
-                <div className='w-full px-4'>
-                  <h1 className='text-[15px] text-gray-600'>{orderData?.contact_info?.first_name} {orderData?.contact_info?.last_name}</h1>
-                </div>
-                <div className='w-full px-4 border-b border-gray-300 pt-2 pb-4'>
-                  <h1 className='text-[13px] pt-[4px] text-gray-500'>{orderData?.contact_info?.email}</h1>
-                  <h1 className='text-[13px] pt-[4px] text-gray-500'>{orderData?.contact_info?.phone_number}</h1>
-                </div>
-                <div className='w-full px-4 border-b border-gray-300 py-4'>
-                  <div className='w-full'>
-                    <h1 className='text-[16px] font-[500] pb-4'>Shipping Address</h1>
+                <div className='w-full'>
+                  <div className='w-full px-4'>
+                    <h1 className='text-[15px] text-gray-600'>{orderData?.contact_info?.first_name} {orderData?.contact_info?.last_name}</h1>
                   </div>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.address_line_1}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.address_line_2}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.landmark}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.city}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.state}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.country}</h1>
-                </div>
-                <div className='w-full px-4 border-gray-300 pt-4'>
-                  <div className='w-full'>
-                    <h1 className='text-[16px] font-[500] pb-4'>Billing Address</h1>
+                  <div className='w-full px-4 border-b border-gray-300 pt-2 pb-4'>
+                    <h1 className='text-[13px] pt-[4px] text-gray-500'>{orderData?.contact_info?.email}</h1>
+                    <h1 className='text-[13px] pt-[4px] text-gray-500'>{orderData?.contact_info?.phone_number}</h1>
                   </div>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.address_line_1}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.address_line_2}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.landmark}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.city}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.state}</h1>
-                  <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.country}</h1>
+                  <div className='w-full px-4 border-b border-gray-300 py-4'>
+                    <div className='w-full flex justify-start items-start gap-2'>
+                      <span><img src={location} className='w-[24px]' alt="" /></span>
+                      <h1 className='text-[16px] font-[500] pb-4'>Shipping Address</h1>
+                    </div>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.address_line_1}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.address_line_2}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.landmark}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.city}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.state}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.shipping_info?.country}</h1>
+                  </div>
+                  <div className='w-full px-4 border-gray-300 pt-4'>
+                    <div className='w-full flex justify-start items-start gap-2'>
+                      <span><img src={location} className='w-[24px]' alt="" /></span>
+                      <h1 className='text-[16px] font-[500] pb-4'>Billing Address</h1>
+                    </div>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.address_line_1}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.address_line_2}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.landmark}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.city}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.state}</h1>
+                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{orderData?.billing_info?.country}</h1>
+                  </div>
                 </div>
               </div>
             </div>
