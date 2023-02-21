@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // mock data
 import order_page_data from "../mockApi/orderPageApi";
 // time
@@ -18,6 +18,8 @@ import { DateRangePicker } from "react-date-range";
 import { DateRange } from "react-date-range";
 import axios from "axios";
 import { MonthList } from "../helpers/date_list/date_list";
+import { Link } from "react-router-dom";
+import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 
 const OrdersPage = () => {
   // local states
@@ -25,6 +27,8 @@ const OrdersPage = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [calendarStatus, setCalendarStatus] = useState(false);
+
+  const [orderData, setOrderData] = useState();
 
   const [imageArray, setImageArray] = useState([]);
 
@@ -46,24 +50,24 @@ const OrdersPage = () => {
       value:
         JSON.stringify(startDate) === JSON.stringify(endDate)
           ? new Date(startDate)?.getDate() +
-            " " +
-            MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
-            " " +
-            new Date(startDate)?.getFullYear()
+          " " +
+          MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
+          " " +
+          new Date(startDate)?.getFullYear()
           : // new Date(startDate)?.getFullYear()?.toString()?.split("")[2] +
-            // "" +
-            // new Date(startDate)?.getFullYear()?.toString()?.split("")[3]
-            new Date(startDate)?.getDate() +
-            " " +
-            MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
-            " " +
-            new Date(startDate)?.getFullYear() +
-            "  - " +
-            new Date(endDate)?.getDate() +
-            " " +
-            MonthList[new Date(endDate)?.getMonth(endDate)]?.short_name +
-            " " +
-            new Date(endDate)?.getFullYear(),
+          // "" +
+          // new Date(startDate)?.getFullYear()?.toString()?.split("")[3]
+          new Date(startDate)?.getDate() +
+          " " +
+          MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
+          " " +
+          new Date(startDate)?.getFullYear() +
+          "  - " +
+          new Date(endDate)?.getDate() +
+          " " +
+          MonthList[new Date(endDate)?.getMonth(endDate)]?.short_name +
+          " " +
+          new Date(endDate)?.getFullYear(),
     },
 
     // {
@@ -71,6 +75,15 @@ const OrdersPage = () => {
     //   value: "In Transit",
     // },
   ];
+
+  useEffect(() => {
+    axios.get(VITE_BASE_ADDRESS + 'admin_order_view ').then((response) => {
+      console.log(response?.data)
+      setOrderData(response?.data)
+    })
+  }, [])
+
+
 
   return (
     <div>
@@ -118,9 +131,8 @@ const OrdersPage = () => {
             >
               <h1>Date</h1>
               <div
-                className={` ${
-                  calendarStatus ? "-rotate-180" : "rotate-0"
-                } transition-all `}
+                className={` ${calendarStatus ? "-rotate-180" : "rotate-0"
+                  } transition-all `}
               >
                 <img src={down_arrow} alt="date" />
               </div>
@@ -141,11 +153,11 @@ const OrdersPage = () => {
                   onChange={handleSelect}
                   moveRangeOnFirstSelection={false}
                   className="text-[8px] sm:text-[10px] lg:text-[12px]"
-                  // showMonthAndYearPickers={false}
-                  // showSelectionPreview={false}
-                  // editableDateInputs={true}
-                  // direction={"horizontal"}
-                  // scroll={{ enabled: true }}
+                // showMonthAndYearPickers={false}
+                // showSelectionPreview={false}
+                // editableDateInputs={true}
+                // direction={"horizontal"}
+                // scroll={{ enabled: true }}
                 />
               </div>
             )}
@@ -187,7 +199,7 @@ const OrdersPage = () => {
           <div className="overflow-x-scroll ">
             <div className="min-w-[1300px]  rounded-[25px] p-5 pr-0 ">
               <div className="w-full grid grid-cols-9 text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2 pb-5 gap-2 ">
-                {order_page_data?.titles?.map((data, index) => {
+                {orderData?.titles?.map((data, index) => {
                   return (
                     <div
                       key={index}
@@ -195,9 +207,8 @@ const OrdersPage = () => {
                       `}
                     >
                       <h1
-                        className={` ${
-                          data === "Actions" ? "mx-auto" : ""
-                        }  w-max text-center`}
+                        className={` ${data === "Actions" ? "mx-auto" : ""
+                          }  w-max text-center`}
                       >
                         {data}
                       </h1>
@@ -207,7 +218,7 @@ const OrdersPage = () => {
               </div>
 
               <div className="w-full  rounded-b-[15px]  text-[13px] text-[#464646] h-[65vh] overflow-y-scroll ">
-                {order_page_data?.content
+                {orderData?.content
                   ?.filter((filterValue) => {
                     if (searchData === "") {
                       return filterValue;
@@ -240,9 +251,11 @@ const OrdersPage = () => {
                       key={i}
                     >
                       <div className="w-full flex items-center ">
-                        <p className="text-black font-medium cursor-pointer">
-                          #{data?.invoice_id}
-                        </p>
+                        <Link to={`/orders/` + 1}>
+                          <p className="text-black font-medium cursor-pointer">
+                            #{data?.invoice_id}
+                          </p>
+                        </Link>
                       </div>
                       <div className="w-full ">
                         <p className=" flex flex-col justify-center">
@@ -264,7 +277,7 @@ const OrdersPage = () => {
                           </span>
                         </p>
                       </div>
-                      <div className="w-full flex items-center ">
+                      <div className="w-fit flex items-center ">
                         <p className="">{data?.items?.length}</p>
                       </div>
                       <div className="w-full flex items-center">
@@ -279,7 +292,7 @@ const OrdersPage = () => {
                       <div className="w-full flex items-center">
                         <p className="">₹ {data?.grand_total}</p>
                       </div>
-                      <div className="w-full flex gap-5 items-center ">
+                      {/* <div className="w-full flex gap-5 items-center ">
                         {data?.status === "Booked" && (
                           <p className="bg-[#e99f15] rounded-full w-[8px] aspect-square"></p>
                         )}
@@ -290,26 +303,41 @@ const OrdersPage = () => {
                           <p className="bg-[#FF0000] rounded-full w-[8px] aspect-square"></p>
                         )}
                         <p className="">{data?.status}</p>
-                      </div>
+                      </div> */}
                       <div className="w-full flex gap-2 items-center ">
-                        {data?.delivery_status === "Dispatched" && (
+                        {data?.status === "Dispatched" && (
                           <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#303030] rounded-lg  border">
-                            {data?.delivery_status}
+                            {data?.status}
                           </p>
                         )}
-                        {data?.delivery_status === "Delivered" && (
+                        {data?.status === "On the way" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#638ce6] rounded-lg  border">
+                            {data?.status}
+                          </p>
+                        )}
+                        {data?.status === "Processed" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#f3ff45] rounded-lg  border">
+                            {data?.status}
+                          </p>
+                        )}
+                        {data?.status === "Placed" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#fc9739] rounded-lg  border">
+                            {data?.status}
+                          </p>
+                        )}
+                        {data?.status === "Delivered" && (
                           <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#00ac69] rounded-lg border ">
-                            {data?.delivery_status}
+                            {data?.status}
                           </p>
                         )}
-                        {data?.delivery_status === "Cancelled" && (
+                        {data?.status === "Cancelled" && (
                           <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#FF0000] rounded-lg border ">
-                            {data?.delivery_status}
+                            {data?.status}
                           </p>
                         )}
-                        {data?.delivery_status === "Returned" && (
+                        {data?.status === "Returned" && (
                           <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#e99f15] rounded-lg border ">
-                            {data?.delivery_status}
+                            {data?.status}
                           </p>
                         )}
                       </div>

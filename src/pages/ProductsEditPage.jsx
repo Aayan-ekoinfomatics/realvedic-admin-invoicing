@@ -6,158 +6,168 @@ import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 import axios from "axios";
 
 const ProductsEditPage = () => {
-  const [pageData, setPageData] = useState({
-    images: ["", "", "", ""],
-    name: "Angaya Podi",
-    id: 554254,
-    status: "In Stock",
-    category: "Spices",
-    hsn: 354564646464,
-    variants_data: [
-      {
-        variant_name: "100g",
-        price: 50,
-        quantity: 80,
-        sku: 115245245465,
-      },
+  const [pageData, setPageData] = useState(
+  //   {
+  //   images: ["", "", "", ""],
+  //   name: "Angaya Podi",
+  //   id: 554254,
+  //   status: "In Stock",
+  //   category: "Spices",
+  //   hsn: 354564646464,
+  //   variant_data: [
+  //     {
+  //       variant_name: "100g",
+  //       price: 50,
+  //       quantity: 80,
+  //       sku: 115245245465,
+  //     },
 
-      {
-        variant_name: "200g",
-        price: 100,
-        quantity: 50,
-        sku: 115245245466,
-      },
+  //     {
+  //       variant_name: "200g",
+  //       price: 100,
+  //       quantity: 50,
+  //       sku: 115245245466,
+  //     },
 
-      {
-        variant_name: "250g",
-        price: 150,
-        quantity: 120,
-        sku: 115245245467,
-      },
-      {
-        variant_name: "100g",
-        price: 50,
-        quantity: 80,
-        sku: 115245245465,
-      },
+  //     {
+  //       variant_name: "250g",
+  //       price: 150,
+  //       quantity: 120,
+  //       sku: 115245245467,
+  //     },
+  //     {
+  //       variant_name: "100g",
+  //       price: 50,
+  //       quantity: 80,
+  //       sku: 115245245465,
+  //     },
 
-      {
-        variant_name: "200g",
-        price: 100,
-        quantity: 50,
-        sku: 115245245466,
-      },
+  //     {
+  //       variant_name: "200g",
+  //       price: 100,
+  //       quantity: 50,
+  //       sku: 115245245466,
+  //     },
 
-      {
-        variant_name: "250g",
-        price: 150,
-        quantity: 120,
-        sku: 115245245467,
-      },
-    ],
-    sibling_product: {
-      product_id: 12245,
-      product_name: "Multigrain Dosa Mix",
-      img: "",
-      category: "Flour Packs",
-    },
+  //     {
+  //       variant_name: "250g",
+  //       price: 150,
+  //       quantity: 120,
+  //       sku: 115245245467,
+  //     },
+  //   ],
+  //   sibling_product: {
+  //     product_id: 12245,
+  //     product_name: "Multigrain Dosa Mix",
+  //     img: "",
+  //     category: "Flour Packs",
+  //   },
 
-    nutritional_info: [
-      {
-        n_name: "Total Fat",
-        n_value: 5,
-        n_unit: "g",
-      },
-      {
-        n_name: "Protien",
-        n_value: 10,
-        n_unit: "g",
-      },
-      {
-        n_name: "Carbohydrate",
-        n_value: 16,
-        n_unit: "g",
-      },
-      {
-        n_name: "Energy",
-        n_value: 8,
-        n_unit: "kcal",
-      },
-    ],
+  //   nutritional_info: [
+  //     {
+  //       n_name: "Total Fat",
+  //       n_value: 5,
+  //       n_unit: "g",
+  //     },
+  //     {
+  //       n_name: "Protien",
+  //       n_value: 10,
+  //       n_unit: "g",
+  //     },
+  //     {
+  //       n_name: "Carbohydrate",
+  //       n_value: 16,
+  //       n_unit: "g",
+  //     },
+  //     {
+  //       n_name: "Energy",
+  //       n_value: 8,
+  //       n_unit: "kcal",
+  //     },
+  //   ],
 
-    meta_fields: [
-      {
-        m_name: "Label 1",
-        m_value: "Lorem Ipsum1",
-      },
-      {
-        m_name: "Label 2",
-        m_value: "Lorem Ipsum2",
-      },
-      {
-        m_name: "Label 3",
-        m_value: "Lorem Ipsum3",
-      },
-      {
-        m_name: "Label 4",
-        m_value: "Lorem Ipsum4",
-      },
-      {
-        m_name: "Label 5",
-        m_value: "Lorem Ipsum5",
-      },
-    ],
+  //   meta_fields: [
+  //     {
+  //       m_name: "Label 1",
+  //       m_value: "Lorem Ipsum1",
+  //     },
+  //     {
+  //       m_name: "Label 2",
+  //       m_value: "Lorem Ipsum2",
+  //     },
+  //     {
+  //       m_name: "Label 3",
+  //       m_value: "Lorem Ipsum3",
+  //     },
+  //     {
+  //       m_name: "Label 4",
+  //       m_value: "Lorem Ipsum4",
+  //     },
+  //     {
+  //       m_name: "Label 5",
+  //       m_value: "Lorem Ipsum5",
+  //     },
+  //   ],
 
-    reviews: [
-      {
-        img: "",
-        f_name: "Ayush",
-        l_name: "Koul",
-        comment: "Lorem ipsum dolor sit",
-      },
-      {
-        img: "",
-        f_name: "Utkarsh",
-        l_name: "Koul",
-        comment: "Lorem ipsum dolor sit",
-      },
-    ],
+  //   reviews: [
+  //     {
+  //       img: "",
+  //       f_name: "Ayush",
+  //       l_name: "Koul",
+  //       comment: "Lorem ipsum dolor sit",
+  //     },
+  //     {
+  //       img: "",
+  //       f_name: "Utkarsh",
+  //       l_name: "Koul",
+  //       comment: "Lorem ipsum dolor sit",
+  //     },
+  //   ],
 
-    status_list: ["In Stock", "Out of Stock"],
-    category_list: [
-      {
-        name: "Health Mix",
-        hsn: 112452246585,
-      },
-      {
-        name: "Dosa Mix",
-        hsn: 112452246585,
-      },
-      {
-        name: "Rasam & Soup",
-        hsn: 112452246585,
-      },
-      {
-        name: "Beverage Mix",
-        hsn: 112452246585,
-      },
-      {
-        name: "Spice Blends",
-        hsn: 112452246585,
-      },
-      {
-        name: "Flour Pack",
-        hsn: 112452246585,
-      },
-      {
-        name: "Noodles & Pasta",
-        hsn: 112452246585,
-      },
-    ],
-  });
+  //   status_list: ["In Stock", "Out of Stock"],
+  //   category_list: [
+  //     {
+  //       name: "Health Mix",
+  //       hsn: 112452246585,
+  //     },
+  //     {
+  //       name: "Dosa Mix",
+  //       hsn: 112452246585,
+  //     },
+  //     {
+  //       name: "Rasam & Soup",
+  //       hsn: 112452246585,
+  //     },
+  //     {
+  //       name: "Beverage Mix",
+  //       hsn: 112452246585,
+  //     },
+  //     {
+  //       name: "Spice Blends",
+  //       hsn: 112452246585,
+  //     },
+  //     {
+  //       name: "Flour Pack",
+  //       hsn: 112452246585,
+  //     },
+  //     {
+  //       name: "Noodles & Pasta",
+  //       hsn: 112452246585,
+  //     },
+  //   ],
+  // }
+  );
+
   const [openDropdown, setOpenDropdown] = useState({
     status: false,
     sibling_product: false,
+  });
+
+  const [addedVariant, setAddedVariant] = useState({
+    variant_name: '',
+    price: '',
+    sku: '',
+    quantity: '',
   });
 
   const [activeMeta, setActiveMeta] = useState(0);
@@ -166,183 +176,196 @@ const ProductsEditPage = () => {
 
   const [activeInputID, setActiveInputID] = useState();
 
+  const [siblingProduct, setSiblingProduct] = useState()
+
   useEffect(() => {
-    setPageData({
-      images: [
-        { img_id: 1, img_link: cross },
-        { img_id: 2, img_link: cross },
-        { img_id: 3, img_link: cross },
-        { img_id: 4, img_link: cross },
-      ],
-      name: "Angaya Podi",
-      id: 554254,
-      status: "In Stock",
-      category: "Spices",
-      hsn: 354564646464,
-      variants_data: [
-        {
-          id: 1,
-          variant_name: "100g",
-          price: 50,
-          quantity: 80,
-          sku: 115245245465,
-        },
+    // setPageData({
+    //   images: [
+    //     { img_id: 1, img_link: cross },
+    //     { img_id: 2, img_link: cross },
+    //     { img_id: 3, img_link: cross },
+    //     { img_id: 4, img_link: cross },
+    //   ],
+    //   name: "Angaya Podi",
+    //   id: 554254,
+    //   status: "In Stock",
+    //   category: "Spices",
+    //   hsn: 354564646464,
+    //   variants_data: [
+    //     {
+    //       id: 1,
+    //       variant_name: "100g",
+    //       price: 50,
+    //       quantity: 80,
+    //       sku: 115245245465,
+    //     },
 
-        {
-          id: 2,
-          variant_name: "200g",
-          price: 100,
-          quantity: 50,
-          sku: 115245245466,
-        },
+    //     {
+    //       id: 2,
+    //       variant_name: "200g",
+    //       price: 100,
+    //       quantity: 50,
+    //       sku: 115245245466,
+    //     },
 
-        {
-          id: 3,
-          variant_name: "250g",
-          price: 150,
-          quantity: 120,
-          sku: 115245245467,
-        },
-        {
-          id: 4,
-          variant_name: "100g",
-          price: 50,
-          quantity: 80,
-          sku: 115245245465,
-        },
+    //     {
+    //       id: 3,
+    //       variant_name: "250g",
+    //       price: 150,
+    //       quantity: 120,
+    //       sku: 115245245467,
+    //     },
+    //     {
+    //       id: 4,
+    //       variant_name: "100g",
+    //       price: 50,
+    //       quantity: 80,
+    //       sku: 115245245465,
+    //     },
 
-        {
-          id: 5,
-          variant_name: "200g",
-          price: 100,
-          quantity: 50,
-          sku: 115245245466,
-        },
+    //     {
+    //       id: 5,
+    //       variant_name: "200g",
+    //       price: 100,
+    //       quantity: 50,
+    //       sku: 115245245466,
+    //     },
 
-        {
-          id: 6,
-          variant_name: "250g",
-          price: 150,
-          quantity: 120,
-          sku: 115245245467,
-        },
-      ],
-      sibling_product: {
-        product_id: 12245,
-        product_name: "Multigrain Dosa Mix",
-        img: "",
-        category: "Flour Packs",
-      },
+    //     {
+    //       id: 6,
+    //       variant_name: "250g",
+    //       price: 150,
+    //       quantity: 120,
+    //       sku: 115245245467,
+    //     },
+    //   ],
+    //   sibling_product: {
+    //     product_id: 12245,
+    //     product_name: "Multigrain Dosa Mix",
+    //     img: "",
+    //     category: "Flour Packs",
+    //   },
 
-      nutritional_info: [
-        {
-          id: 1,
-          n_name: "Total Fat",
-          n_value: 5,
-          n_unit: "g",
-        },
-        {
-          id: 2,
-          n_name: "Protien",
-          n_value: 10,
-          n_unit: "g",
-        },
-        {
-          id: 3,
-          n_name: "Carbohydrate",
-          n_value: 16,
-          n_unit: "g",
-        },
-        {
-          id: 4,
-          n_name: "Energy",
-          n_value: 8,
-          n_unit: "kcal",
-        },
-      ],
+    //   nutritional_info: [
+    //     {
+    //       id: 1,
+    //       n_name: "Total Fat",
+    //       n_value: 5,
+    //       n_unit: "g",
+    //     },
+    //     {
+    //       id: 2,
+    //       n_name: "Protien",
+    //       n_value: 10,
+    //       n_unit: "g",
+    //     },
+    //     {
+    //       id: 3,
+    //       n_name: "Carbohydrate",
+    //       n_value: 16,
+    //       n_unit: "g",
+    //     },
+    //     {
+    //       id: 4,
+    //       n_name: "Energy",
+    //       n_value: 8,
+    //       n_unit: "kcal",
+    //     },
+    //   ],
 
-      meta_fields: [
-        {
-          id: 1,
-          m_name: "Label 1",
-          m_value: "Lorem Ipsum1",
-        },
-        {
-          id: 2,
-          m_name: "Label 2",
-          m_value: "Lorem Ipsum2",
-        },
-        {
-          id: 3,
-          m_name: "Label 3",
-          m_value: "Lorem Ipsum3",
-        },
-        {
-          id: 4,
-          m_name: "Label 4",
-          m_value: "Lorem Ipsum4",
-        },
-      ],
+    //   meta_fields: [
+    //     {
+    //       id: 1,
+    //       m_name: "Label 1",
+    //       m_value: "Lorem Ipsum1",
+    //     },
+    //     {
+    //       id: 2,
+    //       m_name: "Label 2",
+    //       m_value: "Lorem Ipsum2",
+    //     },
+    //     {
+    //       id: 3,
+    //       m_name: "Label 3",
+    //       m_value: "Lorem Ipsum3",
+    //     },
+    //     {
+    //       id: 4,
+    //       m_name: "Label 4",
+    //       m_value: "Lorem Ipsum4",
+    //     },
+    //   ],
 
-      reviews: [
-        {
-          img: "",
-          f_name: "Ayush",
-          l_name: "Koul",
-          comment: "Lorem ipsum dolor sit",
-        },
-        {
-          img: "",
-          f_name: "Utkarsh",
-          l_name: "Koul",
-          comment: "Lorem ipsum dolor sit",
-        },
-      ],
+    //   reviews: [
+    //     {
+    //       img: "",
+    //       f_name: "Ayush",
+    //       l_name: "Koul",
+    //       comment: "Lorem ipsum dolor sit",
+    //     },
+    //     {
+    //       img: "",
+    //       f_name: "Utkarsh",
+    //       l_name: "Koul",
+    //       comment: "Lorem ipsum dolor sit",
+    //     },
+    //   ],
 
-      status_list: ["In Stock", "Out of Stock"],
-      category_list: [
-        {
-          name: "Health Mix",
-          hsn: 112452246585,
-        },
-        {
-          name: "Dosa Mix",
-          hsn: 112452246585,
-        },
-        {
-          name: "Rasam & Soup",
-          hsn: 112452246585,
-        },
-        {
-          name: "Beverage Mix",
-          hsn: 112452246585,
-        },
-        {
-          name: "Spice Blends",
-          hsn: 112452246585,
-        },
-        {
-          name: "Flour Pack",
-          hsn: 112452246585,
-        },
-        {
-          name: "Noodles & Pasta",
-          hsn: 112452246585,
-        },
-      ],
-    });
+    //   status_list: ["In Stock", "Out of Stock"],
+    //   category_list: [
+    //     {
+    //       name: "Health Mix",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Dosa Mix",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Rasam & Soup",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Beverage Mix",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Spice Blends",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Flour Pack",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Noodles & Pasta",
+    //       hsn: 112452246585,
+    //     },
+    //   ],
+    // });
 
     axios.get(VITE_BASE_ADDRESS + "/adminProductEditView")?.then((res) => {
       console.log("adminProductEditView response", res?.data);
-      // setPageData(res?.data);
+      setPageData(res?.data);
     });
+
+    axios.get(VITE_BASE_ADDRESS + 'siblingProductList').then((response) => {
+      console.log(response?.data)
+      setSiblingProduct(response?.data)
+    })
   }, []);
 
+  const submitPageData = () => {  
+    axios.post(VITE_BASE_ADDRESS + 'admin_product_edit_view', pageData).then((response) => {
+      console.log(response?.data)
+    })
+  }
+
   useEffect(() => {
-    // console.log('pageData', pageData)
+    console.log('pageData', pageData)
     // console.log('activeInputID', activeInputID);
-    console.log("activeMeta", activeMeta);
-  }, [activeMeta]);
+    // console.log("activeMeta", activeMeta);
+  }, [pageData]);
 
   return (
     <div className="p-5 pt-0 relative">
@@ -360,7 +383,7 @@ const ProductsEditPage = () => {
           </div>
 
           <div>
-            <button className="px-5 py-2 rounded-xl bg-opacity-90 hover:bg-opacity-100 transition-all active:scale-95 bg-[#208a48] text-white">
+            <button className="px-5 py-2 rounded-xl bg-opacity-90 hover:bg-opacity-100 transition-all active:scale-95 bg-[#208a48] text-white" onClick={submitPageData}>
               SAVE CHANGES
             </button>
           </div>
@@ -400,7 +423,7 @@ const ProductsEditPage = () => {
                   />
                   <img
                     id="file_image"
-                    src={pageData?.images[0]?.img_link}
+                    src={VITE_BASE_ADDRESS + pageData?.images[0]}
                     className={`w-full absolute top-0 left-0 aspect-square z-[100] `}
                   />
                 </label>
@@ -448,7 +471,7 @@ const ProductsEditPage = () => {
                           />
                           <img
                             id="file_image"
-                            src={data?.img_link}
+                            src={VITE_BASE_ADDRESS + data}
                             className={`w-full absolute top-0 left-0 aspect-square z-[100] `}
                           />
                         </label>
@@ -500,19 +523,17 @@ const ProductsEditPage = () => {
                         status: !openDropdown?.status,
                       })
                     }
-                    className={` text-gray-500 ${
-                      openDropdown?.status ? "-rotate-180" : "rotate-0"
-                    } transition-all `}
+                    className={` text-gray-500 ${openDropdown?.status ? "-rotate-180" : "rotate-0"
+                      } transition-all `}
                   >
                     <KeyboardArrowDownRoundedIcon />
                   </span>
 
                   <div
-                    className={` ${
-                      openDropdown?.status
-                        ? "max-h-[900px] border border-gray-400  rounded-md mt-2 bg-white shadow-2xl"
-                        : "max-h-0"
-                    } transition-all duration-150  ease-in-out absolute  right-0 left-0  top-[99%] overflow-hidden`}
+                    className={` ${openDropdown?.status
+                      ? "max-h-[900px] border border-gray-400  rounded-md mt-2 bg-white shadow-2xl"
+                      : "max-h-0"
+                      } transition-all duration-150  ease-in-out absolute  right-0 left-0  top-[99%] overflow-hidden`}
                   >
                     {pageData?.status_list?.map((data, index) => {
                       return (
@@ -552,9 +573,8 @@ const ProductsEditPage = () => {
                   + Add Variants
                 </button>
                 <div
-                  className={`w-[30vw] translate-y-[70%] mx-auto h-[37vh] fixed inset-0 z-[90] border-2 rounded-[15px] border-[#227638] bg-white ${
-                    popUpModal ? "block" : "hidden"
-                  }`}
+                  className={`w-[30vw] translate-y-[70%] mx-auto h-[37vh] fixed inset-0 z-[220] border-2 rounded-[15px] border-[#227638] bg-white ${popUpModal ? "block" : "hidden"
+                    }`}
                 >
                   <div className="w-full flex justify-end items-center p-4">
                     <span>
@@ -580,6 +600,12 @@ const ProductsEditPage = () => {
                           <input
                             type="number"
                             className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
+                            onChange={(e) => {
+                              setAddedVariant({
+                                ...addedVariant,
+                                variant_name: e?.target?.value,
+                              })
+                            }}
                           />
                         </div>
                         <div className="w-full flex flex-col justify-start items-start">
@@ -587,6 +613,12 @@ const ProductsEditPage = () => {
                           <input
                             type="number"
                             className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
+                            onChange={(e) => {
+                              setAddedVariant({
+                                ...addedVariant,
+                                price: e?.target?.value,
+                              })
+                            }}
                           />
                         </div>
                         <div className="w-full flex flex-col justify-start items-start">
@@ -594,19 +626,42 @@ const ProductsEditPage = () => {
                           <input
                             type="number"
                             className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
+                            onChange={(e) => {
+                              setAddedVariant({
+                                ...addedVariant,
+                                quantity: e?.target?.value,
+                              })
+                            }}
                           />
                         </div>
                         <div className="w-full flex flex-col justify-start items-start">
                           <label className="text-[13px]">SKU</label>
                           <input
-                            type="number"
+                            type="text"
                             className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
+                            onChange={(e) => {
+                              setAddedVariant({
+                                ...addedVariant,
+                                sku: e?.target?.value,
+                              })
+                            }}
                           />
                         </div>
                       </div>
                     </div>
                     <div className="w-full flex justify-end items-center mt-10">
-                      <button className="py-2 px-4 bg-[#35854b] text-[14px] rounded-[7px] text-white">
+                      <button className="py-2 px-4 bg-[#35854b] text-[14px] rounded-[7px] text-white" onClick={() => {
+                        console.log(addedVariant)
+                        setPageData({
+                          ...pageData,
+                          variant_data: [...pageData?.variant_data, {
+                            variant_name: addedVariant?.variant_name,
+                            price: addedVariant?.price,
+                            quantity: addedVariant?.quantity,
+                            sku: addedVariant?.sku,
+                          }],
+                        })
+                      }}>
                         SUBMIT
                       </button>
                     </div>
@@ -614,9 +669,8 @@ const ProductsEditPage = () => {
                 </div>
 
                 <div
-                  className={`w-full h-screen fixed inset-0 bg-black opacity-30 z-[80] ${
-                    popUpModal ? "block" : "hidden"
-                  }`}
+                  className={`w-full h-screen fixed inset-0 bg-black opacity-30 z-[80] ${popUpModal ? "block" : "hidden"
+                    }`}
                   onClick={() => setPopUpModal(false)}
                 ></div>
               </div>
@@ -631,7 +685,7 @@ const ProductsEditPage = () => {
                   </h1>
                 </div>
                 <div className="h-[200px] overflow-y-scroll py-5  min-w-[800px]">
-                  {pageData?.variants_data?.map((data, index) => {
+                  {pageData?.variant_data?.map((data, index) => {
                     return (
                       <div
                         onClick={() => setActiveInputID(data?.id)}
@@ -649,15 +703,15 @@ const ProductsEditPage = () => {
                             onChange={(e) =>
                               setPageData({
                                 ...pageData,
-                                variants_data: pageData?.variants_data?.map(
-                                  (variant_data, variant_key) => {
-                                    if (variant_data?.id === activeInputID) {
+                                variant_data: pageData?.variant_data?.map(
+                                  (single_variant_data, variant_key) => {
+                                    if (single_variant_data?.id === activeInputID) {
                                       return {
-                                        ...variant_data,
+                                        ...single_variant_data,
                                         price: e?.target?.value,
                                       };
                                     } else {
-                                      return variant_data;
+                                      return single_variant_data;
                                     }
                                   }
                                 ),
@@ -674,15 +728,15 @@ const ProductsEditPage = () => {
                           onChange={(e) =>
                             setPageData({
                               ...pageData,
-                              variants_data: pageData?.variants_data?.map(
-                                (variant_data, variant_key) => {
-                                  if (variant_data?.id === activeInputID) {
+                              variant_data: pageData?.variant_data?.map(
+                                (single_variant_data, variant_key) => {
+                                  if (single_variant_data?.id === activeInputID) {
                                     return {
-                                      ...variant_data,
+                                      ...single_variant_data,
                                       quantity: e?.target?.value,
                                     };
                                   } else {
-                                    return variant_data;
+                                    return single_variant_data;
                                   }
                                 }
                               ),
@@ -698,15 +752,15 @@ const ProductsEditPage = () => {
                           onChange={(e) =>
                             setPageData({
                               ...pageData,
-                              variants_data: pageData?.variants_data?.map(
-                                (variant_data, variant_key) => {
-                                  if (variant_data?.id === activeInputID) {
+                              variant_data: pageData?.variant_data?.map(
+                                (single_variant_data, variant_key) => {
+                                  if (single_variant_data?.id === activeInputID) {
                                     return {
-                                      ...variant_data,
+                                      ...single_variant_data,
                                       sku: e?.target?.value,
                                     };
                                   } else {
-                                    return variant_data;
+                                    return single_variant_data;
                                   }
                                 }
                               ),
@@ -747,8 +801,7 @@ const ProductsEditPage = () => {
                           onChange={(e) => {
                             setPageData({
                               ...pageData,
-                              nutritional_info: pageData?.nutritional_info?.map(
-                                (nutrition_data, nutrition_index) => {
+                              nutritional_info: pageData?.nutritional_info?.map((nutrition_data, nutrition_index) => {
                                   if (nutrition_data?.id === activeInputID) {
                                     return {
                                       ...nutrition_data,
@@ -781,7 +834,7 @@ const ProductsEditPage = () => {
                     return (
                       <div key={index} className="">
                         <button
-                          className=" block w-full p-3 bg-gray-100 px-5 transition-all hover:bg-gray-200 border"
+                          className=" block w-full p-3 bg-gray-100 px-5 transition-all hover:bg-gray-200 border text-left"
                           onClick={() => setActiveMeta(index)}
                         >
                           {data?.m_name}
@@ -835,7 +888,9 @@ const ProductsEditPage = () => {
                   className="relative cursor-pointer rounded-md  bg-gray-50  border-gray-400 border w-full outline-none flex justify-between items-center"
                 >
                   <div className=" p-2 flex items-start gap-2">
-                    <div className="aspect-square bg-gray-400 w-[40px]"></div>
+                    <div className="aspect-square w-[40px]">
+                      <img src={VITE_BASE_ADDRESS + pageData?.sibling_product?.img} className='w-full' alt="" />
+                    </div>
 
                     <div>
                       <h2 className=" cursor-pointer flex-1">
@@ -850,39 +905,56 @@ const ProductsEditPage = () => {
                   </div>
 
                   <span
-                    className={` text-gray-500 ${
-                      openDropdown?.sibling_product ? "-rotate-180" : "rotate-0"
-                    } transition-all `}
+                    className={` text-gray-500 ${openDropdown?.sibling_product ? "-rotate-180" : "rotate-0"
+                      } transition-all `}
                   >
                     <KeyboardArrowDownRoundedIcon />
                   </span>
 
                   <div
-                    className={` ${
-                      openDropdown?.sibling_product
-                        ? "max-h-[900px] border border-gray-400  rounded-md mt-2 bg-white shadow-2xl"
-                        : "max-h-0"
-                    } transition-all duration-150  ease-in-out absolute  right-0 left-0  top-[99%] overflow-hidden`}
+                    className={` ${openDropdown?.sibling_product
+                      ? "max-h-[300px] border border-gray-400  rounded-md mt-2 bg-white shadow-2xl overflow-y-scroll"
+                      : "max-h-0"
+                      } transition-all duration-150  ease-in-out absolute  right-0 left-0  top-[99%] overflow-hidden`}
                   >
-                    {pageData?.status_list?.map((data, index) => {
+                    {siblingProduct?.map((data, index) => {
                       return (
-                        <h2
-                          key={data}
-                          className="p-2 py-3 bg-gray-50 hover:bg-[#FBFFF4] transition-all cursor-pointer"
-                          onClick={() => {
-                            setOpenDropdown({
-                              ...openDropdown,
-                              status: !openDropdown?.status,
-                            });
+                        // <h2
+                        //   key={data}
+                        //   className="p-2 py-3 bg-gray-50 hover:bg-[#FBFFF4] transition-all cursor-pointer"
+                        //   onClick={() => {
+                        //     setOpenDropdown({
+                        //       ...openDropdown,
+                        //       status: !openDropdown?.status,
+                        //     });
 
-                            setPageData({
-                              ...pageData,
-                              status: data,
-                            });
-                          }}
-                        >
-                          {data}
-                        </h2>
+                        //     setPageData({
+                        //       ...pageData,
+                        //       status: data,
+                        //     });
+                        //   }}
+                        // >
+                        //   {data}
+                        // </h2>
+                        <div key={index} className='w-full border-b-[#9e9e9e] p-2 py-3 bg-gray-50 hover:bg-[#FBFFF4] transition-all cursor-pointer' onClick={() => {
+                          setPageData({
+                            ...pageData,
+                            sibling_product: {
+                              product_name: data?.title,
+                              product_id: data?.id,
+                              category: data?.category,
+                              img: data?.image,
+                            }
+                          })
+                        }}>
+                          <div className="w-full flex gap-2 justify-start items-center">
+                            <div className="w-fit"><img src={VITE_BASE_ADDRESS + data?.image} className='w-full max-w-[60px]' alt="" /></div>
+                            <div className="w-full">
+                              <h1 className="text-[15px]">{data?.title}</h1>
+                              <h1 className="text-[12px] transition-all cursor-pointer text-gray-500">{data?.category}</h1>
+                            </div>
+                          </div>
+                        </div>
                       );
                     })}
                   </div>
