@@ -10,6 +10,8 @@ import products_icon_inactive from "../../assets/img/sidebar/products_icon_inact
 import products_icon_active from "../../assets/img/sidebar/products_icon_active.svg";
 import order_icon_inactive from "../../assets/img/sidebar/order_icon_inactive.svg";
 import order_icon_active from "../../assets/img/sidebar/order_icon_active.svg";
+import user_icon_inactive from "../../assets/img/sidebar/user_icon_inactive.svg";
+import user_icon_active from "../../assets/img/sidebar/user_icon_active.svg";
 import product from "../../assets/icons/product.svg";
 import eko from "../../assets/img/sidebar/eko.svg";
 import logo from "../../assets/img/sidebar/logo.svg";
@@ -155,6 +157,35 @@ const Sidebar = () => {
 
             {/* before and after */}
             {location?.pathname?.includes("/orders") && (
+              <>
+                <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
+                <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-bl-2xl bg-[#227638] top-[calc(100%-10px)] rotate-180"></div>
+              </>
+            )}
+          </Link>
+
+
+          <Link
+            to="/users"
+            className={`relative flex w-full gap-3   ${
+              location?.pathname?.includes("/users")
+                ? "text-[#164E21] bg-[#FBFFF4]"
+                : "text-white"
+            } p-6    justify-start items-center `}
+          >
+            <img
+              src={
+                location?.pathname?.includes("/users")
+                  ? user_icon_active
+                  : user_icon_inactive
+              }
+              className="w-[25px]"
+              alt=""
+            />
+            <p className="hidden 2xl:block">Users</p>
+
+            {/* before and after */}
+            {location?.pathname?.includes("/users") && (
               <>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-bl-2xl bg-[#227638] top-[calc(100%-10px)] rotate-180"></div>

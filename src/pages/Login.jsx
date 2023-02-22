@@ -2,12 +2,16 @@ import React, { useRef, useState } from "react";
 // icons
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
+import { VITE_BASE_ADDRESS } from "../base_address/base_address";
+import axios from "axios";
 
 const Login = () => {
   // local variables
   const emailRef = useRef();
   const passwordRef = useRef();
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+
+
 
   return (
     <div className="area">
@@ -39,7 +43,13 @@ const Login = () => {
                 emailRef?.current?.value?.length > 0 &&
                 passwordRef?.current?.value?.length > 0
               ) {
-                console.log("Login calls");
+                const formdata = new FormData();
+                formdata?.append("email", emailRef?.current?.value);
+                formdata?.append("password", passwordRef?.current?.value);
+
+                axios
+                  .post(VITE_BASE_ADDRESS + "cms/adminLogin", formdata)
+                  ?.then((res) => console.log(res));
               } else {
                 console.log("No calls");
               }

@@ -96,10 +96,10 @@ const ProductsPage = () => {
         </div>
 
         <div>
-          <button className="bg-[#164E21] text-white rounded-full flex items-center p-3 px-8 gap-2 active:scale-95 transition-all ">
+          <Link to='/products/add-product'><button className="bg-[#164E21] text-white rounded-full flex items-center p-3 px-8 gap-2 active:scale-95 transition-all ">
             <span>Add Product</span>
             <img src={add_icon} alt="" />
-          </button>
+          </button></Link>
         </div>
       </div>
 
@@ -117,7 +117,7 @@ const ProductsPage = () => {
           />
         </div>
 
-        <input
+        {/* <input
           type="file"
           onChange={(e) => {
             const imageArray = [""];
@@ -131,7 +131,7 @@ const ProductsPage = () => {
                 console.log(res?.data);
               });
           }}
-        />
+        /> */}
 
         <div className="w-full flex flex-wrap gap-5 justify-between sm:justify-start lg:justify-end">
           {/* <div className="border-[#7d9383] border-2 p-3 rounded-full bg-white px-5 flex gap-3 items-center">

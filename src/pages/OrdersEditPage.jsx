@@ -2,70 +2,94 @@ import React, { useEffect, useState } from 'react'
 import invoice_icon_static from "../assets/img/sidebar/invoice_icon_static.svg";
 import delete_icon from "../assets/icons/delete_icon.svg";
 import item from '../assets/img/mock-images/about-us.png'
-import arrow_down from '../assets/icons/arrow-small-down-white.svg'
+import arrow_down from '../assets/icons/down-arrow.svg'
 import arrow_up from '../assets/icons/arrow-up-white.svg'
 import profile from '../assets/icons/profile-circle.svg'
 import location from '../assets/icons/location.svg'
+import delivery from '../assets/icons/delivery.svg'
+import axios from 'axios';
+import { VITE_BASE_ADDRESS } from '../base_address/base_address';
+import { useParams } from 'react-router-dom';
 
 const OrdersEditPage = () => {
 
   const [mainDropDown, setMainDropdown] = useState(false);
 
+  const params = useParams();
+
   const [orderData, setOrderData] = useState({});
 
   const [statusDropdownToggle, setStatusDropdownToggle] = useState(false);
 
+  const [selectedStatus, setSelectedStatus] = useState('');
+
   const submitPageData = () => {
-    console.log('')
+    let formdata = new FormData;
+    formdata.append('status', selectedStatus)
+    formdata.append('order_id', orderData?.order_id)
+    axios.post(VITE_BASE_ADDRESS + 'admin_order_edit', formdata).then((response) => {
+      console.log(response?.data)
+    })
   }
 
   useEffect(() => {
-    setOrderData({
-      order_id: '2186',
-      status: 'Dispatched',
-      order_date: '06.22.2019',
-      order_time: '01:36pm',
-      items: [
-        { id: '8', image: item, title: 'Multigrain Dosa Mix', unit_price: '100', size: '250g', quantity: '1', quantity_price: '100', category: 'Dosa Mix', },
-        { id: '12', image: item, title: 'Finger Millet Noodles', unit_price: '100', size: '200g', quantity: '2', quantity_price: '200', category: 'Noodle & Pasta', },
-        { id: '3', image: item, title: 'Desi Chai Masala', unit_price: '100', size: '50g', quantity: '1', quantity_price: '100', category: 'Dosa Mix', },
-      ],
-      payment_info: {
-        sub_total: '400',
-        shipping: '50',
-        tax: '20',
-        grand_total: '470'
-      },
-      shipping_info: {
-        address_line_1: '76, 7th B cross',
-        address_line_2: 'Koramangla 4B block, Koramangla',
-        landmark: 'Near BDA complex',
-        city: 'Bengaluru',
-        state: 'Karnataka',
-        country: 'India',
-      },
-      billing_info: {
-        address_line_1: '48-56, 3rd Cross Rd',
-        address_line_2: 'Tavarekere, Brindavan Nagar, S.G. Palya',
-        landmark: 'Near Juice point',
-        city: 'Bengaluru',
-        state: 'Karnataka',
-        country: 'India',
-      },
-      contact_info: {
-        first_name: 'Vivek',
-        last_name: 'Khanal',
-        email: 'vivek@khanal.com',
-        phone_number: '7789445698',
-      },
-      status_list: [
-        { status_name: 'Delivered', status_color: '#00ac69' },
-        { status_name: 'Dispatched', status_color: '#303030' },
-        { status_name: 'Canceled', status_color: '#FF0000' },
-        { status_name: 'Returned', status_color: '#e99f15' },
-      ],
+    // setOrderData({
+    //   order_id: '2186',
+    //   status: 'Dispatched',
+    //   order_date: '06.22.2019',
+    //   order_time: '01:36pm',
+    //   items: [
+    //     { id: '8', image: item, title: 'Multigrain Dosa Mix', unit_price: '100', size: '250g', quantity: '1', quantity_price: '100', category: 'Dosa Mix', },
+    //     { id: '12', image: item, title: 'Finger Millet Noodles', unit_price: '100', size: '200g', quantity: '2', quantity_price: '200', category: 'Noodle & Pasta', },
+    //     { id: '3', image: item, title: 'Desi Chai Masala', unit_price: '100', size: '50g', quantity: '1', quantity_price: '100', category: 'Dosa Mix', },
+    //   ],
+    //   payment_info: {
+    //     sub_total: '400',
+    //     shipping: '50',
+    //     tax: '20',
+    //     grand_total: '470'
+    //   },
+    //   shipping_info: {
+    //     address_line_1: '76, 7th B cross',
+    //     address_line_2: 'Koramangla 4B block, Koramangla',
+    //     landmark: 'Near BDA complex',
+    //     city: 'Bengaluru',
+    //     state: 'Karnataka',
+    //     country: 'India',
+    //   },
+    //   billing_info: {
+    //     address_line_1: '48-56, 3rd Cross Rd',
+    //     address_line_2: 'Tavarekere, Brindavan Nagar, S.G. Palya',
+    //     landmark: 'Near Juice point',
+    //     city: 'Bengaluru',
+    //     state: 'Karnataka',
+    //     country: 'India',
+    //   },
+    //   contact_info: {
+    //     first_name: 'Vivek',
+    //     last_name: 'Khanal',
+    //     email: 'vivek@khanal.com',
+    //     phone_number: '7789445698',
+    //   },
+    //   status_list: [
+    //     { status_name: 'Delivered', status_color: '#00ac69' },
+    //     { status_name: 'Dispatched', status_color: '#303030' },
+    //     { status_name: 'Canceled', status_color: '#FF0000' },
+    //     { status_name: 'Returned', status_color: '#e99f15' },
+    //   ],
+    // })
+
+    let formdata = new FormData();
+    formdata.append('order_id', params?.order_id)
+    axios.post(VITE_BASE_ADDRESS + 'admin_order_edit_view', formdata).then((response) => {
+      console.log(response?.data)
+      setOrderData(response?.data)
     })
   }, [])
+
+  useEffect(() => {
+    console.log(params?.order_id)
+  }, [selectedStatus])
 
 
   return (
@@ -75,7 +99,7 @@ const OrdersEditPage = () => {
         {/* header */}
         <div className="flex justify-between items-start md:items-center sticky top-0 py-5">
 
-
+          {/* order information */}
           <div className='flex flex-col md:flex-row justify-start items-start md:items-center gap-5'>
             <h1 className="text-xl ">
               Order{" "}
@@ -85,18 +109,26 @@ const OrdersEditPage = () => {
             </h1>
             <div className='flex flex-col md:flex-row justify-center items-start md:items-center gap-5'>
               <div>
-                <h1 className='text-[13px] bg-opacity-5 py-[5px] px-2 w-full text-center bg-[white] text-[#00ac69] rounded-lg border '>Delivered</h1>
+                {
+                  orderData?.status_list?.map((data, i) => {
+                      if (data?.status_name === orderData?.status) {
+                        return (
+                          <h1 key={i} className='text-[13px] bg-opacity-5 py-[5px] px-2 w-full text-center bg-[white] rounded-lg border' style={{color: data?.status_color }}>{orderData?.status}</h1>
+                        )
+                      }
+                    })
+                }
               </div>
               <div className='w-[1px] h-[15px] bg-gray-400 hidden md:block'></div>
               <div className='flex items-start gap-2'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                 </svg>
                 <h1 className='text-[12px] text-gray-600'><span className='pr-2'>06.22.2019</span><span className='pr-2'>at</span><span className=''>01:36pm</span></h1></div>
             </div>
           </div>
 
-
+          {/* buttons */}
           <div className='flex justify-center items-center gap-3 relative'>
             <button className="px-4 text-[19px] py-[5px] rounded-xl bg-opacity-90 hover:bg-opacity-100 transition-all active:scale-95 bg-[#208a48] text-white" onClick={() => setMainDropdown(!mainDropDown)}>
               ⋮
@@ -121,8 +153,6 @@ const OrdersEditPage = () => {
               SAVE CHANGES
             </button>
           </div>
-
-
 
         </div>
 
@@ -164,7 +194,7 @@ const OrdersEditPage = () => {
                         <div className='w-full bg-white grid grid-cols-[45%_1fr_1fr_1fr] justify-center items-start py-2 px-4' key={i}>
                           <div className='flex justify-start items-center gap-3'>
                             <div className='w-fit'>
-                              <img src={data?.image} className='w-[65px]' alt="" />
+                              <img src={VITE_BASE_ADDRESS + data?.image} className='w-[65px]' alt="" />
                             </div>
                             <div className='flex flex-col justify-center items-start gap'>
                               <h1 className='text-[14px] font-[500] text-gray-700'>{data?.title}</h1>
@@ -202,19 +232,19 @@ const OrdersEditPage = () => {
                 <div className=' flex flex-col gap-[4px]'>
                   <div className='flex justify-between w-full'>
                     <h1 className='text-[13px] text-gray-500'>Subtotal <span className='text-gray-400 text-[11px]'>&#40;{orderData?.items?.length} items&#41;</span></h1>
-                    <h1 className='text-[13px] text-gray-500'>{orderData?.payment_info?.shipping}</h1>
+                    <h1 className='text-[13px] text-gray-500'>Rs {orderData?.payment_info?.sub_total}</h1>
                   </div>
                   <div className='flex justify-between w-full'>
                     <h1 className='text-[13px] text-gray-500'>Delivery Charges</h1>
-                    <h1 className='text-[13px] text-gray-500'>Rs 86</h1>
+                    <h1 className='text-[13px] text-gray-500'>Rs {orderData?.payment_info?.shipping}</h1>
                   </div>
                   <div className='flex justify-between w-full pb-2'>
                     <h1 className='text-[13px] text-gray-500'>Tax</h1>
-                    <h1 className='text-[13px] text-gray-500'>Rs 100</h1>
+                    <h1 className='text-[13px] text-gray-500'>Rs {orderData?.payment_info?.tax}</h1>
                   </div>
                   <div className='flex justify-between w-full pt-2 border-t'>
                     <h1 className='text-[14px] font-[600]'>Order Total</h1>
-                    <h1 className='text-[14px] font-[600]'>Rs 456</h1>
+                    <h1 className='text-[14px] font-[600]'>Rs {orderData?.payment_info?.grand_total}</h1>
                   </div>
                 </div>
 
@@ -232,20 +262,35 @@ const OrdersEditPage = () => {
 
 
               {/* delivery status toggle */}
-              <div className='w-full flex justify-end items-center px-3 pb-6 border-b'>
+              <div className='w-full flex justify-end items-center px-2 pb-8 border-b'>
                 <div className='w-full flex gap-6 justify-between items-center relative'>
-                  <div className='w-fit'>
-                    <h1 className={`text-[12px] text-gray-400`}>Delivery Status</h1>
+                  <div className='w-full flex justify-start gap-1 items-center'>
+                    <span><img src={delivery} className='w-[39px]' alt="" /></span><h1 className='text-[16px] font-[500]'>Delivery Status</h1>
                   </div>
-                  <div className='w-fit'>
-                    <div className='w-fit flex items-center gap-4 rounded-[10px] p-1 px-2'>
-                      <span className={`text-[14px] font-[500] ${orderData?.status === 'Delivered' ? 'text-[#00ac69]' : orderData?.status === 'Dispatched' ? 'text-[#303030]' : orderData?.status === 'Canceled' ? 'text-[#FF0000]' : orderData?.status === 'Returned' ? 'text-[#e99f15]' : ''}`}>{orderData?.status}</span>
-                      <button className='bg-[#208a48] rounded-[8px] shadow-md' onClick={() => setStatusDropdownToggle(!statusDropdownToggle)}><img src={arrow_down} className={`w-full max-w-[24px] transition-all duration-300 ${statusDropdownToggle ? 'rotate-180' : ''}`} alt="" /></button>
+                  <div className='w-fit flex items-center gap-2'>
+                    {
+                      orderData?.status_list?.filter((filterData) => {
+                        if (filterData?.status_name === orderData?.status) {
+                          return (
+                            filterData
+                          )
+                        }
+                      })
+                        ?.map((data, i) => (
+                          <div key={i} className='w-[8px] h-[8px] rounded-full' style={{ backgroundColor: data?.status_color }}>
+
+                          </div>
+                        ))
+                    }
+                    <div className='w-full min-w-[130px] flex justify-between items-center gap-4 border rounded-[10px] p-1 px-2' onClick={() => setStatusDropdownToggle(!statusDropdownToggle)}>
+                      <span className={`text-[14px] font-[500]`}>{orderData?.status}</span>
+                      {/* <div className='w-[0.5px] h-[14px] bg-gray-400'></div> */}
+                      <button className='w-[15px]' ><img src={arrow_down} className={`transition-all duration-300 ${statusDropdownToggle ? 'rotate-180' : ''}`} alt="" /></button>
                     </div>
                   </div>
 
                   {/* status dropdown */}
-                  <div className={`w-[60%] bg-white rounded-[10px] z-[550] shadow-md absolute overflow-hidden top-[100%] right-0 transition-all duration-300 ${statusDropdownToggle ? 'h-[147px] ease-in border' : 'h-0 ease-out'}`}>
+                  <div className={`w-[30%] bg-white rounded-[10px] z-[550] shadow-md absolute overflow-hidden top-[100%] right-0 transition-all duration-300 ${statusDropdownToggle ? 'h-[147px] ease-in border' : 'h-0 ease-out'}`}>
                     <div className='w-full'>
                       {
                         orderData?.status_list?.map((data, i) => (
@@ -254,9 +299,10 @@ const OrdersEditPage = () => {
                               ...orderData,
                               status: data?.status_name
                             })
+                            setSelectedStatus(data?.status_name)
                             setStatusDropdownToggle(false)
                           }}>
-                            <h1 className='text-[13px]' style={{ color: data?.status_color }}>{data?.status_name}</h1>
+                            <h1 className='text-[13px]'>{data?.status_name}</h1>
                           </div>
                         ))
                       }

@@ -251,7 +251,7 @@ const OrdersPage = () => {
                       key={i}
                     >
                       <div className="w-full flex items-center ">
-                        <Link to={`/orders/` + 1}>
+                        <Link to={`/orders/` + data?.invoice_id}>
                           <p className="text-black font-medium cursor-pointer">
                             #{data?.invoice_id}
                           </p>

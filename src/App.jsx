@@ -15,19 +15,11 @@ import InvoicePage from "./pages/InvoicePage";
 import ProductsEditPage from "./pages/ProductsEditPage";
 import OrdersEditPage from "./pages/OrdersEditPage";
 import { VITE_BASE_ADDRESS } from "./base_address/base_address";
+import AddProductPage from "./pages/AddProductPage";
+import UsersPage from "./pages/UsersPage";
 
 function App() {
   const location = useLocation();
-
-  useEffect(() => {
-    const formdata = new FormData();
-    formdata?.append("email", "vivek.k@ekoinfomatics.com");
-    formdata?.append("password", "12345678");
-
-    axios
-      .post(VITE_BASE_ADDRESS + "login", formdata)
-      ?.then((res) => console.log(res));
-  }, []);
 
   return (
     <div className="cursor-default bg-[#FBFFF4] min-h-[100vh]">
@@ -57,14 +49,25 @@ function App() {
             <Route element={<ProductsPage />} path={'/products'} />
             <Route element={<OrdersPage />} path={'/orders'} />
           </Route> */}
+
+
           {/* <Route path='/admin-dashboard' element={<Dashboard />} /> */}
+
+
           <Route element={<InvoicePage />} path={"/invoices"} />
+
+
           <Route element={<ProductsPage />} path={"/products"} />
-          <Route
-            element={<ProductsEditPage />}
-            path={"/products/:product_id"}
-          />
+          <Route element={<ProductsEditPage />} path={"/products/:product_id"} />
+          <Route element={<AddProductPage />} path={"/products/add-product"} />
+
+
           <Route element={<BuyersPage />} path={"/buyers"} />
+
+          
+          <Route element={<UsersPage />} path={"/users"} />
+
+
           <Route element={<OrdersPage />} path={"/orders"} />
           <Route element={<OrdersEditPage />} path={"/orders/:order_id"} />
 
