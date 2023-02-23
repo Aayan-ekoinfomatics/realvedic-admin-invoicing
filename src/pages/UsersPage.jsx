@@ -134,6 +134,8 @@ const UsersPage = () => {
 
     return (
         <div>
+
+            {/* header */}
             <div className="flex  relative justify-between items-start sm:items-center w-[90%] mx-auto pt-5">
                 <div className="flex ">
                     <img src={user_icon_static} alt="" />
@@ -166,11 +168,11 @@ const UsersPage = () => {
 
                 <div className="w-full flex flex-wrap gap-5 justify-between sm:justify-start lg:justify-end">
                     {/* <div className="border-[#7d9383] border-2 p-3 rounded-full bg-white px-5 flex gap-3 items-center">
-            <h1>Quantity</h1>
-            <div>
-              <img src={down_arrow} alt="quantity" />
-            </div>
-          </div> */}
+                        <h1>Quantity</h1>
+                        <div>
+                            <img src={down_arrow} alt="quantity" />
+                        </div>
+                    </div> */}
                     {/* <div className="relative">
                         <div
                             onClick={() => setCalendarStatus(!calendarStatus)}
@@ -250,8 +252,7 @@ const UsersPage = () => {
                                     return (
                                         <div
                                             key={index}
-                                            className={`w-full 
-                      `}
+                                            className={`w-full`}
                                         >
                                             <h1
                                                 className={` ${data === "Actions" ? "mx-auto" : ""
@@ -352,46 +353,102 @@ const UsersPage = () => {
                 </div>
             </div>
 
-            {
+            {/* {
                 addUserPopUp &&
-                <div className='bg-white shadow-xl rounded-[20px] w-full max-w-[600px] max-h-[800px] -translate-x-[50%] -translate-y-[50%] top-[50%] left-[50%] p-4 fixed z-[540]' >
-                    <div className="w-full flex justify-end">
+                <div className='bg-white shadow-xl animate rounded-[20px] border-2 border-[#7d9383] w-full max-w-[600px] max-h-[800px] -translate-x-[50%] -translate-y-[50%] top-[50%] left-[50%] p-4 fixed z-[540]' >
+                    <div className="w-full flex justify-end items-center">
                         <img src={cross} className="w-[16px] cursor-pointer" alt="" onClick={() => setAddUserPopUp(false)} />
                     </div>
+                    <div className="w-full flex justify-center items-center mt-1">
+                        <h1 className="text-[16px] font-[600]">Add user details</h1>
+                    </div>
                     <div className="w-full">
-                        <div className="w-full flex items-center gap-2 py-2 mt-10">
-                            <input type="text" placeholder="Enter first name" className="w-full py-[6px] px-2 border text-[13px]" />
-                            <input type="text" placeholder="Enter last name" className="w-full py-[6px] px-2 border text-[13px]" />
+                        <div className="w-full flex items-center gap-2 py-2 mt-3">
+                            <input type="text" placeholder="Enter first name" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                            <input type="text" placeholder="Enter last name" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                         </div>
                         <div className="w-full flex items-center gap-2 py-2">
-                            <input type="text" placeholder="ISD" className="w-full py-[6px] px-2 border text-[13px] max-w-[50px]" />
-                            <input type="text" placeholder="Enter phone number" className="w-full py-[6px] px-2 border text-[13px]" />
-                            <input type="date" className="w-full max-w-[135px] py-[6px] px-2 border text-[13px]" />
+                            <input type="text" placeholder="ISD" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px] max-w-[50px]" />
+                            <input type="text" placeholder="Enter phone number" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                            <input type="date" className="w-full max-w-[135px] placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                         </div>
-                        <div className="w-full flex items-center gap-2 py-2">
-                            <input type="email" placeholder="Enter email" className="w-full py-[6px] px-2 border text-[13px]" />
-                            <input type="password" placeholder="Enter password" className="w-full py-[6px] px-2 border text-[13px]" />
+                        <div className="w-full flex flex-col items-center gap-2 py-2">
+                            <input type="email" placeholder="Enter email" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                            <div className="w-full flex justify-center gap-2">
+                                <input type="password" placeholder="Enter password" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                                <input type="password" placeholder="Confirm password" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                            </div>
                         </div>
                     </div>
                     <div className="w-full mt-10">
                         <div className="w-full flex flex-col items-center gap-3 py-2">
-                            <input type="text" placeholder="Enter address line 1" className="w-full py-[6px] px-2 border text-[13px]" />
-                            <input type="text" placeholder="Enter address line 2" className="w-full py-[6px] px-2 border text-[13px]" />
+                            <input type="text" placeholder="Enter address line 1" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                            <input type="text" placeholder="Enter address line 2" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                         </div>
                         <div className="w-full flex items-center gap-2 py-2">
-                            <input type="text" placeholder="landmark" className="w-full py-[6px] px-2 border text-[13px]" />
-                            <input type="text" placeholder="city" className="w-full py-[6px] px-2 border text-[13px]" />
+                            <input type="text" placeholder="landmark" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                            <input type="text" placeholder="city" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                         </div>
                         <div className="w-full flex items-center gap-2 py-2">
-                            <input type="text" placeholder="state" className="w-full py-[6px] px-2 border text-[13px]" />
-                            <input type="text" placeholder="country" className="w-full py-[6px] px-2 border text-[13px]" />
+                            <input type="text" placeholder="state" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                            <input type="text" placeholder="country" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        </div>
+                        <div className="w-full flex justify-between items-center gap-2 py-2">
+                            <input type="text" placeholder="Zip code" className="w-[50%] placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                         </div>
                     </div>
                     <div className="w-full mt-5 flex justify-end">
-                        <button className="px-3 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px]">SUBMIT</button>
+                        <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all ">SUBMIT</button>
                     </div>
                 </div>
-            }
+            } */}
+
+            <div className={`bg-white scale-0 transition-all duration-100 overflow-hidden ${addUserPopUp ? 'ease-in scale-100' : 'ease-out'} shadow-xl  rounded-[20px] border-2 border-[#7d9383] w-full max-w-[600px] max-h-[800px] -translate-x-[50%] -translate-y-[50%] top-[50%] left-[50%] p-4 fixed z-[540]`} >
+                <div className="w-full flex justify-end items-center">
+                    <img src={cross} className="w-[16px] cursor-pointer" alt="" onClick={() => setAddUserPopUp(false)} />
+                </div>
+                <div className="w-full flex justify-center items-center mt-1">
+                    <h1 className="text-[16px] font-[600]">Add user details</h1>
+                </div>
+                <div className="w-full">
+                    <div className="w-full flex items-center gap-2 py-2 mt-3">
+                        <input type="text" placeholder="Enter first name" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="Enter last name" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                    </div>
+                    <div className="w-full flex items-center gap-2 py-2">
+                        <input type="text" placeholder="ISD" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px] max-w-[50px]" />
+                        <input type="text" placeholder="Enter phone number" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="date" className="w-full max-w-[135px] placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                    </div>
+                    <div className="w-full flex flex-col items-center gap-2 py-2">
+                        <input type="email" placeholder="Enter email" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <div className="w-full flex justify-center gap-2">
+                            <input type="password" placeholder="Enter password" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                            <input type="password" placeholder="Confirm password" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full mt-10">
+                    <div className="w-full flex flex-col items-center gap-3 py-2">
+                        <input type="text" placeholder="Enter address line 1" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="Enter address line 2" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                    </div>
+                    <div className="w-full flex items-center gap-2 py-2">
+                        <input type="text" placeholder="landmark" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="city" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                    </div>
+                    <div className="w-full flex items-center gap-2 py-2">
+                        <input type="text" placeholder="state" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="country" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                    </div>
+                    <div className="w-full flex justify-between items-center gap-2 py-2">
+                        <input type="text" placeholder="Zip code" className="w-[50%] placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                    </div>
+                </div>
+                <div className="w-full mt-5 flex justify-end">
+                    <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all ">SUBMIT</button>
+                </div>
+            </div>
 
             {
                 addUserPopUp &&

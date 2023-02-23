@@ -96,10 +96,12 @@ const OrdersPage = () => {
         </div>
 
         <div>
-          <button className="bg-[#164E21] text-white rounded-full flex items-center p-3 px-8 gap-2 active:scale-95 transition-all ">
-            <span>Create Order</span>
-            <img src={add_icon} alt="" />
-          </button>
+          <Link to='/orders/add-order'>
+            <button className="bg-[#164E21] text-white rounded-full flex items-center p-3 px-8 gap-2 active:scale-95 transition-all ">
+              <span>Create Order</span>
+              <img src={add_icon} alt="" />
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -180,7 +182,7 @@ const OrdersPage = () => {
       </div>
 
       {/* active filters */}
-      <div className="w-[90%] mx-auto mt-5 flex gap-2 flex-wrap">
+      {/* <div className="w-[90%] mx-auto mt-5 flex gap-2 flex-wrap">
         {activeFilter?.map((data, index) => {
           return (
             <div
@@ -191,7 +193,7 @@ const OrdersPage = () => {
             </div>
           );
         })}
-      </div>
+      </div> */}
 
       {/* invoices */}
       <div className=" w-[90%] mx-auto mt-10">

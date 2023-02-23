@@ -17,6 +17,7 @@ import OrdersEditPage from "./pages/OrdersEditPage";
 import { VITE_BASE_ADDRESS } from "./base_address/base_address";
 import AddProductPage from "./pages/AddProductPage";
 import UsersPage from "./pages/UsersPage";
+import OrderAddPage from "./pages/OrderAddPage";
 
 function App() {
   const location = useLocation();
@@ -69,6 +70,7 @@ function App() {
 
 
           <Route element={<OrdersPage />} path={"/orders"} />
+          <Route element={<OrderAddPage />} path={"/orders/add-order"} />
           <Route element={<OrdersEditPage />} path={"/orders/:order_id"} />
 
           {/* <Route element={<Dashboard />} path={'/'} /> */}
