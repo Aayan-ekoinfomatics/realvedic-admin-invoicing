@@ -51,24 +51,24 @@ const ProductsPage = () => {
       value:
         JSON.stringify(startDate) === JSON.stringify(endDate)
           ? new Date(startDate)?.getDate() +
-            " " +
-            MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
-            " " +
-            new Date(startDate)?.getFullYear()
+          " " +
+          MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
+          " " +
+          new Date(startDate)?.getFullYear()
           : // new Date(startDate)?.getFullYear()?.toString()?.split("")[2] +
-            // "" +
-            // new Date(startDate)?.getFullYear()?.toString()?.split("")[3]
-            new Date(startDate)?.getDate() +
-            " " +
-            MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
-            " " +
-            new Date(startDate)?.getFullYear() +
-            "  - " +
-            new Date(endDate)?.getDate() +
-            " " +
-            MonthList[new Date(endDate)?.getMonth(endDate)]?.short_name +
-            " " +
-            new Date(endDate)?.getFullYear(),
+          // "" +
+          // new Date(startDate)?.getFullYear()?.toString()?.split("")[3]
+          new Date(startDate)?.getDate() +
+          " " +
+          MonthList[new Date(startDate)?.getMonth(startDate)]?.short_name +
+          " " +
+          new Date(startDate)?.getFullYear() +
+          "  - " +
+          new Date(endDate)?.getDate() +
+          " " +
+          MonthList[new Date(endDate)?.getMonth(endDate)]?.short_name +
+          " " +
+          new Date(endDate)?.getFullYear(),
     },
 
     // {
@@ -79,9 +79,11 @@ const ProductsPage = () => {
 
   // api call
   useEffect(() => {
-    axios.get(VITE_BASE_ADDRESS + "/adminProductView")?.then((res) => {
-      console.log("adminProductView response", res?.data);
-      setPageData(res?.data);
+    let formdata = new FormData;
+    formdata.append('token', localStorage.getItem('admin-token'));
+    axios.post(VITE_BASE_ADDRESS + "cms/adminProductView", formdata)?.then((response) => {
+      console.log("adminProductView response", response?.data);
+      setPageData(response?.data);
     });
   }, []);
 
@@ -147,9 +149,8 @@ const ProductsPage = () => {
             >
               <h1>Date</h1>
               <div
-                className={` ${
-                  calendarStatus ? "-rotate-180" : "rotate-0"
-                } transition-all `}
+                className={` ${calendarStatus ? "-rotate-180" : "rotate-0"
+                  } transition-all `}
               >
                 <img src={down_arrow} alt="date" />
               </div>
@@ -170,11 +171,11 @@ const ProductsPage = () => {
                   onChange={handleSelect}
                   moveRangeOnFirstSelection={false}
                   className="text-[8px] sm:text-[10px] lg:text-[12px]"
-                  // showMonthAndYearPickers={false}
-                  // showSelectionPreview={false}
-                  // editableDateInputs={true}
-                  // direction={"horizontal"}
-                  // scroll={{ enabled: true }}
+                // showMonthAndYearPickers={false}
+                // showSelectionPreview={false}
+                // editableDateInputs={true}
+                // direction={"horizontal"}
+                // scroll={{ enabled: true }}
                 />
               </div>
             )}
@@ -214,19 +215,18 @@ const ProductsPage = () => {
       <div className=" w-[90%] mx-auto mt-10">
         <div className=" rounded-[25px]   overflow-hidden  border-[#7d9383] border-2 bg-white  p-0">
           <div className="overflow-x-scroll ">
-            <div className="min-w-[1300px]  rounded-[25px] p-5 pr-0 ">
-              <div className="w-full grid grid-cols-7 text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2 pb-5 gap-2 ">
+            <div className="  rounded-[25px] p-5 pr-0 ">
+              <div className="w-full grid grid-cols-[80px_150px_1fr_1fr_1fr_1fr_80px] lg:grid-cols-[100px_280px_1fr_1fr_1fr_1fr_100px] text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2 pb-5 gap-2 ">
                 {pageData?.titles?.map((data, index) => {
                   return (
                     <div
                       key={index}
-                      className={`w-full 
+                      className={`w-full flex justify-start items-center
                       `}
                     >
                       <h1
-                        className={` ${
-                          data === "Actions" ? "mx-auto" : ""
-                        }  w-max text-center`}
+                        className={` ${data === "Product ID" ? "max-w-[100px]" : ""
+                          }  text-center`}
                       >
                         {data}
                       </h1>
@@ -267,43 +267,43 @@ const ProductsPage = () => {
                   })
                   .map((data, i) => (
                     <div
-                      className="grid grid-cols-7 gap-2 border-b border-b-[#e6e6e69f] py-5 text-black text-sm "
+                      className="grid grid-cols-[80px_150px_1fr_1fr_1fr_1fr_80px] lg:grid-cols-[100px_280px_1fr_1fr_1fr_1fr_100px] gap-2 lg:gap-4 border-b border-b-[#e6e6e69f] py-5 text-black text-sm "
                       key={i}
                     >
-                      <div className="w-full flex items-center ">
-                        <Link to={"" + data?.product_id}>
+                      <div className="w-full max-w-[100px] flex justify-start items-center ">
+                        <Link to={"/products/" + data?.product_id}>
                           <p className="text-black font-medium cursor-pointer">
                             #{data?.product_id}
                           </p>
                         </Link>
                       </div>
-                      <div className="w-full flex  items-center ">
+                      <div className="w-full flex justify-start items-center ">
                         <p className=" ">{data?.product_name}</p>
                       </div>
-                      <div className="w-full flex  items-center ">
+                      <div className="w-full flex justify-start items-center ">
                         <p className=" ">{data?.category}</p>
                       </div>
-                      <div className="w-full flex items-center ">
+                      <div className="w-full flex justify-start items-center ">
                         <p className="">{data?.hsn}</p>
                       </div>
-                      <div className="w-full flex items-center">
+                      <div className="w-full flex justify-start items-center">
                         <p className="">{data?.stock}</p>
                       </div>
 
-                      <div className="w-full flex gap-5 items-center ">
+                      <div className="w-full flex gap-4 justify-start items-center ">
                         {/* {data?.status === "Booked" && (
                           <p className="bg-[#e99f15] rounded-full w-[8px] aspect-square"></p>
                         )} */}
-                        {data?.status === "In stock" && (
+                        {data?.status && (
                           <p className="bg-[#00ac69] rounded-full w-[8px] aspect-square"></p>
                         )}
-                        {data?.status === "Out of stock" && (
+                        {!data?.status && (
                           <p className="bg-[#FF0000] rounded-full w-[8px] aspect-square"></p>
                         )}
-                        <p className="">{data?.status}</p>
+                        <p className="">{data?.status ? 'Active' : 'Inactive'}</p>
                       </div>
 
-                      <div className="w-full py-4 flex justify-center items-center gap-6">
+                      <div className="w-full py-4 flex justify-start  items-center gap-6">
                         <div>
                           <img
                             src={edit_icon}
@@ -316,6 +316,21 @@ const ProductsPage = () => {
                             src={delete_icon}
                             className="cursor-pointer w-[16px]"
                             alt=""
+                            onClick={async () => {
+
+                              if (confirm('Please confirm to delete product')) {
+                                let formdata = new FormData;
+                                formdata.append('product_id', data?.product_id);
+                                formdata.append('token', localStorage.getItem('admin-token'));
+                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminProductDelete', formdata).then((response) => {
+                                  console.log(response?.data)
+                                })
+                                await axios.post(VITE_BASE_ADDRESS + "cms/adminProductView", formdata)?.then((response) => {
+                                  console.log("adminProductView response", response?.data);
+                                  setPageData(response?.data);
+                                });
+                              }}
+                              }
                           />
                         </div>
                       </div>

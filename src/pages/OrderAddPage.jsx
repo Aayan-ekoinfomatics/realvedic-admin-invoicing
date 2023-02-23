@@ -94,10 +94,10 @@ const OrderAddPage = () => {
             </div>
 
             {/* main flex */}
-            <div className='w-full flex mt-10 gap-5'>
+            <div className='w-full flex flex-col lg:flex-row lg:mt-10 gap-5'>
 
                 {/* left flex */}
-                <div className='w-[65%]'>
+                <div className='lg:w-[65%]'>
 
                     {/* products */}
                     <div className='w-full border-2 bg-white border-[#7d9383] rounded-[15px] min-h-[400px] shadow-md px-4'>
@@ -106,10 +106,10 @@ const OrderAddPage = () => {
                         </div>
 
                         {/* searchbar & button -- ेाोी */}
-                        <div className='w-full flex justify-between relative items-center py-2 '>
+                        <div className='w-full flex justify-between items-center py-2 gap-2'>
 
                             {/* searchbar */}
-                            <div className="border-[#7d9383] border-2 rounded-[15px] bg-white flex items-center overflow-hidden px- w-full max-w-[500px] ">
+                            <div className="border-[#7d9383] border-2 rounded-[15px] bg-white flex items-center overflow w-full relative">
                                 
                                 <label htmlFor="search_order" className="px-2  pr-0">
                                     <img src={search_icon} className="w-[18px]" alt="" />
@@ -117,7 +117,7 @@ const OrderAddPage = () => {
                                 <input
                                     type="text"
                                     id="search_order"
-                                    className="w-full outline-none px-2 py-1 text-[14px]"
+                                    className="w-full outline-none px-2 py-1 text-[14px] rounded-[15px]"
                                     onChange={(e) => {
                                         setSearchData(e?.target?.value)
                                         setSearchProductsDropdownToggle(true)
@@ -125,8 +125,8 @@ const OrderAddPage = () => {
                                 />
 
                                 {/* dropdown */}
-                                <div className={`w-[55%] left-[1%] absolute top-[85%] bg-[#7d9383] rounded-b-[15px] shadow-md transition-all duration-300 overflow-hidden ${searchData.length > 0 ? ' h-[480px] ease-in' : 'h-0 ease-out'} max-h-[500px]`}>
-                                    <div className='w-[99%] mx-auto max-w-[500px] bg-white h-[470px] border rounded-b-[12px]  border-t-0 overflow-y-scroll container'>
+                                <div className={`w-full left-0 right-0 absolute top-[115%] bg-[#7d9383] rounded-b-[15px] shadow-md transition-all duration-300 overflow-hidden ${searchData.length > 0 || searchProductsDropdownToggle ? ' h-[480px] ease-in' : 'h-0 ease-out'} max-h-[500px]`}>
+                                    <div className='w-[99%] mx-auto bg-white h-[470px] border rounded-b-[12px]  border-t-0 overflow-y-scroll container'>
                                         {
                                             orderAddData?.all_products.filter((filterValue) => {
                                                 if (searchData === '') {
@@ -158,17 +158,9 @@ const OrderAddPage = () => {
                                                                 <div className='w-full flex-col flex items-start'>
                                                                     {
                                                                         data?.size?.map((size, i) => (
-                                                                            <div key={i} className='w-full flex justify-start px-2 py-1 hover:bg-gray-100'>
+                                                                            <div key={i} className='w-full flex justify-between px-2 py-1 hover:bg-gray-100'>
                                                                                 <h1 className='text-[12px] text-gray-400'>{size}</h1>
-                                                                            </div>
-                                                                        ))
-                                                                    }
-                                                                </div>
-                                                                <div className='w-full flex-col flex'>
-                                                                    {
-                                                                        data?.price?.map((price, i) => (
-                                                                            <div key={i} className='w-full flex justify-end px-2 py-1 hover:bg-gray-100'>
-                                                                                <h1 className='text-[12px] text-gray-400'>{price}</h1>
+                                                                                <h1 className='text-[12px] text-gray-400'>{ data?.price[i]}</h1>
                                                                             </div>
                                                                         ))
                                                                     }
@@ -184,8 +176,10 @@ const OrderAddPage = () => {
                             </div>
 
                             {/* add product button */}
-                            <div className='w-fit'>
-                                <button className='px-4 py-[5px] rounded-[10px] bg-[#208a48] text-white text-[14px] shadow-md active:scale-95 transition-all'>Add Product</button>
+                            <div className='w-full max-w-[120px]'>
+                                <button className='px-6 py-[6px] rounded-[10px] bg-gray-50 text-gray-800 text-[14px] border border-[#7d9383] active:scale-95 transition-all' onClick={() => {
+                                    setSearchProductsDropdownToggle(!searchProductsDropdownToggle)
+                                }}>Browse</button>
                             </div>
                         </div>
 
@@ -241,7 +235,7 @@ const OrderAddPage = () => {
                 </div>
 
                 {/* right flex */}
-                <div className='w-[45%]'>
+                <div className='lg:w-[45%]'>
 
                     {/* payment details */}
                     <div className='w-full border-2 bg-white border-[#7d9383] rounded-[15px] shadow-md px-4 pb-3'>

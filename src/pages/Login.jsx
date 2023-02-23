@@ -4,12 +4,15 @@ import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   // local variables
   const emailRef = useRef();
   const passwordRef = useRef();
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+
+  const navigate = useNavigate();
 
 
 
@@ -47,11 +50,19 @@ const Login = () => {
                 formdata?.append("email", emailRef?.current?.value);
                 formdata?.append("password", passwordRef?.current?.value);
 
-                axios
-                  .post(VITE_BASE_ADDRESS + "cms/adminLogin", formdata)
-                  ?.then((res) => console.log(res));
+                axios.post(VITE_BASE_ADDRESS + "cms/login", formdata)?.then((response) => {
+                  console.log(response);
+                  if (response?.data?.status) {
+                    localStorage.setItem('status', response?.data?.status)
+                    localStorage.setItem('admin-token', response?.data?.token)
+                    alert(response?.data?.message)
+                    navigate('/products')
+                  }else {
+                    alert(response?.data?.message)
+                  }
+                })
               } else {
-                console.log("No calls");
+                console.log("No calls length short");
               }
             }}
           >

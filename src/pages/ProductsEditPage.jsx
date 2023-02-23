@@ -4,163 +4,167 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import cross from "../assets/icons/cross.svg";
 import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const ProductsEditPage = () => {
   const [pageData, setPageData] = useState(
-  //   {
-  //   images: ["", "", "", ""],
-  //   name: "Angaya Podi",
-  //   id: 554254,
-  //   status: "In Stock",
-  //   category: "Spices",
-  //   hsn: 354564646464,
-  //   variant_data: [
-  //     {
-  //       variant_name: "100g",
-  //       price: 50,
-  //       quantity: 80,
-  //       sku: 115245245465,
-  //     },
+    //   {
+    //   images: ["", "", "", ""],
+    //   name: "Angaya Podi",
+    //   id: 554254,
+    //   status: "In Stock",
+    //   category: "Spices",
+    //   hsn: 354564646464,
+    //   variant_data: [
+    //     {
+    //       variant_name: "100g",
+    //       price: 50,
+    //       quantity: 80,
+    //       sku: 115245245465,
+    //     },
 
-  //     {
-  //       variant_name: "200g",
-  //       price: 100,
-  //       quantity: 50,
-  //       sku: 115245245466,
-  //     },
+    //     {
+    //       variant_name: "200g",
+    //       price: 100,
+    //       quantity: 50,
+    //       sku: 115245245466,
+    //     },
 
-  //     {
-  //       variant_name: "250g",
-  //       price: 150,
-  //       quantity: 120,
-  //       sku: 115245245467,
-  //     },
-  //     {
-  //       variant_name: "100g",
-  //       price: 50,
-  //       quantity: 80,
-  //       sku: 115245245465,
-  //     },
+    //     {
+    //       variant_name: "250g",
+    //       price: 150,
+    //       quantity: 120,
+    //       sku: 115245245467,
+    //     },
+    //     {
+    //       variant_name: "100g",
+    //       price: 50,
+    //       quantity: 80,
+    //       sku: 115245245465,
+    //     },
 
-  //     {
-  //       variant_name: "200g",
-  //       price: 100,
-  //       quantity: 50,
-  //       sku: 115245245466,
-  //     },
+    //     {
+    //       variant_name: "200g",
+    //       price: 100,
+    //       quantity: 50,
+    //       sku: 115245245466,
+    //     },
 
-  //     {
-  //       variant_name: "250g",
-  //       price: 150,
-  //       quantity: 120,
-  //       sku: 115245245467,
-  //     },
-  //   ],
-  //   sibling_product: {
-  //     product_id: 12245,
-  //     product_name: "Multigrain Dosa Mix",
-  //     img: "",
-  //     category: "Flour Packs",
-  //   },
+    //     {
+    //       variant_name: "250g",
+    //       price: 150,
+    //       quantity: 120,
+    //       sku: 115245245467,
+    //     },
+    //   ],
+    //   sibling_product: {
+    //     product_id: 12245,
+    //     product_name: "Multigrain Dosa Mix",
+    //     img: "",
+    //     category: "Flour Packs",
+    //   },
 
-  //   nutritional_info: [
-  //     {
-  //       n_name: "Total Fat",
-  //       n_value: 5,
-  //       n_unit: "g",
-  //     },
-  //     {
-  //       n_name: "Protien",
-  //       n_value: 10,
-  //       n_unit: "g",
-  //     },
-  //     {
-  //       n_name: "Carbohydrate",
-  //       n_value: 16,
-  //       n_unit: "g",
-  //     },
-  //     {
-  //       n_name: "Energy",
-  //       n_value: 8,
-  //       n_unit: "kcal",
-  //     },
-  //   ],
+    //   nutritional_info: [
+    //     {
+    //       n_name: "Total Fat",
+    //       n_value: 5,
+    //       n_unit: "g",
+    //     },
+    //     {
+    //       n_name: "Protien",
+    //       n_value: 10,
+    //       n_unit: "g",
+    //     },
+    //     {
+    //       n_name: "Carbohydrate",
+    //       n_value: 16,
+    //       n_unit: "g",
+    //     },
+    //     {
+    //       n_name: "Energy",
+    //       n_value: 8,
+    //       n_unit: "kcal",
+    //     },
+    //   ],
 
-  //   meta_fields: [
-  //     {
-  //       m_name: "Label 1",
-  //       m_value: "Lorem Ipsum1",
-  //     },
-  //     {
-  //       m_name: "Label 2",
-  //       m_value: "Lorem Ipsum2",
-  //     },
-  //     {
-  //       m_name: "Label 3",
-  //       m_value: "Lorem Ipsum3",
-  //     },
-  //     {
-  //       m_name: "Label 4",
-  //       m_value: "Lorem Ipsum4",
-  //     },
-  //     {
-  //       m_name: "Label 5",
-  //       m_value: "Lorem Ipsum5",
-  //     },
-  //   ],
+    //   meta_fields: [
+    //     {
+    //       m_name: "Label 1",
+    //       m_value: "Lorem Ipsum1",
+    //     },
+    //     {
+    //       m_name: "Label 2",
+    //       m_value: "Lorem Ipsum2",
+    //     },
+    //     {
+    //       m_name: "Label 3",
+    //       m_value: "Lorem Ipsum3",
+    //     },
+    //     {
+    //       m_name: "Label 4",
+    //       m_value: "Lorem Ipsum4",
+    //     },
+    //     {
+    //       m_name: "Label 5",
+    //       m_value: "Lorem Ipsum5",
+    //     },
+    //   ],
 
-  //   reviews: [
-  //     {
-  //       img: "",
-  //       f_name: "Ayush",
-  //       l_name: "Koul",
-  //       comment: "Lorem ipsum dolor sit",
-  //     },
-  //     {
-  //       img: "",
-  //       f_name: "Utkarsh",
-  //       l_name: "Koul",
-  //       comment: "Lorem ipsum dolor sit",
-  //     },
-  //   ],
+    //   reviews: [
+    //     {
+    //       img: "",
+    //       f_name: "Ayush",
+    //       l_name: "Koul",
+    //       comment: "Lorem ipsum dolor sit",
+    //     },
+    //     {
+    //       img: "",
+    //       f_name: "Utkarsh",
+    //       l_name: "Koul",
+    //       comment: "Lorem ipsum dolor sit",
+    //     },
+    //   ],
 
-  //   status_list: ["In Stock", "Out of Stock"],
-  //   category_list: [
-  //     {
-  //       name: "Health Mix",
-  //       hsn: 112452246585,
-  //     },
-  //     {
-  //       name: "Dosa Mix",
-  //       hsn: 112452246585,
-  //     },
-  //     {
-  //       name: "Rasam & Soup",
-  //       hsn: 112452246585,
-  //     },
-  //     {
-  //       name: "Beverage Mix",
-  //       hsn: 112452246585,
-  //     },
-  //     {
-  //       name: "Spice Blends",
-  //       hsn: 112452246585,
-  //     },
-  //     {
-  //       name: "Flour Pack",
-  //       hsn: 112452246585,
-  //     },
-  //     {
-  //       name: "Noodles & Pasta",
-  //       hsn: 112452246585,
-  //     },
-  //   ],
-  // }
+    //   status_list: ["In Stock", "Out of Stock"],
+    //   category_list: [
+    //     {
+    //       name: "Health Mix",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Dosa Mix",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Rasam & Soup",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Beverage Mix",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Spice Blends",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Flour Pack",
+    //       hsn: 112452246585,
+    //     },
+    //     {
+    //       name: "Noodles & Pasta",
+    //       hsn: 112452246585,
+    //     },
+    //   ],
+    // }
   );
+
+  const params = useParams();
 
   const [openDropdown, setOpenDropdown] = useState({
     status: false,
     sibling_product: false,
+    category: false,
   });
 
   const [addedVariant, setAddedVariant] = useState({
@@ -175,6 +179,8 @@ const ProductsEditPage = () => {
   const [popUpModal, setPopUpModal] = useState(false);
 
   const [activeInputID, setActiveInputID] = useState();
+
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const [siblingProduct, setSiblingProduct] = useState()
 
@@ -344,35 +350,45 @@ const ProductsEditPage = () => {
     //   ],
     // });
 
-    axios.get(VITE_BASE_ADDRESS + "/adminProductEditView")?.then((res) => {
+    let formdata = new FormData;
+    formdata.append('token', localStorage.getItem('admin-token'))
+    formdata.append('product_id', params?.product_id)
+    axios.post(VITE_BASE_ADDRESS + "cms/singleProductView", formdata)?.then((res) => {
       console.log("adminProductEditView response", res?.data);
       setPageData(res?.data);
     });
-
-    axios.get(VITE_BASE_ADDRESS + 'siblingProductList').then((response) => {
-      console.log(response?.data)
+    axios.post(VITE_BASE_ADDRESS + 'cms/siblingProductList', formdata).then((response) => {
+      // console.log(response?.data)
       setSiblingProduct(response?.data)
     })
+
   }, []);
 
-  const submitPageData = () => {  
-    axios.post(VITE_BASE_ADDRESS + 'admin_product_edit_view', pageData).then((response) => {
+  const submitPageData = async () => {
+    await axios.post(VITE_BASE_ADDRESS + 'cms/singleProductEdit', pageData).then((response) => {
       console.log(response?.data)
     })
+    let formdata = new FormData;
+    formdata.append('token', localStorage.getItem('admin-token'))
+    formdata.append('product_id', params?.product_id)
+    await axios.post(VITE_BASE_ADDRESS + "cms/singleProductView", formdata)?.then((res) => {
+      console.log("adminProductEditView response", res?.data);
+      setPageData(res?.data);
+    });
   }
 
   useEffect(() => {
-    console.log('pageData', pageData)
+    // console.log('pageData', pageData?.sibling_product)
     // console.log('activeInputID', activeInputID);
-    // console.log("activeMeta", activeMeta);
-  }, [pageData]);
+    // console.log("openDropdown", openDropdown);
+  }, [pageData?.sibling_product]);
 
   return (
     <div className="p-5 pt-0 relative">
       {/* all content */}
       <div>
         {/* header */}
-        <div className="flex justify-between items-center  sticky top-0 py-5 bg-[#FBFFF4] ">
+        <div className="flex justify-between items-center z-[150] sticky top-0 py-5 bg-[#FBFFF4] ">
           <div>
             <h1 className="text-xl ">
               Product{" "}
@@ -408,17 +424,19 @@ const ProductsEditPage = () => {
                     className="opacity-0 h-full w-[98%] z-[200] "
                     accept="image/*"
                     onChange={(e) => {
-                      setPageData({
-                        ...pageData,
-                        images: pageData?.images?.map((img_data, img_index) => {
-                          if (img_index === 0) {
-                            return {
-                              ...img_data,
-                              img_link: e?.target?.files[0],
-                            };
-                          }
-                        }),
-                      });
+                      let formdata = new FormData()
+                      formdata.append('file', e?.target?.files[0])
+                      formdata.append('array', JSON.stringify(pageData?.images))
+                      formdata.append('index', 0)
+                      axios.post(VITE_BASE_ADDRESS + 'cms/storeImage', formdata).then((response) => {
+                        console.log(response?.data)
+                        if (response?.data?.status) {
+                          setPageData({
+                            ...pageData,
+                            images: response?.data?.array,
+                          })
+                        }
+                      })
                     }}
                   />
                   <img
@@ -450,23 +468,19 @@ const ProductsEditPage = () => {
                             className="opacity-0 z-[200]"
                             accept="image/*"
                             onChange={(e) => {
-                              // console.log('active id', activeInputID)
-                              setPageData({
-                                ...pageData,
-                                images: pageData?.images?.map(
-                                  (img_data, img_index) => {
-                                    if (img_data?.img_id === activeInputID) {
-                                      return {
-                                        ...img_data,
-                                        img_link: e?.target?.files[0],
-                                      };
-                                    } else {
-                                      return img_data;
-                                    }
-                                  }
-                                ),
-                              });
-                              // console.log(e?.target?.files)
+                              let formdata = new FormData()
+                              formdata.append('file', e?.target?.files[0])
+                              formdata.append('array', JSON.stringify(pageData?.images))
+                              formdata.append('index', i)
+                              axios.post(VITE_BASE_ADDRESS + 'cms/storeImage', formdata).then((response) => {
+                                console.log(response?.data)
+                                if (response?.data?.status) {
+                                  setPageData({
+                                    ...pageData,
+                                    images: response?.data?.array,
+                                  })
+                                }
+                              })
                             }}
                           />
                           <img
@@ -500,9 +514,71 @@ const ProductsEditPage = () => {
                   }
                 />
               </div>
+              {/* category */}
+              <div className="">
+                <h2 className="text-gray-700 text-sm mb-1">Category</h2>
+
+                <div className="relative  rounded-md  bg-gray-50  border-gray-400 border w-full outline-none flex justify-between items-center">
+                  <h2
+                    className=" p-2 cursor-pointer flex-1"
+                    onClick={() =>
+                      setOpenDropdown({
+                        ...openDropdown,
+                        category: !openDropdown?.category,
+                      })
+                    }
+                  >
+                    {pageData?.category?.name}
+                  </h2>
+
+                  <span
+                    onClick={() =>
+                      setOpenDropdown({
+                        ...openDropdown,
+                        category: !openDropdown?.category,
+                      })
+                    }
+                    className={` text-gray-500 ${openDropdown?.category ? "-rotate-180" : "rotate-0"
+                      } transition-all `}
+                  >
+                    <KeyboardArrowDownRoundedIcon />
+                  </span>
+
+                  <div
+                    className={` ${openDropdown?.category
+                      ? "max-h-[900px] border border-gray-400  rounded-md mt-2 bg-white shadow-2xl"
+                      : "max-h-0"
+                      } transition-all duration-150  ease-in-out absolute  right-0 left-0  top-[99%] overflow-hidden`}
+                  >
+                    {pageData?.category_list?.map((data, index) => {
+                      return (
+                        <h2
+                          key={index}
+                          className="p-2 py-3 bg-gray-50 hover:bg-[#FBFFF4] transition-all cursor-pointer"
+                          onClick={() => {
+                            setOpenDropdown({
+                              ...openDropdown,
+                              category: !openDropdown?.category,
+                            });
+
+                            setPageData({
+                              ...pageData,
+                              category: data,
+                            });
+                          }}
+                        >
+                          {data?.name}
+                        </h2>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
               {/* status */}
               <div className="">
                 <h2 className="text-gray-700 text-sm mb-1">Status</h2>
+
                 <div className="relative  rounded-md  bg-gray-50  border-gray-400 border w-full outline-none flex justify-between items-center">
                   <h2
                     className=" p-2 cursor-pointer flex-1"
@@ -558,7 +634,36 @@ const ProductsEditPage = () => {
                     })}
                   </div>
                 </div>
+
               </div>
+
+              {/* discount */}
+              <div className="">
+                <label className="text-gray-700 text-sm">Discount %</label>
+                <input
+                  type="text"
+                  className="p-2 rounded-md block bg-gray-50  border-gray-400 border w-full outline-none"
+                  value={pageData?.discount}
+                  onChange={(e) =>
+                    setPageData({ ...pageData, discount: e?.target?.value })
+                  }
+                />
+              </div>
+
+              {/* tax */}
+              <div className="">
+                <label className="text-gray-700 text-sm">Tax %</label>
+                <input
+                  type="text"
+                  className="p-2 rounded-md block bg-gray-50  border-gray-400 border w-full outline-none"
+                  value={pageData?.tax}
+                  onChange={(e) =>
+                    setPageData({ ...pageData, tax: e?.target?.value })
+                  }
+                />
+              </div>
+
+
             </div>
 
             {/* variants */}
@@ -802,15 +907,15 @@ const ProductsEditPage = () => {
                             setPageData({
                               ...pageData,
                               nutritional_info: pageData?.nutritional_info?.map((nutrition_data, nutrition_index) => {
-                                  if (nutrition_data?.id === activeInputID) {
-                                    return {
-                                      ...nutrition_data,
-                                      n_value: e?.target?.value,
-                                    };
-                                  } else {
-                                    return nutrition_data;
-                                  }
+                                if (nutrition_data?.id === activeInputID) {
+                                  return {
+                                    ...nutrition_data,
+                                    n_value: e?.target?.value,
+                                  };
+                                } else {
+                                  return nutrition_data;
                                 }
+                              }
                               ),
                             });
                           }}
@@ -834,8 +939,8 @@ const ProductsEditPage = () => {
                     return (
                       <div key={index} className="">
                         <button
-                          className=" block w-full p-3 bg-gray-100 px-5 transition-all hover:bg-gray-200 border text-left"
                           onClick={() => setActiveMeta(index)}
+                          className={` block w-full p-3  px-5 transition-all ${activeMeta === index ? 'bg-gray-200' : 'bg-gray-100'} hover:bg-[#cecece] border text-left`}
                         >
                           {data?.m_name}
                         </button>
@@ -940,17 +1045,17 @@ const ProductsEditPage = () => {
                           setPageData({
                             ...pageData,
                             sibling_product: {
-                              product_name: data?.title,
-                              product_id: data?.id,
+                              product_name: data?.product_name,
+                              product_id: data?.product_id,
                               category: data?.category,
-                              img: data?.image,
+                              img: data?.img,
                             }
                           })
                         }}>
                           <div className="w-full flex gap-2 justify-start items-center">
-                            <div className="w-fit"><img src={VITE_BASE_ADDRESS + data?.image} className='w-full max-w-[60px]' alt="" /></div>
+                            <div className="w-fit"><img src={VITE_BASE_ADDRESS + data?.img} className='w-full max-w-[60px]' alt="" /></div>
                             <div className="w-full">
-                              <h1 className="text-[15px]">{data?.title}</h1>
+                              <h1 className="text-[15px]">{data?.product_name}</h1>
                               <h1 className="text-[12px] transition-all cursor-pointer text-gray-500">{data?.category}</h1>
                             </div>
                           </div>

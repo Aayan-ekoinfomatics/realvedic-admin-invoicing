@@ -45,33 +45,33 @@ function App() {
 
           <Route element={<Login />} path={"/login"} />
 
-          {/* <Route element={<ProtectedRoute />}>
-            <Route path='/admin-dashboard' element={<Dashboard />} />
-            <Route element={<ProductsPage />} path={'/products'} />
-            <Route element={<OrdersPage />} path={'/orders'} />
-          </Route> */}
+          <Route element={<ProtectedRoute />}>
+
+            {/* <Route path='/admin-dashboard' element={<Dashboard />} /> */}
+
+
+            <Route element={<InvoicePage />} path={"/invoices"} />
+
+
+            <Route element={<ProductsPage />} path={"/products"} />
+            <Route element={<ProductsEditPage />} path={"/products/:product_id"} />
+            <Route element={<AddProductPage />} path={"/products/add-product"} />
+
+
+            <Route element={<BuyersPage />} path={"/buyers"} />
+
+
+            <Route element={<UsersPage />} path={"/users"} />
+
+
+            <Route element={<OrdersPage />} path={"/orders"} />
+            <Route element={<OrderAddPage />} path={"/orders/add-order"} />
+            <Route element={<OrdersEditPage />} path={"/orders/:order_id"} />
+
+          </Route>
 
 
           {/* <Route path='/admin-dashboard' element={<Dashboard />} /> */}
-
-
-          <Route element={<InvoicePage />} path={"/invoices"} />
-
-
-          <Route element={<ProductsPage />} path={"/products"} />
-          <Route element={<ProductsEditPage />} path={"/products/:product_id"} />
-          <Route element={<AddProductPage />} path={"/products/add-product"} />
-
-
-          <Route element={<BuyersPage />} path={"/buyers"} />
-
-          
-          <Route element={<UsersPage />} path={"/users"} />
-
-
-          <Route element={<OrdersPage />} path={"/orders"} />
-          <Route element={<OrderAddPage />} path={"/orders/add-order"} />
-          <Route element={<OrdersEditPage />} path={"/orders/:order_id"} />
 
           {/* <Route element={<Dashboard />} path={'/'} /> */}
         </Routes>

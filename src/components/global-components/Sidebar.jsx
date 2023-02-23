@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 // import logo from "../../assets/icons/logo.svg";
 import dashboard from "../../assets/icons/dashboard.svg";
 import invoice_icon_inactive from "../../assets/img/sidebar/invoice_icon_inactive.svg";
@@ -19,6 +19,8 @@ import logo_sm from "../../assets/img/sidebar/logo_sm.svg";
 
 const Sidebar = () => {
   const location = useLocation();
+
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   console.log(location?.pathname)
@@ -54,11 +56,10 @@ const Sidebar = () => {
                         </Link> */}
           <Link
             to="/invoices"
-            className={`relative flex w-full gap-3   ${
-              location?.pathname?.includes("/invoices")
+            className={`relative flex w-full gap-3   ${location?.pathname?.includes("/invoices")
                 ? "text-[#164E21] bg-[#FBFFF4]"
                 : "text-white"
-            } p-6 justify-start items-center `}
+              } p-6 justify-start items-center `}
           >
             <img
               src={
@@ -82,11 +83,10 @@ const Sidebar = () => {
 
           <Link
             to="/buyers"
-            className={`relative flex w-full gap-3   ${
-              location?.pathname?.includes("/buyers")
+            className={`relative flex w-full gap-3   ${location?.pathname?.includes("/buyers")
                 ? "text-[#164E21] bg-[#FBFFF4]"
                 : "text-white"
-            } p-6    justify-start items-center `}
+              } p-6    justify-start items-center `}
           >
             <img
               src={
@@ -110,11 +110,10 @@ const Sidebar = () => {
 
           <Link
             to="/products"
-            className={`relative flex w-full gap-3   ${
-              location?.pathname?.includes("/products")
+            className={`relative flex w-full gap-3   ${location?.pathname?.includes("/products")
                 ? "text-[#164E21] bg-[#FBFFF4]"
                 : "text-white"
-            } p-6    justify-start items-center `}
+              } p-6    justify-start items-center `}
           >
             <img
               src={
@@ -138,11 +137,10 @@ const Sidebar = () => {
 
           <Link
             to="/orders"
-            className={`relative flex w-full gap-3   ${
-              location?.pathname?.includes("/orders")
+            className={`relative flex w-full gap-3   ${location?.pathname?.includes("/orders")
                 ? "text-[#164E21] bg-[#FBFFF4]"
                 : "text-white"
-            } p-6    justify-start items-center `}
+              } p-6    justify-start items-center `}
           >
             <img
               src={
@@ -167,11 +165,10 @@ const Sidebar = () => {
 
           <Link
             to="/users"
-            className={`relative flex w-full gap-3   ${
-              location?.pathname?.includes("/users")
+            className={`relative flex w-full gap-3   ${location?.pathname?.includes("/users")
                 ? "text-[#164E21] bg-[#FBFFF4]"
                 : "text-white"
-            } p-6    justify-start items-center `}
+              } p-6    justify-start items-center `}
           >
             <img
               src={
@@ -197,11 +194,19 @@ const Sidebar = () => {
 
       <div className="flex-1"></div>
 
-      <div className="w-full absolute bottom-0 flex justify-center items-center gap-2 pb-4">
-        <h1 className="text-[12px] text-gray-800 italic mr-2">Powered by</h1>
-        <span className="">
-          <img src={eko} className="w-[25px]" alt="" />
-        </span>
+      <div className="w-full absolute bottom-0 flex flex-col justify-center items-center pb-4 gap-4">
+        <div className="w-full flex justify-center items-center cursor-pointer">
+          <h1 className=" text-[13px] px-2 py-1 rounded-[8px] bg-gray-200 border border-gray-600" onClick={() => {
+            localStorage.clear()
+            navigate('/login')
+          }}>Logout</h1>
+        </div>
+        <div className=" flex justify-center items-center gap-2 ">
+          <h1 className="text-[12px] text-gray-800 italic mr-2">Powered by</h1>
+          <span className="">
+            <img src={eko} className="w-[25px]" alt="" />
+          </span>
+        </div>
       </div>
     </div>
   );
