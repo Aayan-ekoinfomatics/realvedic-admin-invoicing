@@ -378,10 +378,11 @@ const ProductsEditPage = () => {
   }
 
   useEffect(() => {
-    // console.log('pageData', pageData?.sibling_product)
+    console.log('pageData', pageData)
     // console.log('activeInputID', activeInputID);
     // console.log("openDropdown", openDropdown);
-  }, [pageData?.sibling_product]);
+    // console.log(addedVariant)
+  }, [pageData]);
 
   return (
     <div className="p-5 pt-0 relative">
@@ -756,10 +757,11 @@ const ProductsEditPage = () => {
                     </div>
                     <div className="w-full flex justify-end items-center mt-10">
                       <button className="py-2 px-4 bg-[#35854b] text-[14px] rounded-[7px] text-white" onClick={() => {
-                        console.log(addedVariant)
+                        setPopUpModal(false)
                         setPageData({
                           ...pageData,
                           variant_data: [...pageData?.variant_data, {
+                            id: new Date().getTime(),
                             variant_name: addedVariant?.variant_name,
                             price: addedVariant?.price,
                             quantity: addedVariant?.quantity,
@@ -804,7 +806,7 @@ const ProductsEditPage = () => {
                           <span>₹</span>
                           <input
                             type="number"
-                            defaultValue={data?.price}
+                            value={data?.price}
                             onChange={(e) =>
                               setPageData({
                                 ...pageData,
@@ -829,7 +831,7 @@ const ProductsEditPage = () => {
                         {/* quantity */}
                         <input
                           type="number"
-                          defaultValue={data?.quantity}
+                          value={data?.quantity}
                           onChange={(e) =>
                             setPageData({
                               ...pageData,
@@ -853,7 +855,7 @@ const ProductsEditPage = () => {
                         {/* sku */}
                         <input
                           type="text"
-                          defaultValue={data?.sku}
+                          value={data?.sku}
                           onChange={(e) =>
                             setPageData({
                               ...pageData,
@@ -874,7 +876,9 @@ const ProductsEditPage = () => {
                           className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
                         />
                         <div className=" text-center text-gray-500  flex justify-center items-center">
-                          <DeleteIcon className="ml-2 hover:text-red-500 cursor-pointer" />
+                          <DeleteIcon className="ml-2 cursor-pointer" onClick={() => {
+                          pageData.variant_data.splice(index,1)
+                          }}/>
                         </div>
                       </div>
                     );

@@ -161,6 +161,8 @@ const AddProductPage = () => {
 
   const navigate = useNavigate();
 
+  const [newID, setNewID] = useState();
+
   const [openDropdown, setOpenDropdown] = useState({
     status: false,
     sibling_product: false,
@@ -516,7 +518,10 @@ const AddProductPage = () => {
                       <img
                         src={cross}
                         className="w-[16px] cursor-pointer"
-                        onClick={() => setPopUpModal(false)}
+                        onClick={() => {
+                          setPopUpModal(false)
+                          setNewID(new Date().getTime())
+                        }}
                         alt=""
                       />
                     </span>
@@ -587,9 +592,11 @@ const AddProductPage = () => {
                     <div className="w-full flex justify-end items-center mt-10">
                       <button className="py-2 px-4 bg-[#35854b] text-[14px] rounded-[7px] text-white" onClick={() => {
                         console.log(addedVariant)
+                        setPopUpModal(false)
                         setPageData({
                           ...pageData,
                           variant_data: [...pageData?.variant_data, {
+                            id: new Date().getTime(),
                             variant_name: addedVariant?.variant_name,
                             price: addedVariant?.price,
                             quantity: addedVariant?.quantity,
@@ -705,7 +712,9 @@ const AddProductPage = () => {
                           className="p-2 rounded-md block  border-gray-400 border w-full outline-none"
                         />
                         <div className=" text-center text-gray-500  flex justify-center items-center">
-                          <DeleteIcon className="ml-2 hover:text-red-500 cursor-pointer" />
+                          <DeleteIcon className="ml-2 cursor-pointer" onClick={() => {
+                          pageData.variant_data.splice(index,1)
+                          }}/>
                         </div>
                       </div>
                     );
