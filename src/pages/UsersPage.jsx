@@ -12,6 +12,11 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import delete_icon from "../assets/icons/delete_icon.svg";
 import edit_icon from "../assets/icons/edit_icon.svg";
 import cross from "../assets/icons/cross.svg";
+import block from '../assets/icons/block.svg'
+import eye from '../assets/icons/eye.png'
+import profile from '../assets/icons/profile-circle.svg'
+import location from '../assets/icons/location.svg'
+import delivery from '../assets/icons/delivery.svg'
 
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -19,6 +24,8 @@ import { DateRangePicker } from "react-date-range";
 import { DateRange } from "react-date-range";
 import axios from "axios";
 import { MonthList } from "../helpers/date_list/date_list";
+import { useEffect } from "react";
+import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 
 const UsersPage = () => {
     // local states
@@ -27,7 +34,11 @@ const UsersPage = () => {
     const [endDate, setEndDate] = useState(new Date());
     const [calendarStatus, setCalendarStatus] = useState(false);
 
+    const [userData, setUserData] = useState()
+    const [singleUserData, setSingleUserData] = useState()
+
     const [addUserPopUp, setAddUserPopUp] = useState(false);
+    const [viewUserPopUp, setViewUserPopUp] = useState(false);
 
     const [imageArray, setImageArray] = useState([]);
 
@@ -42,6 +53,37 @@ const UsersPage = () => {
         endDate: endDate,
         key: "selection",
     };
+
+    // const singleUserData = {
+    //     first_name: 'Vivek',
+    //     last_name: 'Khanal',
+    //     email: 'vivek@khanal.com',
+    //     phone_number: '884592157',
+    //     total_amount_spent: '1500',
+    //     total_orders: '2',
+    //     orders: [
+    //         { order_id: '0237', status: 'delivered', order_total: '360', order_time: '7:20pm', order_date: 'March 3, 2022', items: [{ image: '', title: 'Diabetic Atta', quantity: '1', weight: '1kg', price: '80' }, { image: '', title: 'Diabetic Atta', quantity: '1', weight: '1kg', price: '80' }] },
+    //         { order_id: '0237', status: 'delivered', order_total: '360', order_time: '7:20pm', order_date: 'March 3, 2022', items: [{ image: '', title: 'Diabetic Atta', quantity: '1', weight: '1kg', price: '80' }, { image: '', title: 'Diabetic Atta', quantity: '1', weight: '1kg', price: '80' }] }
+    //     ],
+    //     shipping_info: {
+    //         address_line_1: 'Realvedic, 76, 7th A cross',
+    //         address_line_2: 'Koramangla 4B block, Koramangla',
+    //         landmark: 'Near BDA complex Koramangla',
+    //         city: 'Bengaluru',
+    //         state: 'Karnataka',
+    //         country: 'India',
+    //         pincode: '560024',
+    //     },
+    //     billing_info: {
+    //         address_line_1: 'Realvedic, 76, 7th A cross',
+    //         address_line_2: 'Koramangla 4B block, Koramangla',
+    //         landmark: 'Near BDA complex Koramangla',
+    //         city: 'Bengaluru',
+    //         state: 'Karnataka',
+    //         country: 'India',
+    //         pincode: '560024',
+    //     },
+    // }
 
     const activeFilter = [
         {
@@ -70,67 +112,76 @@ const UsersPage = () => {
         },
     ];
 
-    const userData = {
-        titles: [
-            "User ID",
-            "Created",
-            "Customer",
-            "State",
-            "Pincode",
-            "Actions",
-        ],
-        content: [
-            {
-                user_id: 5446546,
-                created: 1674461923,
-                user: {
-                    name: "Alok Nath",
-                    email: "alok32@gmail.com",
-                },
+    // const userData = {
+    //     titles: [
+    //         "User ID",
+    //         "Created",
+    //         "Customer",
+    //         "State",
+    //         "Pincode",
+    //         "Actions",
+    //     ],
+    //     content: [
+    //         {
+    //             user_id: 5446546,
+    //             created: 1674461923,
+    //             user: {
+    //                 name: "Alok Nath",
+    //                 email: "alok32@gmail.com",
+    //             },
 
-                destination_state: "Uttar Pradesh",
-                pincode: "564222",
-            },
-            {
-                user_id: 5446547,
-                created: 1684829920,
-                user: {
-                    name: "Utkarsh Gupta",
-                    email: "utGupt@gmail.com",
-                },
-
-
-                destination_state: "Rajasthan",
-                pincode: "112451",
-            },
-            {
-                user_id: 5446548,
-                created: 1674452572,
-                user: {
-                    name: "Priyangshu Das",
-                    email: "priYangshu20@gmail.com",
-                },
-
-                destination_state: "Kerela",
-
-                pincode: "564222",
-            },
-            {
-                user_id: 5446549,
-                created: 1674452725,
-                user: {
-                    name: "Neetu Kaur",
-                    email: "neetu54@gmail.com",
-                },
+    //             destination_state: "Uttar Pradesh",
+    //             pincode: "564222",
+    //         },
+    //         {
+    //             user_id: 5446547,
+    //             created: 1684829920,
+    //             user: {
+    //                 name: "Utkarsh Gupta",
+    //                 email: "utGupt@gmail.com",
+    //             },
 
 
-                destination_state: "Assam",
-                pincode: "787001",
-            },
+    //             destination_state: "Rajasthan",
+    //             pincode: "112451",
+    //         },
+    //         {
+    //             user_id: 5446548,
+    //             created: 1674452572,
+    //             user: {
+    //                 name: "Priyangshu Das",
+    //                 email: "priYangshu20@gmail.com",
+    //             },
+
+    //             destination_state: "Kerela",
+
+    //             pincode: "564222",
+    //         },
+    //         {
+    //             user_id: 5446549,
+    //             created: 1674452725,
+    //             user: {
+    //                 name: "Neetu Kaur",
+    //                 email: "neetu54@gmail.com",
+    //             },
 
 
-        ],
-    };
+    //             destination_state: "Assam",
+    //             pincode: "787001",
+    //         },
+
+
+    //     ],
+    // };
+
+    useEffect(() => {
+        let formdata = new FormData();
+        formdata.append('token', localStorage.getItem('admin-token'))
+        axios.post(VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
+            console.log(response?.data)
+            setUserData(response?.data)
+        })
+    }, [])
 
     return (
         <div>
@@ -247,7 +298,7 @@ const UsersPage = () => {
                 <div className=" rounded-[25px]   overflow-hidden  border-[#7d9383] border-2 bg-white  p-0">
                     <div className="overflow-x-scroll ">
                         <div className="min-w-[1300px]  rounded-[25px] p-5 pr-0 ">
-                            <div className="w-full grid grid-cols-6 text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2 pb-5 gap-2 ">
+                            <div className="w-full grid grid-cols-[160px_1fr_1fr_1fr_1fr] text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2 pb-5 gap-2 ">
                                 {userData?.titles?.map((data, index) => {
                                     return (
                                         <div
@@ -292,7 +343,7 @@ const UsersPage = () => {
                                     })
                                     .map((data, i) => (
                                         <div
-                                            className="grid grid-cols-6 gap-2 border-b border-b-[#e6e6e69f] py-5 text-black text-sm "
+                                            className="grid grid-cols-[160px_1fr_1fr_1fr_1fr] gap-2 border-b border-b-[#e6e6e69f] py-5 text-black text-sm "
                                             key={i}
                                         >
                                             <div className="w-full flex items-center ">
@@ -303,10 +354,10 @@ const UsersPage = () => {
                                             <div className="w-full ">
                                                 <p className=" flex flex-col justify-center">
                                                     <span>
-                                                        {moment.unix(data?.created).format("DD MMM YYYY  ")}
+                                                        {data?.created_date}
                                                     </span>
                                                     <span className="text-xs text-gray-500">
-                                                        {moment.unix(data?.created).format(" hh:mm A")}
+                                                        {data?.created_time}
                                                     </span>
                                                 </p>
                                             </div>
@@ -321,26 +372,46 @@ const UsersPage = () => {
                                             {/* <div className="w-full flex items-center">
                                                 <p className="">{data?.gstin}</p>
                                             </div> */}
-                                            <div className="w-full flex items-center">
+                                            {/* <div className="w-full flex items-center">
                                                 <p className="">{data?.destination_state}</p>
-                                            </div>
+                                            </div> */}
 
                                             <div className="w-full flex items-center">
-                                                <p className="">{data?.pincode}</p>
+                                                <p className="">{data?.phone_no}</p>
                                             </div>
 
                                             <div className="w-full py-4 flex justify-center items-center gap-6">
                                                 <div>
                                                     <img
-                                                        src={edit_icon}
+                                                        src={eye}
+                                                        className="cursor-pointer w-[22px]"
+                                                        title="View User"
+                                                        alt=""
+                                                        onClick={() => {
+                                                            let formdata = new FormData();
+                                                            formdata.append('user_id', data?.user_id)
+                                                            formdata.append('token', localStorage.getItem('admin-token'))
+                                                            axios.post(VITE_BASE_ADDRESS + 'cms/singleUserView', formdata).then((response) => {
+                                                                console.log(response?.data)
+                                                                setSingleUserData(response?.data)
+                                                            })
+                                                            setViewUserPopUp(!viewUserPopUp)
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <img
+                                                        src={block}
                                                         className="cursor-pointer w-[20px]"
+                                                        title="Block User"
                                                         alt=""
                                                     />
                                                 </div>
                                                 <div>
                                                     <img
                                                         src={delete_icon}
-                                                        className="cursor-pointer w-[16px]"
+                                                        className="cursor-pointer w-[14px]"
+                                                        title="Delete User"
                                                         alt=""
                                                     />
                                                 </div>
@@ -349,6 +420,130 @@ const UsersPage = () => {
                                     ))}
                             </div>
                         </div>
+
+                        {/* popup */}
+                        <div className={`bg-white scale-0 transition-all duration-100 overflow-hidden ${viewUserPopUp ? 'ease-in scale-100' : 'ease-out'} shadow-xl  rounded-[20px] border-2 border-[#7d9383] w-full max-w-[400px] md:max-w-[1300px] max-h-[90vh] md:max-h-[1000px] -translate-x-[47%] -translate-y-[50%] top-[50%] left-[50%] fixed z-[540]`} >
+                            <div className=" p-4  overflow-y-scroll md:overflow-y-auto max-h-[80vh] md:max-h-[1000px]">
+                                <div className="w-full flex justify-end items-center">
+                                    <img src={cross} className="w-[16px] cursor-pointer" alt="" onClick={() => setViewUserPopUp(false)} />
+                                </div>
+                                <div className="w-full flex justify-center items-center mt-1 mb-4">
+                                    <h1 className="text-[18px] font-[600]">User details</h1>
+                                </div>
+
+                                <div className="w-full flex flex-col md:flex-row items-center gap-4">
+
+                                    <div className="w-full flex flex-col gap-4">
+                                        <div className="w-full rounded-[15px] border-2 border-[#7d9383] p-4">
+                                            <div className="w-full flex flex-col pt-2">
+                                                <div className="w-full grid grid-cols-[1fr_1fr_100px]">
+                                                    <h1 className="text-[13px] text-gray-500">User</h1>
+                                                    <h1 className="text-[13px] text-gray-500">Amount Spent</h1>
+                                                    <h1 className="text-[13px] text-gray-500">Orders</h1>
+                                                </div>
+                                                <div className="w-full grid grid-cols-[1fr_1fr_100px]">
+                                                    <h1 className="text-[18px] font-semibold text-gray-800">{singleUserData?.first_name}</h1>
+                                                    <h1 className="text-[18px] font-semibold text-gray-800">Rs {singleUserData?.total_amount_spent}</h1>
+                                                    <h1 className="text-[18px] font-semibold text-gray-800">{singleUserData?.total_orders}</h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full rounded-[15px] border-2 border-[#7d9383] p-4">
+                                            <div className="w-full">
+                                                <div className="w-full pb-3 border-b mb-5">
+                                                    <h1 className="text-[17px] font-[600] text-gray-800">Orders</h1>
+                                                </div>
+                                                <div className="w-full overflow-y-scroll max-h-[365px] pr-3">
+                                                    {
+                                                        singleUserData?.orders?.map((data, i) => (
+                                                            <div key={i} className="border-b pb-2 mb-2">
+                                                                <div className="w-full flex justify-between items-start">
+                                                                    <div className="w-full">
+                                                                        <div className="flex items-start gap-2">
+                                                                            <h1 className="text-[16px] font-[600] text-[#7d9383]">#{data?.order_id}</h1>
+                                                                            <h1 className="text-[12px] font-[600] text-gray-400 border rounded-[10px] px-2 py-1 capitalize">{data?.status}</h1>
+                                                                        </div>
+                                                                        <div className="flex gap-2">
+                                                                            <h1 className="text-[13px] text-gray-400">{data?.order_date}</h1>
+                                                                            <h1 className="text-[13px] text-gray-400">{data?.order_time}</h1>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="w-full max-w-[80px]">
+                                                                        <h1 className="text-[15px] text-right font-[500]">Rs {data?.order_total}</h1>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="mt-3">
+                                                                    {
+                                                                        data?.items?.map((items, index) => (
+                                                                            <div className='w-full bg-white grid grid-cols-[45%_1fr_1fr] justify-center items-start py-2 px-4' key={index}>
+                                                                                <div className='flex justify-start items-center gap-3'>
+                                                                                    <div className='w-fit'>
+                                                                                        <img src={VITE_BASE_ADDRESS + items?.image} className='w-[65px]' alt="" />
+                                                                                    </div>
+                                                                                    <div className='flex flex-col justify-center items-start gap'>
+                                                                                        <h1 className='text-[13px] font-[500] text-gray-700'>{items?.title}</h1>
+                                                                                        <h1 className='text-[12px] text-gray-400'>{items?.category}</h1>
+                                                                                        <h1 className='text-[12px] text-gray-500'>{items?.weight}</h1>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className='flex justify-end items-start'>
+                                                                                    <h1 className='text-[13px] text-gray-500 pl-5'>x{items?.quantity}</h1>
+                                                                                </div>
+                                                                                <div className='flex justify-end items-start'>
+                                                                                    <h1 className='text-[14px] font-[400]'>Rs {items?.price}</h1>
+                                                                                </div>
+                                                                            </div>
+                                                                        ))
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="w-full md:w-[60%]">
+                                        <div className='w-full rounded-[15px] border-2 border-[#7d9383] pb-2'>
+                                            <div className='w-full my-4 px-4 flex justify-start gap-2 items-center'>
+                                                <span><img src={profile} className='w-[24px]' alt="" /></span><h1 className='text-[16px] font-[500]'>Customer Details</h1>
+                                            </div>
+                                            <div className='w-full'>
+                                                <div className='w-full px-4'>
+                                                    <h1 className='text-[15px] text-gray-600'>{singleUserData?.first_name} {singleUserData?.last_name}</h1>
+                                                </div>
+                                                <div className='w-full px-4 border-b border-gray-300 pt-2 pb-4'>
+                                                    <h1 className='text-[13px] pt-[4px] text-gray-500'>{singleUserData?.email}</h1>
+                                                    <h1 className='text-[13px] pt-[4px] text-gray-500'>{singleUserData?.phone_number}</h1>
+                                                </div>
+                                                <div className='w-full px-4 border-b border-gray-300 py-4'>
+                                                    <div className='w-full flex justify-start items-start gap-2'>
+                                                        <span><img src={location} className='w-[24px]' alt="" /></span>
+                                                        <h1 className='text-[16px] font-[500] pb-4'>User Address</h1>
+                                                    </div>
+                                                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{singleUserData?.shipping_info?.address_line_1}</h1>
+                                                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{singleUserData?.shipping_info?.address_line_2}</h1>
+                                                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{singleUserData?.shipping_info?.landmark}</h1>
+                                                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{singleUserData?.shipping_info?.city}</h1>
+                                                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{singleUserData?.shipping_info?.state}</h1>
+                                                    <h1 className='text-[13px] text-gray-500 pt-[4px]'>{singleUserData?.shipping_info?.country}</h1>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        {
+                            viewUserPopUp &&
+                            <div className='bg-black opacity-30 fixed inset-0 z-[520]' onClick={() => setViewUserPopUp(false)}>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -455,6 +650,7 @@ const UsersPage = () => {
                 <div className='bg-black opacity-30 fixed inset-0 z-[520]' onClick={() => setAddUserPopUp(false)}>
                 </div>
             }
+
         </div>
     );
 };

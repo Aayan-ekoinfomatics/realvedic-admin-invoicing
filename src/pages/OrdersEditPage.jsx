@@ -25,9 +25,10 @@ const OrdersEditPage = () => {
 
   const submitPageData = () => {
     let formdata = new FormData;
-    formdata.append('status', selectedStatus)
+    formdata.append('order_status', selectedStatus)
     formdata.append('order_id', orderData?.order_id)
-    axios.post(VITE_BASE_ADDRESS + 'admin_order_edit', formdata).then((response) => {
+    formdata.append('token', localStorage.getItem('admin-token'))
+    axios.post(VITE_BASE_ADDRESS + 'cms/singleOrderEdit', formdata).then((response) => {
       console.log(response?.data)
     })
   }
@@ -81,15 +82,16 @@ const OrdersEditPage = () => {
 
     let formdata = new FormData();
     formdata.append('order_id', params?.order_id)
-    axios.post(VITE_BASE_ADDRESS + 'admin_order_edit_view', formdata).then((response) => {
+    formdata.append('token', localStorage.getItem('admin-token'))
+    axios.post(VITE_BASE_ADDRESS + 'cms/singleOrderView', formdata).then((response) => {
       console.log(response?.data)
       setOrderData(response?.data)
     })
   }, [])
 
-  useEffect(() => {
-    console.log(params?.order_id)
-  }, [selectedStatus])
+  // useEffect(() => {
+  //   console.log(params?.order_id)
+  // }, [selectedStatus])
 
 
   return (
@@ -113,7 +115,7 @@ const OrdersEditPage = () => {
                   orderData?.status_list?.map((data, i) => {
                       if (data?.status_name === orderData?.status) {
                         return (
-                          <h1 key={i} className='text-[13px] bg-opacity-5 py-[5px] px-2 w-full text-center bg-[white] rounded-lg border' style={{color: data?.status_color }}>{orderData?.status}</h1>
+                          <h1 key={i} className='text-[13px] bg-opacity-5 py-[5px] px-2 w-full text-center bg-[white] rounded-lg border capitalize' style={{color: data?.status_color }}>{orderData?.status}</h1>
                         )
                       }
                     })
@@ -282,15 +284,15 @@ const OrdersEditPage = () => {
                           </div>
                         ))
                     }
-                    <div className='w-full min-w-[130px] flex justify-between items-center gap-4 border rounded-[10px] p-1 px-2' onClick={() => setStatusDropdownToggle(!statusDropdownToggle)}>
-                      <span className={`text-[14px] font-[500]`}>{orderData?.status}</span>
+                    <div className='w-full min-w-[140px] flex justify-between items-center gap-4 border rounded-[10px] p-1 px-2' onClick={() => setStatusDropdownToggle(!statusDropdownToggle)}>
+                      <span className={`text-[14px] font-[500] capitalize`}>{orderData?.status}</span>
                       {/* <div className='w-[0.5px] h-[14px] bg-gray-400'></div> */}
                       <button className='w-[15px]' ><img src={arrow_down} className={`transition-all duration-300 ${statusDropdownToggle ? 'rotate-180' : ''}`} alt="" /></button>
                     </div>
                   </div>
 
                   {/* status dropdown */}
-                  <div className={`w-[30%] bg-white rounded-[10px] z-[550] shadow-md absolute overflow-hidden top-[100%] right-0 transition-all duration-300 ${statusDropdownToggle ? 'h-[147px] ease-in border' : 'h-0 ease-out'}`}>
+                  <div className={`w-[30%] bg-white rounded-[10px] z-[550] shadow-md absolute overflow-hidden top-[100%] right-0 transition-all duration-300 ${statusDropdownToggle ? 'h-[260px] ease-in border' : 'h-0 ease-out'}`}>
                     <div className='w-full'>
                       {
                         orderData?.status_list?.map((data, i) => (
@@ -302,7 +304,7 @@ const OrdersEditPage = () => {
                             setSelectedStatus(data?.status_name)
                             setStatusDropdownToggle(false)
                           }}>
-                            <h1 className='text-[13px]'>{data?.status_name}</h1>
+                            <h1 className='text-[13px] capitalize'>{data?.status_name}</h1>
                           </div>
                         ))
                       }

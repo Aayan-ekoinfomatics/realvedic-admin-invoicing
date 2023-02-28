@@ -77,7 +77,9 @@ const OrdersPage = () => {
   ];
 
   useEffect(() => {
-    axios.get(VITE_BASE_ADDRESS + 'admin_order_view ').then((response) => {
+    let formdata = new FormData();
+    formdata.append('token', localStorage.getItem('admin-token'))
+    axios.post(VITE_BASE_ADDRESS + 'cms/adminOrderView', formdata).then((response) => {
       console.log(response?.data)
       setOrderData(response?.data)
     })
@@ -200,12 +202,12 @@ const OrdersPage = () => {
         <div className=" rounded-[25px]   overflow-hidden  border-[#7d9383] border-2 bg-white  p-0">
           <div className="overflow-x-scroll ">
             <div className="min-w-[1300px]  rounded-[25px] p-5 pr-0 ">
-              <div className="w-full grid grid-cols-9 text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2 pb-5 gap-2 ">
+              <div className="w-full grid grid-cols-[100px_140px_300px_1fr_1fr_1fr_1fr_1fr] text-gray-500 text-[14px] font-[500]  rounded-t-[15px] pr-2 border-b py-2 pb-5 gap-2 ">
                 {orderData?.titles?.map((data, index) => {
                   return (
                     <div
                       key={index}
-                      className={`w-full 
+                      className={`w-full flex 
                       `}
                     >
                       <h1
@@ -249,7 +251,7 @@ const OrdersPage = () => {
                   })
                   .map((data, i) => (
                     <div
-                      className="grid grid-cols-9 gap-2 border-b border-b-[#e6e6e69f] py-5 text-black text-sm "
+                      className="grid grid-cols-[100px_140px_300px_1fr_1fr_1fr_1fr_1fr] gap-2 border-b border-b-[#e6e6e69f] py-5 text-black text-sm "
                       key={i}
                     >
                       <div className="w-full flex items-center ">
@@ -262,10 +264,12 @@ const OrdersPage = () => {
                       <div className="w-full ">
                         <p className=" flex flex-col justify-center">
                           <span>
-                            {moment.unix(data?.created).format("DD MMM YYYY  ")}
+                            {/* {moment.unix(data?.created).format("DD MMM YYYY  ")} */}
+                            {data?.created_date}
                           </span>
                           <span className="text-xs text-gray-500">
-                            {moment.unix(data?.created).format(" hh:mm A")}
+                            {/* {moment.unix(data?.created).format(" hh:mm A")} */}
+                            {data?.created_time}
                           </span>
                         </p>
                       </div>
@@ -279,8 +283,8 @@ const OrdersPage = () => {
                           </span>
                         </p>
                       </div>
-                      <div className="w-fit flex items-center ">
-                        <p className="">{data?.items?.length}</p>
+                      <div className="w-fit flex items-center justify-center">
+                        <p className="">{data?.items}</p>
                       </div>
                       <div className="w-full flex items-center">
                         <p className="">{data?.destination_state}</p>
@@ -306,68 +310,70 @@ const OrdersPage = () => {
                         )}
                         <p className="">{data?.status}</p>
                       </div> */}
-                      <div className="w-full flex gap-2 items-center ">
-                        {data?.status === "Dispatched" && (
-                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#303030] rounded-lg  border">
+                      <div className="w-full flex gap-2 items-center max-w-[160px]">
+                        {data?.status === "dispatched" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#303030] rounded-lg  border">
                             {data?.status}
                           </p>
                         )}
-                        {data?.status === "On the way" && (
-                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#638ce6] rounded-lg  border">
+                        {data?.status === "on the way" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#638ce6] rounded-lg  border">
                             {data?.status}
                           </p>
                         )}
-                        {data?.status === "Processed" && (
-                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#f3ff45] rounded-lg  border">
+                        {data?.status === "processed" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#f3ff45] rounded-lg  border">
                             {data?.status}
                           </p>
                         )}
-                        {data?.status === "Placed" && (
-                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white]  text-[#fc9739] rounded-lg  border">
+                        {data?.status === "placed" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#fc9739] rounded-lg  border">
                             {data?.status}
                           </p>
                         )}
-                        {data?.status === "Delivered" && (
-                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#00ac69] rounded-lg border ">
+                        {data?.status === "delivered" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white] text-[#00ac69] rounded-lg border ">
                             {data?.status}
                           </p>
                         )}
-                        {data?.status === "Cancelled" && (
-                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#FF0000] rounded-lg border ">
+                        {data?.status === "cancelled" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white] text-[#FF0000] rounded-lg border ">
                             {data?.status}
                           </p>
                         )}
-                        {data?.status === "Returned" && (
-                          <p className=" bg-opacity-5 p-2 w-full text-center bg-[white] text-[#e99f15] rounded-lg border ">
+                        {data?.status === "returned" && (
+                          <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white] text-[#e99f15] rounded-lg border ">
                             {data?.status}
                           </p>
                         )}
                       </div>
                       <div className="w-full py-4 flex justify-center items-center gap-6">
-                        <div>
+                        {/* <div>
                           <img
                             src={invoice_icon_static}
                             title="View Invoice"
                             className="cursor-pointer w-[16px]"
                             alt=""
                           />
-                        </div>
+                        </div> */}
                         <div>
-                          <img
-                            src={edit_icon}
-                            title="Edit Order"
-                            className="cursor-pointer w-[20px]"
-                            alt=""
-                          />
+                          <Link to={`/orders/` + data?.invoice_id}>
+                            <img
+                              src={edit_icon}
+                              title="Edit Order"
+                              className="cursor-pointer w-[20px]"
+                              alt=""
+                            />
+                          </Link>
                         </div>
-                        <div>
+                        {/* <div>
                           <img
                             src={delete_icon}
                             title="Delete Order"
                             className="cursor-pointer w-[16px]"
                             alt=""
                           />
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   ))}
