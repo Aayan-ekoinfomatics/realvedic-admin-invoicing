@@ -13,6 +13,7 @@ import delete_icon from "../assets/icons/delete_icon.svg";
 import edit_icon from "../assets/icons/edit_icon.svg";
 import cross from "../assets/icons/cross.svg";
 import block from '../assets/icons/block.svg'
+import unblock from '../assets/icons/unblock.svg'
 import eye from '../assets/icons/eye.png'
 import profile from '../assets/icons/profile-circle.svg'
 import location from '../assets/icons/location.svg'
@@ -36,6 +37,23 @@ const UsersPage = () => {
 
     const [userData, setUserData] = useState()
     const [singleUserData, setSingleUserData] = useState()
+
+    const [userAddData, setAddUserData] = useState({
+        gender: '',
+        first_name: '',
+        last_name: '',
+        isd: '',
+        phone_no: '',
+        dob: '',
+        email: '',
+        address_line_1: '',
+        address_line_2: '',
+        landmark: '',
+        city: '',
+        state: '',
+        country: '',
+        zip: '',
+    });
 
     const [addUserPopUp, setAddUserPopUp] = useState(false);
     const [viewUserPopUp, setViewUserPopUp] = useState(false);
@@ -401,20 +419,44 @@ const UsersPage = () => {
                                                 </div>
                                                 <div>
                                                     <img
-                                                        src={block}
-                                                        className="cursor-pointer w-[20px]"
+                                                        src={data?.status ? block : unblock}
+                                                        className={`cursor-pointer w-[20px]`}
                                                         title="Block User"
                                                         alt=""
+                                                        onClick={async () => {
+                                                            await axios.patch(VITE_BASE_ADDRESS + 'cms/userBlock', { user_id: data?.user_id, token: localStorage.getItem('admin-token') }).then((response) => {
+                                                                console.log(response?.data)
+                                                                alert(response?.data?.message)
+                                                            })
+                                                            let formdata = new FormData();
+                                                            formdata.append('token', localStorage.getItem('admin-token'))
+                                                            await axios.post(VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
+                                                                // console.log(response?.data)
+                                                                setUserData(response?.data)
+                                                            })
+                                                        }}
                                                     />
                                                 </div>
-                                                <div>
+                                                {/* <div>
                                                     <img
                                                         src={delete_icon}
                                                         className="cursor-pointer w-[14px]"
                                                         title="Delete User"
                                                         alt=""
+                                                        onClick={async () => {
+                                                            await axios.delete(VITE_BASE_ADDRESS + 'cms/userDelete', {data: { user_id: data?.user_id, token: localStorage.getItem('admin-token') }}).then((response) => {
+                                                                console.log(response?.data)
+                                                                alert(response?.data?.message)
+                                                            })
+                                                            let formdata = new FormData();
+                                                            formdata.append('token', localStorage.getItem('admin-token'))
+                                                            await axios.post(VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
+                                                                // console.log(response?.data)
+                                                                setUserData(response?.data)
+                                                            })
+                                                        }}
                                                     />
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     ))}
@@ -431,7 +473,7 @@ const UsersPage = () => {
                                     <h1 className="text-[18px] font-[600]">User details</h1>
                                 </div>
 
-                                <div className="w-full flex flex-col md:flex-row items-center gap-4">
+                                <div className="w-full flex flex-col md:flex-row items-start gap-4">
 
                                     <div className="w-full flex flex-col gap-4">
                                         <div className="w-full rounded-[15px] border-2 border-[#7d9383] p-4">
@@ -529,7 +571,7 @@ const UsersPage = () => {
                                                     <h1 className='text-[13px] text-gray-500 pt-[4px]'>{singleUserData?.shipping_info?.state}</h1>
                                                     <h1 className='text-[13px] text-gray-500 pt-[4px]'>{singleUserData?.shipping_info?.country}</h1>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -605,43 +647,133 @@ const UsersPage = () => {
                 <div className="w-full flex justify-center items-center mt-1">
                     <h1 className="text-[16px] font-[600]">Add user details</h1>
                 </div>
-                <div className="w-full">
+                <div className="w-full pt-10">
+                    <div className="w-[80%] mx-auto flex justify-between items-start">
+                        <div className="w-fit flex justify-start items-center gap-2" onClick={() => setAddUserData({
+                            ...userAddData,
+                            gender: 'male'
+                        })}>
+                            <div className={`w-[10px] h-[10px] rounded-full ${userAddData?.gender === 'male' ? 'bg-gray-700' : 'border border-gray-700'}`}></div>
+                            <h1 className="text-[12px] text-gray-700">Male</h1>
+                        </div>
+                        <div className="w-fit flex justify-start items-center gap-2" onClick={() => setAddUserData({
+                            ...userAddData,
+                            gender: 'female'
+                        })}>
+                            <div className={`w-[10px] h-[10px] rounded-full ${userAddData?.gender === 'female' ? 'bg-gray-700' : 'border border-gray-700'}`}></div>
+                            <h1 className="text-[12px] text-gray-700">Female</h1>
+                        </div>
+                        <div className="w-fit flex justify-start items-center gap-2" onClick={() => setAddUserData({
+                            ...userAddData,
+                            gender: 'others'
+                        })}>
+                            <div className={`w-[10px] h-[10px] rounded-full ${userAddData?.gender === 'others' ? 'bg-gray-700' : 'border border-gray-700'}`}></div>
+                            <h1 className="text-[12px] text-gray-700">Others</h1>
+                        </div>
+                    </div>
                     <div className="w-full flex items-center gap-2 py-2 mt-3">
-                        <input type="text" placeholder="Enter first name" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
-                        <input type="text" placeholder="Enter last name" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="Enter first name" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            first_name: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="Enter last name" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            last_name: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                     </div>
                     <div className="w-full flex items-center gap-2 py-2">
-                        <input type="text" placeholder="ISD" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px] max-w-[50px]" />
-                        <input type="text" placeholder="Enter phone number" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
-                        <input type="date" className="w-full max-w-[135px] placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="number" min={0} placeholder="ISD" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            isd: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px] max-w-[50px]" />
+                        <input type="text" placeholder="Enter phone number" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            phone_no: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="date" className="w-full max-w-[135px] placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            dob: e?.target?.value
+                        })} />
                     </div>
                     <div className="w-full flex flex-col items-center gap-2 py-2">
-                        <input type="email" placeholder="Enter email" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
-                        <div className="w-full flex justify-center gap-2">
+                        <input type="email" placeholder="Enter email" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            email: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        {/* <div className="w-full flex justify-center gap-2">
                             <input type="password" placeholder="Enter password" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                             <input type="password" placeholder="Confirm password" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="w-full mt-10">
                     <div className="w-full flex flex-col items-center gap-3 py-2">
-                        <input type="text" placeholder="Enter address line 1" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
-                        <input type="text" placeholder="Enter address line 2" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="Enter address line 1" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            address_line_1: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="Enter address line 2" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            address_line_2: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                     </div>
                     <div className="w-full flex items-center gap-2 py-2">
-                        <input type="text" placeholder="landmark" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
-                        <input type="text" placeholder="city" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="landmark" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            landmark: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="city" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            city: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                     </div>
                     <div className="w-full flex items-center gap-2 py-2">
-                        <input type="text" placeholder="state" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
-                        <input type="text" placeholder="country" className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="state" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            state: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="country" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            country: e?.target?.value
+                        })} className="w-full placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                     </div>
                     <div className="w-full flex justify-between items-center gap-2 py-2">
-                        <input type="text" placeholder="Zip code" className="w-[50%] placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
+                        <input type="text" placeholder="Zip code" onChange={(e) => setAddUserData({
+                            ...userAddData,
+                            zip: e?.target?.value
+                        })} className="w-[50%] placeholder-gray-400 rounded-[12px] outline-[#7d9383] py-[7px] px-3 border text-[13px]" />
                     </div>
                 </div>
                 <div className="w-full mt-5 flex justify-end">
-                    <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all ">SUBMIT</button>
+                    <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all" onClick={async () => {
+                        await axios.post(VITE_BASE_ADDRESS + 'cms/addUser', userAddData).then((response) => {
+                            console.log(response?.data)
+                            alert(response?.data?.message)
+                        })
+                        let formdata = new FormData();
+                        formdata.append('token', localStorage.getItem('admin-token'))
+                        await axios.post(VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
+                            // console.log(response?.data)
+                            setUserData(response?.data)
+                        })
+                        setAddUserPopUp(false)
+                        setUserData({
+                            gender: '',
+                            first_name: '',
+                            last_name: '',
+                            isd: '',
+                            phone_no: '',
+                            dob: '',
+                            email: '',
+                            address_line_1: '',
+                            address_line_2: '',
+                            landmark: '',
+                            city: '',
+                            state: '',
+                            country: '',
+                            zip: '',
+                        })
+                    }}>SUBMIT</button>
                 </div>
             </div>
 

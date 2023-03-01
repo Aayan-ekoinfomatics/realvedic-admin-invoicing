@@ -236,14 +236,14 @@ const OrdersEditPage = () => {
                     <h1 className='text-[13px] text-gray-500'>Subtotal <span className='text-gray-400 text-[11px]'>&#40;{orderData?.items?.length} items&#41;</span></h1>
                     <h1 className='text-[13px] text-gray-500'>Rs {orderData?.payment_info?.sub_total}</h1>
                   </div>
-                  <div className='flex justify-between w-full'>
+                  <div className='flex justify-between w-full pb-2'>
                     <h1 className='text-[13px] text-gray-500'>Delivery Charges</h1>
                     <h1 className='text-[13px] text-gray-500'>Rs {orderData?.payment_info?.shipping}</h1>
                   </div>
-                  <div className='flex justify-between w-full pb-2'>
+                  {/* <div className='flex justify-between w-full pb-2'>
                     <h1 className='text-[13px] text-gray-500'>Tax</h1>
                     <h1 className='text-[13px] text-gray-500'>Rs {orderData?.payment_info?.tax}</h1>
-                  </div>
+                  </div> */}
                   <div className='flex justify-between w-full pt-2 border-t'>
                     <h1 className='text-[14px] font-[600]'>Order Total</h1>
                     <h1 className='text-[14px] font-[600]'>Rs {orderData?.payment_info?.grand_total}</h1>
@@ -258,10 +258,8 @@ const OrdersEditPage = () => {
           {/* right flex */}
           <div className='w-full md:w-[35%]'>
 
-
             {/* customer details and delivery status toggle */}
             <div className='w-full bg-white shadow-md border-2 border-[#7d9383] rounded-[15px] py-4'>
-
 
               {/* delivery status toggle */}
               <div className='w-full flex justify-end items-center px-2 pb-8 border-b'>
@@ -316,7 +314,6 @@ const OrdersEditPage = () => {
                 </div>
               </div>
 
-
               {/* customer details */}
               <div className='w-full'>
                 <div className='w-full my-4 px-4 flex justify-start gap-2 items-center'>
@@ -356,6 +353,7 @@ const OrdersEditPage = () => {
                   </div>
                 </div>
               </div>
+
             </div>
 
           </div>
