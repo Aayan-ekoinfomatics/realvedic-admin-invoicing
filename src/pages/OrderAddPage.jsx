@@ -9,6 +9,7 @@ import profile from '../assets/icons/profile-circle.svg'
 import location from '../assets/icons/location.svg'
 import axios from 'axios';
 import { VITE_BASE_ADDRESS } from '../base_address/base_address';
+import { toast } from 'react-toastify';
 
 const OrderAddPage = () => {
 
@@ -224,12 +225,24 @@ const OrderAddPage = () => {
                     <div className={`w-full absolute top-[110%] z-[510] rounded-[10px] transition-all duration-300 overflow-hidden bg-white ${paymentDropDown ? 'h-[78px] ease-in shadow-lg' : 'h-0 overflow-hidden ease-out'}`}>
                         <div className='w-full'>
                             <h1 className='text-[13px] text-gray-600 py-2 border-b px-4 hover:bg-gray-100 cursor-pointer'
-                            onClick={() => {
-                                axios.post(VITE_BASE_ADDRESS + 'cms/adminOrderMarkAsPaid', orderAddData).then((response) => {
-                                    console.log(response?.data)
-                                    alert(response?.data?.message)
-                                })
-                            }}>Mark as Paid</h1>
+                                onClick={() => {
+                                    axios.post(VITE_BASE_ADDRESS + 'cms/adminOrderMarkAsPaid', orderAddData).then((response) => {
+                                        console.log(response?.data)
+                                        setPaymentDropDown(false)
+                                        if (response?.data?.status) {
+                                            toast.success(response?.data?.message, {
+                                                position: "top-right",
+                                                autoClose: 2000,
+                                                hideProgressBar: false,
+                                                closeOnClick: true,
+                                                pauseOnHover: true,
+                                                // draggable: true,
+                                                progress: undefined,
+                                                theme: "colored",
+                                            })
+                                        }
+                                    })
+                                }}>Mark as Paid</h1>
                             <h1 className='text-[13px] text-gray-600 py-2 border-b px-4 hover:bg-gray-100 cursor-pointer' onClick={() => showRazorpay()}>Pay Now</h1>
                         </div>
                     </div>
@@ -339,18 +352,18 @@ const OrderAddPage = () => {
                                     </div>
                                 </div>
 
-                                
+
 
                             </div>
 
                             {/* add product button */}
                             <div className='w-full max-w-[120px]'>
                                 <button className=' px-6 py-[6px] rounded-[10px] bg-gray-50 text-gray-800 text-[14px] cursor-pointer border border-[#7d9383] active:scale-95 transition-all'
-                                onClick={() => {
-                                    setSearchProductsDropdownToggle(!searchProductsDropdownToggle)
-                                }}>Browse</button>
+                                    onClick={() => {
+                                        setSearchProductsDropdownToggle(!searchProductsDropdownToggle)
+                                    }}>Browse</button>
                             </div>
-                            
+
                         </div>
 
                         {/*added  products list */}
@@ -466,7 +479,7 @@ const OrderAddPage = () => {
                                     <span><img src={profile} className='w-[30px]' alt="" /></span><h1 className='text-[16px] font-[500]'>Users</h1>
                                 </div>
                                 <div className='w-full flex items-center gap-2'>
-                                    
+
                                     <div className='w-full flex justify-between items-center gap-4 border rounded-[10px] p-1 px-2'>
                                         <div className="border-[#7d9383] border-2 rounded-[15px] bg-white flex items-center overflow w-full relative">
 
@@ -500,20 +513,20 @@ const OrderAddPage = () => {
                                                 }
                                             })?.map((data, i) => (
                                                 <div key={i} className=' px-4 py-2 border-b hover:bg-gray-100 cursor-pointer hover:font-[500] transition-all duration-300'
-                                                onClick={() => {
-                                                    let formdata = new FormData();
-                                                    formdata.append('token', localStorage.getItem('admin-token'))
-                                                    formdata.append('user_id', data?.id)
-                                                    axios.post(VITE_BASE_ADDRESS + 'cms/orderUserDetails', formdata).then((response) => {
-                                                        console.log(response?.data)
-                                                        setOrderAddData({
-                                                            ...orderAddData,
-                                                            customer_details: response?.data?.customer_details,
-                                                            shipping_info: response?.data?.shipping_info,
+                                                    onClick={() => {
+                                                        let formdata = new FormData();
+                                                        formdata.append('token', localStorage.getItem('admin-token'))
+                                                        formdata.append('user_id', data?.id)
+                                                        axios.post(VITE_BASE_ADDRESS + 'cms/orderUserDetails', formdata).then((response) => {
+                                                            console.log(response?.data)
+                                                            setOrderAddData({
+                                                                ...orderAddData,
+                                                                customer_details: response?.data?.customer_details,
+                                                                shipping_info: response?.data?.shipping_info,
+                                                            })
                                                         })
-                                                    })
-                                                    setStatusDropdownToggle(false)
-                                                }}
+                                                        setStatusDropdownToggle(false)
+                                                    }}
                                                 >
                                                     <h1 className='text-[13px] capitalize'>{data?.first_name}&nbsp;{data?.last_name}</h1>
                                                 </div>

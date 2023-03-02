@@ -9,7 +9,8 @@ import location from '../assets/icons/location.svg'
 import delivery from '../assets/icons/delivery.svg'
 import axios from 'axios';
 import { VITE_BASE_ADDRESS } from '../base_address/base_address';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const OrdersEditPage = () => {
 
@@ -23,13 +24,39 @@ const OrdersEditPage = () => {
 
   const [selectedStatus, setSelectedStatus] = useState('');
 
+  const navigate = useNavigate();
+
   const submitPageData = () => {
     let formdata = new FormData;
     formdata.append('order_status', selectedStatus)
     formdata.append('order_id', orderData?.order_id)
     formdata.append('token', localStorage.getItem('admin-token'))
     axios.post(VITE_BASE_ADDRESS + 'cms/singleOrderEdit', formdata).then((response) => {
-      console.log(response?.data)
+      // console.log(response?.data)
+      if (response?.data?.status) {
+        toast.success(response?.data?.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          // draggable: true,
+          progress: undefined,
+          theme: "colored",
+      })
+      navigate('/orders')
+      }else {
+        toast.error(response?.data?.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          // draggable: true,
+          progress: undefined,
+          theme: "colored",
+      })
+      }
     })
   }
 

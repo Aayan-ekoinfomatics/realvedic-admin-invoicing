@@ -18,6 +18,8 @@ import { VITE_BASE_ADDRESS } from "./base_address/base_address";
 import AddProductPage from "./pages/AddProductPage";
 import UsersPage from "./pages/UsersPage";
 import OrderAddPage from "./pages/OrderAddPage";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const location = useLocation();
@@ -76,6 +78,7 @@ function App() {
           {/* <Route element={<Dashboard />} path={'/'} /> */}
         </Routes>
       </div>
+      <ToastContainer />
     </div>
   );
 }

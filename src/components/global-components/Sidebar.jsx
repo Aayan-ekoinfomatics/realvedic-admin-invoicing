@@ -17,6 +17,7 @@ import eko from "../../assets/img/sidebar/eko.svg";
 import logo from "../../assets/img/sidebar/logo.svg";
 import logo_sm from "../../assets/img/sidebar/logo_sm.svg";
 import logout from '../../assets/icons/logout-square.svg'
+// import LogoutIcon from '@mui/icons-material/Logout';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -55,7 +56,7 @@ const Sidebar = () => {
                             <img src={dashboard} className='w-[20px]' alt="" />
                             <p>Dashboard</p>
                         </Link> */}
-          <Link
+          {/* <Link
             to="/invoices"
             className={`relative flex w-full gap-3   ${location?.pathname?.includes("/invoices")
               ? "text-[#164E21] bg-[#FBFFF4]"
@@ -73,7 +74,7 @@ const Sidebar = () => {
             />
             <p className="hidden 2xl:block">Invoices</p>
 
-            {/* before and after */}
+
             {location?.pathname?.includes("/invoices") && (
               <>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
@@ -100,14 +101,14 @@ const Sidebar = () => {
             />
             <p className="hidden 2xl:block">Buyers</p>
 
-            {/* before and after */}
+            
             {location?.pathname?.includes("/buyers") && (
               <>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
                 <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-bl-2xl bg-[#227638] top-[calc(100%-10px)] rotate-180"></div>
               </>
             )}
-          </Link>
+          </Link> */}
 
           <Link
             to="/products"
@@ -196,11 +197,12 @@ const Sidebar = () => {
       <div className="flex-1"></div>
 
       <div className="w-full absolute bottom-0 flex flex-col justify-center items-center pb-4 gap-4">
-        <div className="w-full flex justify-center items-center gap-2 hover:bg-[#FBFFF4] hover:text-[#227638] text-white py-2 cursor-pointer" onClick={() => {
+        <div className="w-full flex justify-center items-center gap-2 hover:scale-[1.2] transition-all text-white py-2 cursor-pointer" onClick={() => {
           localStorage.clear()
           navigate('/login')
         }}>
           <img src={logout} className='w-[18px]' alt="" />
+          {/* <LogoutIcon className='' /> */}
           <h1 className="text-[15px] ">Logout</h1>
         </div>
         {/* <div className=" flex justify-center items-center gap-2 ">

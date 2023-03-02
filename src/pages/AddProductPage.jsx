@@ -5,6 +5,7 @@ import cross from "../assets/icons/cross.svg";
 import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AddProductPage = () => {
   const [pageData, setPageData] = useState(
@@ -202,10 +203,30 @@ const AddProductPage = () => {
     axios.put(VITE_BASE_ADDRESS + 'cms/addNewProduct', {data: pageData}).then((response) => {
       console.log(response?.data)
       if (response?.data?.status) {
-        alert(response?.data?.message)
+        // alert(response?.data?.message)
+        toast.success(response?.data?.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          // draggable: true,
+          progress: undefined,
+          theme: "colored",
+      })
         navigate('/products')
       }else {
-        alert(response?.data?.message)
+        // alert(response?.data?.message)
+        toast.error(response?.data?.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          // draggable: true,
+          progress: undefined,
+          theme: "colored",
+      })
       }
     })
   }

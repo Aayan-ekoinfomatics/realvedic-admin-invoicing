@@ -336,7 +336,7 @@ const OrdersPage = () => {
                             <div className="flex min-w-[180px] gap-2">
                               <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
                             </div>
-                            <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#f3ff45] rounded-lg  border">
+                            <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#ffe345] rounded-lg  border">
                               {data?.status}
                             </p>
                           </div>
@@ -361,7 +361,7 @@ const OrdersPage = () => {
                             </p>
                           </div>
                         )}
-                        {data?.status === "cancelled" && (
+                        {data?.status === "canceled" && (
                           <div className="flex flex-col gap-2">
                             <div className="flex min-w-[180px] gap-2">
                               <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
@@ -376,7 +376,7 @@ const OrdersPage = () => {
                             <div className="flex min-w-[180px] gap-2">
                               <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
                             </div>
-                            <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white] text-[#e99f15] rounded-lg border ">
+                            <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white] text-[#FF0000] rounded-lg border ">
                               {data?.status}
                             </p>
                           </div>

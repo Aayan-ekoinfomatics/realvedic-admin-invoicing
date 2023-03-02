@@ -5,6 +5,7 @@ import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   // local variables
@@ -55,10 +56,30 @@ const Login = () => {
                   if (response?.data?.status) {
                     localStorage.setItem('status', response?.data?.status)
                     localStorage.setItem('admin-token', response?.data?.token)
-                    alert(response?.data?.message)
+                    // alert(response?.data?.message)
+                    toast.success(response?.data?.message, {
+                      position: "top-right",
+                      autoClose: 2000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      // draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                  })
                     navigate('/products')
                   }else {
-                    alert(response?.data?.message)
+                    // alert(response?.data?.message)
+                    toast.error(response?.data?.message, {
+                      position: "top-right",
+                      autoClose: 2000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      // draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                  })
                   }
                 })
               } else {

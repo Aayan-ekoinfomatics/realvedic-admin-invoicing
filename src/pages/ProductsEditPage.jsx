@@ -5,6 +5,7 @@ import cross from "../assets/icons/cross.svg";
 import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ProductsEditPage = () => {
   const [pageData, setPageData] = useState(
@@ -367,6 +368,18 @@ const ProductsEditPage = () => {
   const submitPageData = async () => {
     await axios.post(VITE_BASE_ADDRESS + 'cms/singleProductEdit', pageData).then((response) => {
       console.log(response?.data)
+      if (response?.data?.status) {
+        toast.success(response?.data?.message, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          // draggable: true,
+          progress: undefined,
+          theme: "colored",
+        })
+      }
     })
     let formdata = new FormData;
     formdata.append('token', localStorage.getItem('admin-token'))
@@ -877,8 +890,8 @@ const ProductsEditPage = () => {
                         />
                         <div className=" text-center text-gray-500  flex justify-center items-center">
                           <DeleteIcon className="ml-2 cursor-pointer" onClick={() => {
-                          pageData.variant_data.splice(index,1)
-                          }}/>
+                            pageData.variant_data.splice(index, 1)
+                          }} />
                         </div>
                       </div>
                     );
