@@ -215,7 +215,13 @@ const UsersPage = () => {
                 </div>
 
                 <div>
-                    <button className="bg-[#164E21] text-white rounded-full flex items-center p-3 px-8 gap-2 active:scale-95 transition-all" onClick={() => setAddUserPopUp(!addUserPopUp)}>
+                    <button className="bg-[#164E21] text-white rounded-full flex items-center p-3 px-8 gap-2 active:scale-95 transition-all" onClick={() => {
+                        setAddUserPopUp(!addUserPopUp)
+                        setAddUserData({
+                            ...userAddData,
+                            token: localStorage.getItem('admin-token')
+                        })
+                    }}>
                         <span>Add User</span>
                         <img src={add_icon} alt="" />
                     </button>
@@ -710,16 +716,29 @@ const UsersPage = () => {
                         await axios.post(VITE_BASE_ADDRESS + 'cms/addUser', userAddData).then((response) => {
                             console.log(response?.data)
                             // alert(response?.data?.message)
-                            toast.success(response?.data?.message, {
-                                position: "top-right",
-                                autoClose: 2000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                // draggable: true,
-                                progress: undefined,
-                                theme: "colored",
-                            })
+                            if (response?.data?.status) {
+                                toast.success(response?.data?.message, {
+                                    position: "top-right",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    // draggable: true,
+                                    progress: undefined,
+                                    theme: "colored",
+                                })
+                            }else {
+                                toast.error(response?.data?.message, {
+                                    position: "top-right",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    // draggable: true,
+                                    progress: undefined,
+                                    theme: "colored",
+                                })
+                            }
                         })
                         let formdata = new FormData();
                         formdata.append('token', localStorage.getItem('admin-token'))

@@ -20,6 +20,7 @@ import UsersPage from "./pages/UsersPage";
 import OrderAddPage from "./pages/OrderAddPage";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Banners from "./pages/Banners";
 
 function App() {
   const location = useLocation();
@@ -64,6 +65,7 @@ function App() {
 
 
             <Route element={<UsersPage />} path={"/users"} />
+            <Route element={<Banners />} path={"/banners"} />
 
 
             <Route element={<OrdersPage />} path={"/orders"} />

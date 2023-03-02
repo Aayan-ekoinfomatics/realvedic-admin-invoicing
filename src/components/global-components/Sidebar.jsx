@@ -30,7 +30,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={` 2xl:w-[250px] h-screen poppins fixed left-0 bg-[#227638]  z-[500] flex justify-between flex-col  pt-5`}
+      className={` 2xl:w-[250px] h-screen poppins fixed left-0 bg-[#227638] z-[170] flex justify-between flex-col  pt-5`}
     >
       {/* <div className="flex flex-col items-end gap-[7px] w-[35px]  rounded-lg cursor-pointer ml-auto m-5">
         <div className="bg-[#1e1e1e] rounded-lg w-full h-[4px]"></div>
@@ -191,6 +191,37 @@ const Sidebar = () => {
               </>
             )}
           </Link>
+
+
+
+          <Link
+            to="/banners"
+            className={`relative flex w-full gap-3   ${location?.pathname?.includes("/banners")
+              ? "text-[#164E21] bg-[#FBFFF4]"
+              : "text-white"
+              } p-6    justify-start items-center `}
+          >
+            <img
+              src={
+                location?.pathname?.includes("/banners")
+                  ? user_icon_active
+                  : user_icon_inactive
+              }
+              className="w-[25px]"
+              alt=""
+            />
+            <p className="hidden 2xl:block">Banners</p>
+
+            {/* before and after */}
+            {location?.pathname?.includes("/banners") && (
+              <>
+                <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
+                <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-bl-2xl bg-[#227638] top-[calc(100%-10px)] rotate-180"></div>
+              </>
+            )}
+          </Link>
+
+
         </div>
       </div>
 
