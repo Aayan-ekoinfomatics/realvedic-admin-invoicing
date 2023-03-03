@@ -118,98 +118,9 @@ const ProductsPage = () => {
             onChange={(e) => setSearchData(e?.target?.value)}
           />
         </div>
-
-        {/* <input
-          type="file"
-          onChange={(e) => {
-            const imageArray = [""];
-            const formData = new FormData();
-            formData?.append("file", e?.target?.files[0]);
-            formData?.append("image_array", JSON.stringify(imageArray));
-
-            axios
-              .post("http://192.168.1.18:8000/newImageUpload", formData)
-              ?.then((res) => {
-                console.log(res?.data);
-              });
-          }}
-        /> */}
-
-        <div className="w-full flex flex-wrap gap-5 justify-between sm:justify-start lg:justify-end">
-          {/* <div className="border-[#7d9383] border-2 p-3 rounded-full bg-white px-5 flex gap-3 items-center">
-            <h1>Quantity</h1>
-            <div>
-              <img src={down_arrow} alt="quantity" />
-            </div>
-          </div> */}
-          <div className="relative">
-            <div
-              onClick={() => setCalendarStatus(!calendarStatus)}
-              className="border-[#7d9383] border-2 p-2 rounded-full  bg-white px-3 sm:px-5 flex gap-3 items-center cursor-pointer"
-            >
-              <h1>Date</h1>
-              <div
-                className={` ${calendarStatus ? "-rotate-180" : "rotate-0"
-                  } transition-all `}
-              >
-                <img src={down_arrow} alt="date" />
-              </div>
-            </div>
-
-            {calendarStatus && (
-              <div
-                onClick={() => setCalendarStatus(false)}
-                className="fixed inset-0 bg-black bg-opacity-10 z-[500]"
-              ></div>
-            )}
-
-            {calendarStatus && (
-              <div className="z-[550] absolute top-[120%] border-[#7d9383] border-2 rounded-3xl overflow-hidden left-0 lg:left-auto lg:right-0 shadow-2xl p-3 bg-white  ">
-                <DateRange
-                  ranges={[selectionRange]}
-                  rangeColors={["#227638", "#e93008"]}
-                  onChange={handleSelect}
-                  moveRangeOnFirstSelection={false}
-                  className="text-[8px] sm:text-[10px] lg:text-[12px]"
-                // showMonthAndYearPickers={false}
-                // showSelectionPreview={false}
-                // editableDateInputs={true}
-                // direction={"horizontal"}
-                // scroll={{ enabled: true }}
-                />
-              </div>
-            )}
-          </div>
-
-          <div className="border-[#7d9383] border-2 p-2 rounded-full bg-white px-3 sm:px-5 flex gap-3 items-center">
-            <h1>Status</h1>
-            <div>
-              <img src={down_arrow} alt="status" />
-            </div>
-          </div>
-
-          <div className="border-[#7d9383] border-2 p-2 rounded-full bg-white px-3 sm:px-5 flex gap-3 items-center">
-            <h1>More Filters</h1>
-            <div>
-              <img src={down_arrow} alt="more filters" />
-            </div>
-          </div>
-        </div>
       </div>
 
-      {/* active filters */}
-      <div className="w-[90%] mx-auto mt-5 flex gap-2 flex-wrap">
-        {activeFilter?.map((data, index) => {
-          return (
-            <div
-              key={index}
-              className="p-3 rounded-full bg-white w-fit border text-xs"
-            >
-              <span>{data?.value}</span>
-            </div>
-          );
-        })}
-      </div>
+
 
       {/* invoices */}
       <div className=" w-[90%] mx-auto mt-10">
@@ -305,11 +216,13 @@ const ProductsPage = () => {
 
                       <div className="w-full py-4 flex justify-start  items-center gap-6">
                         <div>
-                          <img
-                            src={edit_icon}
-                            className="cursor-pointer w-[20px]"
-                            alt=""
-                          />
+                          <Link to={"/products/" + data?.product_id}>
+                            <img
+                              src={edit_icon}
+                              className="cursor-pointer w-[20px]"
+                              alt=""
+                            />
+                          </Link>
                         </div>
                         <div>
                           <img
@@ -329,8 +242,9 @@ const ProductsPage = () => {
                                   console.log("adminProductView response", response?.data);
                                   setPageData(response?.data);
                                 });
-                              }}
                               }
+                            }
+                            }
                           />
                         </div>
                       </div>

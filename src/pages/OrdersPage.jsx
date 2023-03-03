@@ -183,20 +183,6 @@ const OrdersPage = () => {
         </div>
       </div>
 
-      {/* active filters */}
-      {/* <div className="w-[90%] mx-auto mt-5 flex gap-2 flex-wrap">
-        {activeFilter?.map((data, index) => {
-          return (
-            <div
-              key={index}
-              className="p-3 rounded-full bg-white w-fit border text-xs"
-            >
-              <span>{data?.value}</span>
-            </div>
-          );
-        })}
-      </div> */}
-
       {/* invoices */}
       <div className=" w-[90%] mx-auto mt-10">
         <div className=" rounded-[25px]   overflow-hidden  border-[#7d9383] border-2 bg-white  p-0">
@@ -296,7 +282,7 @@ const OrdersPage = () => {
                         <p className="">₹ {data?.tax}</p>
                       </div> */}
                       <div className="w-full flex items-center">
-                        <p className="">₹ {data?.grand_total}</p>
+                        <p className="font-roboto">₹ {data?.grand_total}</p>
                       </div>
                       {/* <div className="w-full flex gap-5 items-center ">
                         {data?.status === "Booked" && (
@@ -314,7 +300,7 @@ const OrdersPage = () => {
                         {data?.status === "dispatched" && (
                           <div className="flex flex-col gap-2">
                             <div className="flex min-w-[180px] gap-2">
-                              <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
+                              <h1 className={`w-full text-center rounded-[5px] text-[12px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[12px] min-w-[110px] px-1 border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
                             </div>
                             <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#303030] rounded-lg  border">
                               {data?.status}
@@ -324,7 +310,7 @@ const OrdersPage = () => {
                         {data?.status === "on the way" && (
                           <div className="flex flex-col gap-2">
                             <div className="flex min-w-[180px] gap-2">
-                              <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
+                              <h1 className={`w-full text-center rounded-[5px] text-[12px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[12px] min-w-[110px] px-1 border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
                             </div>
                             <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#638ce6] rounded-lg  border">
                               {data?.status}
@@ -334,7 +320,7 @@ const OrdersPage = () => {
                         {data?.status === "processed" && (
                           <div className="flex flex-col gap-2">
                             <div className="flex min-w-[180px] gap-2">
-                              <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
+                              <h1 className={`w-full text-center rounded-[5px] text-[12px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[12px] min-w-[110px] px-1 border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
                             </div>
                             <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#ffe345] rounded-lg  border">
                               {data?.status}
@@ -344,7 +330,7 @@ const OrdersPage = () => {
                         {data?.status === "placed" && (
                           <div className="flex flex-col gap-2">
                             <div className="flex min-w-[180px] gap-2">
-                              <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
+                              <h1 className={`w-full text-center rounded-[5px] text-[12px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[12px] min-w-[110px] px-1 border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
                             </div>
                             <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white]  text-[#fc9739] rounded-lg  border">
                               {data?.status}
@@ -354,7 +340,7 @@ const OrdersPage = () => {
                         {data?.status === "delivered" && (
                           <div className="flex flex-col gap-2">
                             <div className="flex min-w-[180px] gap-2">
-                              <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
+                              <h1 className={`w-full text-center rounded-[5px] text-[12px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[12px] min-w-[110px] px-1 border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
                             </div>
                             <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white] text-[#00ac69] rounded-lg border ">
                               {data?.status}
@@ -364,7 +350,7 @@ const OrdersPage = () => {
                         {data?.status === "canceled" && (
                           <div className="flex flex-col gap-2">
                             <div className="flex min-w-[180px] gap-2">
-                              <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
+                              <h1 className={`w-full text-center rounded-[5px] text-[12px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[12px] min-w-[110px] px-1 border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
                             </div>
                             <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white] text-[#FF0000] rounded-lg border ">
                               {data?.status}
@@ -374,7 +360,7 @@ const OrdersPage = () => {
                         {data?.status === "returned" && (
                           <div className="flex flex-col gap-2">
                             <div className="flex min-w-[180px] gap-2">
-                              <h1 className={`w-full text-center rounded-[5px] text-[10px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[10px] border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
+                              <h1 className={`w-full text-center rounded-[5px] text-[12px] border ${data?.is_paid ? 'text-green-500' : 'text-gray-500'}`}>Is Paid</h1> <h1 className={`w-full rounded-[5px] text-center text-[12px] min-w-[110px] px-1 border ${data?.admin_placed ? 'text-green-500' : 'text-gray-500'}`}>Admin Placed</h1>
                             </div>
                             <p className=" bg-opacity-5 p-2 w-full text-center capitalize bg-[white] text-[#FF0000] rounded-lg border ">
                               {data?.status}
