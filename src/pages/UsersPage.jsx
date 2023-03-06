@@ -372,7 +372,7 @@ const UsersPage = () => {
                                             key={i}
                                         >
                                             <div className="w-full flex items-center ">
-                                                <p className="text-black font-medium cursor-pointer">
+                                                <p className="text-black text-[14px] font-medium cursor-pointer">
                                                     #{data?.user_id}
                                                 </p>
                                             </div>
@@ -388,7 +388,7 @@ const UsersPage = () => {
                                             </div>
                                             <div className="w-full ">
                                                 <p className=" flex flex-col justify-center">
-                                                    <span className="truncate">{data?.user?.name}</span>
+                                                    <span className="truncate text-[14px]">{data?.user?.name}</span>
                                                     <span className="text-xs text-gray-500 truncate">
                                                         {data?.user?.email}
                                                     </span>
@@ -402,7 +402,7 @@ const UsersPage = () => {
                                             </div> */}
 
                                             <div className="w-full flex items-center">
-                                                <p className="">{data?.phone_no}</p>
+                                                <p className="text-[14px]">{data?.phone_no}</p>
                                             </div>
 
                                             <div className="w-full py-4 flex justify-center items-center gap-6">

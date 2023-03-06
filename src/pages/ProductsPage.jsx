@@ -183,21 +183,21 @@ const ProductsPage = () => {
                     >
                       <div className="w-full max-w-[100px] flex justify-start items-center ">
                         <Link to={"/products/" + data?.product_id}>
-                          <p className="text-black font-medium cursor-pointer">
+                          <p className="text-black font-medium cursor-pointer text-[15px]">
                             #{data?.product_id}
                           </p>
                         </Link>
                       </div>
-                      <div className="w-full flex justify-start items-center ">
+                      <div className="w-full flex justify-start items-center text-[15px]">
                         <p className=" ">{data?.product_name}</p>
                       </div>
-                      <div className="w-full flex justify-start items-center ">
+                      <div className="w-full flex justify-start items-center text-[15px]">
                         <p className=" ">{data?.category}</p>
                       </div>
-                      <div className="w-full flex justify-start items-center ">
+                      <div className="w-full flex justify-start items-center text-[15px]">
                         <p className="">{data?.hsn}</p>
                       </div>
-                      <div className="w-full flex justify-start items-center">
+                      <div className="w-full flex justify-start items-center text-[15px]">
                         <p className="">{data?.stock}</p>
                       </div>
 

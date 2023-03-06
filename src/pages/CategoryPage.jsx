@@ -12,11 +12,16 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { VITE_BASE_ADDRESS } from '../base_address/base_address';
+import eye_close from '../assets/icons/hidden.png'
 import { toast } from 'react-toastify';
 
 const CategoryPage = () => {
 
     const [categoryData, setCategoryData] = useState();
+
+    const [categoryDeactivateToggle, setCategoryDeactivateToggle] = useState(null)
+
+    // const [categoryDeactivateOverlay, setCategoryDeactivateOverlay] = useState(false)
 
     const [searchData, setSearchData] = useState("");
 
@@ -95,7 +100,7 @@ const CategoryPage = () => {
 
             {/* table */}
             <div className=" w-[90%] mx-auto mt-10">
-                <div className=" rounded-[25px]   overflow-hidden  border-[#7d9383] border-2 bg-white  p-0">
+                <div className=" rounded-[25px]   overflow-hidden border-[#7d9383] border-2 bg-white  p-0">
                     <div className="overflow-x-scroll ">
                         <div className="min-w-[1300px]  rounded-[25px] p-5 pr-0 ">
 
@@ -117,7 +122,7 @@ const CategoryPage = () => {
                                 })}
                             </div>
 
-                            <div className="w-full  rounded-b-[15px]  text-[13px] text-[#464646] h-[65vh] overflow-y-scroll ">
+                            <div className="w-full  rounded-b-[15px] pb-10 text-[13px] text-[#464646] h-[65vh] overflow-y-scroll ">
                                 {categoryData?.content
                                     ?.filter((filterValue) => {
                                         if (searchData === "") {
@@ -144,7 +149,7 @@ const CategoryPage = () => {
                                                 </p>
                                             </div>
                                             <div className="w-full flex justify-center items-center ">
-                                                <p className="">
+                                                <p className="text-[15px]">
                                                     {data?.name}
                                                 </p>
                                             </div>
@@ -152,10 +157,12 @@ const CategoryPage = () => {
                                                 <img src={VITE_BASE_ADDRESS + data?.desktop_banner} alt="" />
                                             </div>
                                             <div className="w-full flex items-center justify-center">
-                                                <img src={VITE_BASE_ADDRESS + data?.icon} className='w-[40px]' alt="" />
+                                                <img src={VITE_BASE_ADDRESS + data?.icon} className='w-[50px]' alt="" />
                                             </div>
 
-                                            <div className="w-full py-4 flex justify-center items-center gap-6">
+                                            <div className="w-full py-4 flex justify-center items-center gap-6 relative">
+
+                                                {/* edit */}
                                                 <div>
                                                     <img
                                                         src={edit_icon}
@@ -184,42 +191,194 @@ const CategoryPage = () => {
                                                         }}
                                                     />
                                                 </div>
-                                                {/* <div>
+
+                                                {/* activate / deactivate    */}
+                                                <div>
                                                     <img
-                                                        src={eye}
-                                                        title="View Category"
-                                                        className="cursor-pointer w-[20px]"
+                                                        src={data?.status ? eye : eye_close}
+                                                        title={data?.status ? "Deavtivate Category" : 'Activate Category'}
+                                                        className={`cursor-pointer w-[20px] transition-all duration-300 ${categoryDeactivateToggle === data?.name || data?.status ? 'rotate-180' : ''}`}
                                                         alt=""
+                                                        onClick={async () => {
+                                                            if (data?.status) {
+                                                                categoryDeactivateToggle === null ? setCategoryDeactivateToggle(data?.name) : setCategoryDeactivateToggle(null)
+                                                            } else {
+                                                                let formdata = new FormData();
+                                                                formdata.append('token', localStorage.getItem('admin-token'))
+                                                                formdata.append('cat_id', data?.id)
+                                                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryActivate', formdata).then((response) => {
+                                                                    console.log(response?.data)
+                                                                    if (response?.data?.status) {
+                                                                        // alert(response?.data?.message)
+                                                                        toast.success(response?.data?.message, {
+                                                                            position: "top-right",
+                                                                            autoClose: 2000,
+                                                                            hideProgressBar: false,
+                                                                            closeOnClick: true,
+                                                                            pauseOnHover: true,
+                                                                            // draggable: true,
+                                                                            progress: undefined,
+                                                                            theme: "colored",
+                                                                        })
+                                                                    }
+                                                                })
+                                                                formdata.append('token', localStorage.getItem('admin-token'))
+                                                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                                                                    console.log(response?.data)
+                                                                    setCategoryData(response?.data)
+                                                                })
+                                                            }
+                                                        }}
                                                     />
-                                                </div> */}
+                                                </div>
+
+                                                {
+                                                    data?.status ?
+                                                        <>
+                                                            <div className={`w-[60%] right-0 absolute top-[70%] z-[120] bg-white shadow-lg rounded-[5px] transition-all duration-300 overflow-hidden ${categoryDeactivateToggle === data?.name ? 'ease-in h-[75px] border border-[#7d9383]' : 'ease-out h-0'}`}>
+
+                                                                {/* <div>
+                                                                    <h1 className='border-b border-[#7d9383] py-2 px-2 text-[12px] font-[500] text-gray-700 cursor-pointer'>Deactivate</h1>
+                                                                </div> */}
+
+                                                                <h1 className='border-b border-[#7d9383] py-2 px-2 text-[13px] font-[500] text-gray-700 cursor-pointer hover:bg-gray-100' onClick={async () => {
+                                                                    setCategoryDeactivateToggle(null)
+                                                                    let formdata = new FormData();
+                                                                    formdata.append('token', localStorage.getItem('admin-token'))
+                                                                    formdata.append('cat_id', data?.id)
+                                                                    formdata.append('d_type', 'c')
+                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryDeactivate', formdata).then((response) => {
+                                                                        if (response?.data?.status) {
+                                                                            toast.success(response?.data?.message, {
+                                                                                position: "top-right",
+                                                                                autoClose: 2000,
+                                                                                hideProgressBar: false,
+                                                                                closeOnClick: true,
+                                                                                pauseOnHover: true,
+                                                                                // draggable: true,
+                                                                                progress: undefined,
+                                                                                theme: "colored",
+                                                                            })
+                                                                        } else {
+                                                                            // alert(response?.data?.message)
+                                                                            toast.error(response?.data?.message, {
+                                                                                position: "top-right",
+                                                                                autoClose: 2000,
+                                                                                hideProgressBar: false,
+                                                                                closeOnClick: true,
+                                                                                pauseOnHover: true,
+                                                                                // draggable: true,
+                                                                                progress: undefined,
+                                                                                theme: "colored",
+                                                                            })
+                                                                        }
+                                                                    })
+                                                                    formdata.append('token', localStorage.getItem('admin-token'))
+                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                                                                        console.log(response?.data)
+                                                                        setCategoryData(response?.data)
+                                                                    })
+                                                                }}>Only Category</h1>
+
+                                                                <h1 className='border-b border-[#7d9383] py-2 px-2 text-[13px] font-[500] text-gray-700 cursor-pointer hover:bg-gray-100' onClick={async () => {
+                                                                    setCategoryDeactivateToggle(null)
+                                                                    let formdata = new FormData();
+                                                                    formdata.append('token', localStorage.getItem('admin-token'))
+                                                                    formdata.append('cat_id', data?.id)
+                                                                    formdata.append('d_type', 'b')
+                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryDeactivate', formdata).then((response) => {
+                                                                        if (response?.data?.status) {
+                                                                            toast.success(response?.data?.message, {
+                                                                                position: "top-right",
+                                                                                autoClose: 2000,
+                                                                                hideProgressBar: false,
+                                                                                closeOnClick: true,
+                                                                                pauseOnHover: true,
+                                                                                // draggable: true,
+                                                                                progress: undefined,
+                                                                                theme: "colored",
+                                                                            })
+                                                                        } else {
+                                                                            // alert(response?.data?.message)
+                                                                            toast.error(response?.data?.message, {
+                                                                                position: "top-right",
+                                                                                autoClose: 2000,
+                                                                                hideProgressBar: false,
+                                                                                closeOnClick: true,
+                                                                                pauseOnHover: true,
+                                                                                // draggable: true,
+                                                                                progress: undefined,
+                                                                                theme: "colored",
+                                                                            })
+                                                                        }
+                                                                    })
+                                                                    formdata.append('token', localStorage.getItem('admin-token'))
+                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                                                                        console.log(response?.data)
+                                                                        setCategoryData(response?.data)
+                                                                    })
+                                                                }}>Category and Products</h1>
+
+                                                            </div>
+                                                            <div className={`fixed inset-0 opacity-10 z-[100] ${categoryDeactivateToggle === null ? 'hidden' : 'block'}`} onClick={() => setCategoryDeactivateToggle(null)}>
+
+                                                            </div>
+                                                        </>
+                                                        :
+                                                        ''
+                                                }
+
+
+                                                {/* delete */}
                                                 <div>
                                                     <img
                                                         src={delete_icon}
-                                                        title="Edit Order"
+                                                        title="Delete Category"
                                                         className="cursor-pointer w-[14px]"
                                                         alt=""
-                                                        // onClick={async () => {
-                                                        //     let formdata = new FormData();
-                                                        //     formdata.append('cat_id', data?.id)
-                                                        //     formdata.append('token', localStorage.getItem('admin-token'))
-                                                        //     await axios.post(VITE_BASE_ADDRESS + 'cms/adminDeleteCategory', formdata).then((response) => {
-                                                        //         console.log(response?.data)
-                                                        //         if (response?.data?.status) {
-                                                        //             alert(response?.data?.message)
-                                                        //             setSingleCategoryData(response?.data)
-                                                        //             setViewCategory(!viewCategory)
-                                                        //         } else {
-                                                        //             alert(response?.data?.message)
-                                                        //         }
-                                                        //     })
-                                                        //     formdata.append('token', localStorage.getItem('admin-token'))
-                                                        //     await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
-                                                        //         console.log(response?.data)
-                                                        //         setCategoryData(response?.data)
-                                                        //     })
-                                                        // }}
+                                                        onClick={async () => {
+                                                            if (confirm('Confirm delete ?')) {
+                                                                let formdata = new FormData();
+                                                                formdata.append('cat_id', data?.id)
+                                                                formdata.append('token', localStorage.getItem('admin-token'))
+                                                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminDeleteCategory', formdata).then((response) => {
+                                                                    console.log(response?.data)
+                                                                    if (response?.data?.status) {
+                                                                        toast.success(response?.data?.message, {
+                                                                            position: "top-right",
+                                                                            autoClose: 2000,
+                                                                            hideProgressBar: false,
+                                                                            closeOnClick: true,
+                                                                            pauseOnHover: true,
+                                                                            // draggable: true,
+                                                                            progress: undefined,
+                                                                            theme: "colored",
+                                                                        })
+                                                                        setSingleCategoryData(response?.data)
+                                                                    } else {
+                                                                        toast.error(response?.data?.message, {
+                                                                            position: "top-right",
+                                                                            autoClose: 2000,
+                                                                            hideProgressBar: false,
+                                                                            closeOnClick: true,
+                                                                            pauseOnHover: true,
+                                                                            // draggable: true,
+                                                                            progress: undefined,
+                                                                            theme: "colored",
+                                                                        })
+                                                                    }
+                                                                })
+                                                                formdata.append('token', localStorage.getItem('admin-token'))
+                                                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                                                                    console.log(response?.data)
+                                                                    setCategoryData(response?.data)
+                                                                })
+                                                            }
+                                                        }}
                                                     />
                                                 </div>
+
+
                                             </div>
 
                                         </div>
@@ -249,6 +408,8 @@ const CategoryPage = () => {
                             })} className='border p-2 outline-none rounded-[10px] text-[13px]' />
                         </div>
                     </div>
+
+                    {/* desktop banner */}
                     <div className='mt-5'>
                         <div className='w-full'>
                             <h1 className='text-[14px] font-[500]'>Desktop Banner <span className='text-[12px] text-gray-400 font-[500]'>&#40;900 x 200&#41;</span></h1>
@@ -301,18 +462,20 @@ const CategoryPage = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* mobile banner */}
                     <div className='mt-5'>
                         <div className='w-full'>
                             <h1 className='text-[14px] font-[500]'>Mobile Banner <span className='text-[12px] text-gray-400 font-[500]'>&#40;900 x 200&#41;</span></h1>
                             <div
-                                className="bg-gray-50 rounded-lg aspect-[4/3] w-full max-w-[200px] border border-dashed overflow-hidden cursor-pointer border-gray-500"
+                                className="bg-gray-50 rounded-lg aspect-[6/3] w-full max-w-[200px] border border-dashed overflow-hidden cursor-pointer border-gray-500"
                                 onClick={() => {
                                     // setActiveInputID(pageData?.images[0]?.img_id);
                                 }}
                             >
                                 <label
                                     htmlFor="file_image"
-                                    className="relative w-full flex aspect-[4/3]"
+                                    className="relative w-full flex aspect-[6/3]"
                                 >
                                     <input
                                         type="file"
@@ -353,6 +516,8 @@ const CategoryPage = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* icon */}
                     <div className='mt-5'>
                         <div className='w-full'>
                             <h1 className='text-[14px] font-[500]'>Icon<span className='text-[12px] text-gray-400 font-[500]'></span></h1>
@@ -405,7 +570,7 @@ const CategoryPage = () => {
                         </div>
                     </div>
 
-
+                    {/* submit button */}
                     <div className="w-full mt-5 flex justify-end">
                         <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all" onClick={async () => {
                             await axios.put(VITE_BASE_ADDRESS + 'cms/adminEditCategory', singleCategoryData).then((response) => {
@@ -529,14 +694,14 @@ const CategoryPage = () => {
                         <div className='w-full'>
                             <h1 className='text-[14px] font-[500]'>Mobile Banner <span className='text-[12px] text-gray-400 font-[500]'>&#40;900 x 200&#41;</span></h1>
                             <div
-                                className="bg-gray-50 rounded-lg aspect-[4/3] w-full max-w-[200px] border border-dashed overflow-hidden cursor-pointer border-gray-500"
+                                className="bg-gray-50 rounded-lg aspect-[6/3] w-full max-w-[200px] border border-dashed overflow-hidden cursor-pointer border-gray-500"
                                 onClick={() => {
                                     // setActiveInputID(pageData?.images[0]?.img_id);
                                 }}
                             >
                                 <label
                                     htmlFor="file_image"
-                                    className="relative w-full flex aspect-[4/3]"
+                                    className="relative w-full flex aspect-[6/3]"
                                 >
                                     <input
                                         type="file"

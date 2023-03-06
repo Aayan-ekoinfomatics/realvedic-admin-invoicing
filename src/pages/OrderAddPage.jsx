@@ -10,11 +10,14 @@ import location from '../assets/icons/location.svg'
 import axios from 'axios';
 import { VITE_BASE_ADDRESS } from '../base_address/base_address';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const OrderAddPage = () => {
 
     const [searchData, setSearchData] = useState("");
     const [searchUserData, setSearchUserData] = useState("");
+
+    const navigate = useNavigate();
 
     const [orderAddData, setOrderAddData] = useState();
 
@@ -40,7 +43,7 @@ const OrderAddPage = () => {
 
             // we will send the response we've got from razorpay to the backend to validate the payment
             bodyData.append("response", JSON.stringify(response));
-            // bodyData.append("token", localStorage.getItem("token"));
+            bodyData.append("token", localStorage.getItem("admin-token"));
             // bodyData.append("amount", checkoutData?.final_price);
             // bodyData.append("items", JSON.stringify(checkoutData?.items))
 
@@ -65,7 +68,7 @@ const OrderAddPage = () => {
                         progress: undefined,
                         theme: "colored",
                     })
-                    // navigate('/order-confirmed')
+                    navigate('/orders   ')
                     // setName(checkoutData?.form?.content[0]?.value);
                     // setAmount(checkoutData?.checkout_data?.total?.amount);
                 })
@@ -139,7 +142,7 @@ const OrderAddPage = () => {
             key_secret: '8hPVwKRnj4DZ7SB1wyW1miaf',
             amount: data.data.payment.amount,
             currency: "INR",
-            name: "Org. Name",
+            name: "Realvedic",
             description: "Test teansaction",
             image: "", // add image url
             order_id: data.data.payment.id,
@@ -243,7 +246,11 @@ const OrderAddPage = () => {
                                         }
                                     })
                                 }}>Mark as Paid</h1>
-                            <h1 className='text-[13px] text-gray-600 py-2 border-b px-4 hover:bg-gray-100 cursor-pointer' onClick={() => showRazorpay()}>Pay Now</h1>
+                            <h1 className='text-[13px] text-gray-600 py-2 border-b px-4 hover:bg-gray-100 cursor-pointer' onClick={() => {
+                                showRazorpay()
+                                
+                            setPaymentDropDown(false)
+                            }}>Pay Now</h1>
                         </div>
                     </div>
                     {/* <div className={`fixed bg-black opacity-30 z-[500] inset-0 ${paymentDropDown ? 'block' : 'hidden'}`} onClick={() => setPaymentDropDown(false)}>

@@ -232,7 +232,10 @@ const OrdersEditPage = () => {
                             </div>
                           </div>
                           <div className='flex justify-end items-start '>
-                            <h1 className='text-[13px] text-gray-500'>Rs {data?.unit_price}</h1>
+                            <span>
+                            <h1 className='text-[12px] line-through text-gray-400'>Rs {data?.unit_price}</h1>
+                            <h1 className='text-[13px] text-gray-600'>Rs {data?.net_price}</h1>
+                            </span>
                           </div>
                           <div className='flex justify-end items-start'>
                             <h1 className='text-[13px] text-gray-500 pl-5'>x{data?.quantity}</h1>

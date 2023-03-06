@@ -390,12 +390,12 @@ const ProductsEditPage = () => {
     });
   }
 
-  useEffect(() => {
-    console.log('pageData', pageData)
-    // console.log('activeInputID', activeInputID);
-    // console.log("openDropdown", openDropdown);
-    // console.log(addedVariant)
-  }, [pageData]);
+  // useEffect(() => {
+  //   console.log('pageData', pageData)
+  //   console.log('activeInputID', activeInputID);
+  //   console.log("openDropdown", openDropdown);
+  //   console.log(addedVariant)
+  // }, [pageData]);
 
   return (
     <div className="p-5 pt-0 relative">

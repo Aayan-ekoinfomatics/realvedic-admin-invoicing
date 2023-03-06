@@ -242,7 +242,7 @@ const OrdersPage = () => {
                     >
                       <div className="w-full flex items-center ">
                         <Link to={`/orders/` + data?.invoice_id}>
-                          <p className="text-black font-medium cursor-pointer">
+                          <p className="text-black font-medium cursor-pointertext-[14px]">
                             #{data?.invoice_id}
                           </p>
                         </Link>
@@ -253,7 +253,7 @@ const OrdersPage = () => {
                             {/* {moment.unix(data?.created).format("DD MMM YYYY  ")} */}
                             {data?.created_date}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-gray-500text-[14px]">
                             {/* {moment.unix(data?.created).format(" hh:mm A")} */}
                             {data?.created_time}
                           </span>
@@ -261,19 +261,19 @@ const OrdersPage = () => {
                       </div>
                       <div className="w-full ">
                         <p className=" flex flex-col justify-center">
-                          <span className="truncate">
+                          <span className="truncatetext-[14px]">
                             {data?.customer?.name}
                           </span>
-                          <span className="text-xs text-gray-500 truncate">
+                          <span className="text-[12px] text-gray-500 truncate">
                             {data?.customer?.email}
                           </span>
                         </p>
                       </div>
                       <div className="w-fit flex items-center justify-center">
-                        <p className="">{data?.items}</p>
+                        <p className="text-[14px]">{data?.items}</p>
                       </div>
                       <div className="w-full flex items-center">
-                        <p className="">{data?.destination_state}</p>
+                        <p className="text-[14px]">{data?.destination_state}</p>
                       </div>
                       {/* <div className="w-full flex items-center">
                         <p className="">₹ {data?.sub_total}</p>
@@ -282,7 +282,7 @@ const OrdersPage = () => {
                         <p className="">₹ {data?.tax}</p>
                       </div> */}
                       <div className="w-full flex items-center">
-                        <p className="font-roboto">₹ {data?.grand_total}</p>
+                        <p className="font-roboto text-[14px]">₹ {data?.grand_total}</p>
                       </div>
                       {/* <div className="w-full flex gap-5 items-center ">
                         {data?.status === "Booked" && (

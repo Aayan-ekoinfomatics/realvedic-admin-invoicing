@@ -16,6 +16,8 @@ import banner_active from '../../assets/img/sidebar/banner_active.svg'
 import banner_inactive from '../../assets/img/sidebar/banner_inactive.svg'
 import category_active from '../../assets/img/sidebar/category-active.svg'
 import category_inactive from '../../assets/img/sidebar/category-inactive.svg'
+import log_active from '../../assets/img/sidebar/log_active.svg'
+import log_inactive from '../../assets/img/sidebar/log_inactive.svg'
 import product from "../../assets/icons/product.svg";
 import eko from "../../assets/img/sidebar/eko.svg";
 import logo from "../../assets/img/sidebar/logo.svg";
@@ -54,12 +56,12 @@ const Sidebar = () => {
         />
       </div>
 
-      <div className=" flex-1 w-full flex flex-col justify-center items-center">
+      <div className="flex-1 w-full flex flex-col justify-center items-center mt-14">
         <div className="flex flex-col items-center w-full">
-          {/* <Link  to='/' className={`flex w-full gap-3 hover:bg-[#eeeeee] px-4 py-[5px] active:scale-[0.95]  justify-start items-center my-2`}>
-                            <img src={dashboard} className='w-[20px]' alt="" />
-                            <p>Dashboard</p>
-                        </Link> */}
+          {/* <Link to='/' className={`flex w-full gap-3 hover:bg-[#eeeeee] px-4 py-[5px] active:scale-[0.95]  justify-start items-center my-2`}>
+            <img src={dashboard} className='w-[20px]' alt="" />
+            <p>Dashboard</p>
+          </Link> */}
           {/* <Link
             to="/invoices"
             className={`relative flex w-full gap-3   ${location?.pathname?.includes("/invoices")
@@ -252,6 +254,37 @@ const Sidebar = () => {
               </>
             )}
           </Link>
+
+
+          <Link
+            to="/logs"
+            className={`relative flex w-full gap-3   ${location?.pathname?.includes("/logs")
+              ? "text-[#164E21] bg-[#FBFFF4]"
+              : "text-white"
+              } p-6    justify-start items-center `}
+          >
+            <img
+              src={
+                location?.pathname?.includes("/logs")
+                  ? log_active
+                  : log_inactive
+              }
+              className="w-[25px]"
+              alt=""
+            />
+            <p className="hidden 2xl:block">Logs</p>
+
+            {/* before and after */}
+            {location?.pathname?.includes("/logs") && (
+              <>
+                <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-br-2xl bg-[#227638] bottom-[calc(100%-10px)]"></div>
+                <div className="absolute right-0 transition-all w-[100%] h-[10px] rounded-bl-2xl bg-[#227638] top-[calc(100%-10px)] rotate-180"></div>
+              </>
+            )}
+          </Link>
+
+
+
         </div>
       </div>
 
