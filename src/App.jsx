@@ -14,7 +14,7 @@ import axios from "axios";
 import InvoicePage from "./pages/InvoicePage";
 import ProductsEditPage from "./pages/ProductsEditPage";
 import OrdersEditPage from "./pages/OrdersEditPage";
-import { VITE_BASE_ADDRESS } from "./base_address/base_address";
+
 import AddProductPage from "./pages/AddProductPage";
 import UsersPage from "./pages/UsersPage";
 import OrderAddPage from "./pages/OrderAddPage";

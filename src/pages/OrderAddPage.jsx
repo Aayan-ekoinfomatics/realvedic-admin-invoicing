@@ -8,7 +8,6 @@ import arrow_down from '../assets/icons/down-arrow.svg'
 import profile from '../assets/icons/profile-circle.svg'
 import location from '../assets/icons/location.svg'
 import axios from 'axios';
-import { VITE_BASE_ADDRESS } from '../base_address/base_address';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,7 +47,7 @@ const OrderAddPage = () => {
             // bodyData.append("items", JSON.stringify(checkoutData?.items))
 
             await axios({
-                url: VITE_BASE_ADDRESS + `cms/adminHandlePaymentSuccess`,
+                url: import.meta.env.VITE_BASE_ADDRESS + `cms/adminHandlePaymentSuccess`,
                 method: "POST",
                 data: bodyData,
                 headers: {
@@ -122,7 +121,7 @@ const OrderAddPage = () => {
         // bodyData.append("token", localStorage.getItem("token"));
 
         const data = await axios({
-            url: VITE_BASE_ADDRESS + `cms/adminStartPayment`,
+            url: import.meta.env.VITE_BASE_ADDRESS + `cms/adminStartPayment`,
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -138,8 +137,8 @@ const OrderAddPage = () => {
         //that has been made by the user
 
         var options = {
-            key_id: 'rzp_test_gHJS0k5aSWUMQc', // in react your environment variable must start with REACT_APP_
-            key_secret: '8hPVwKRnj4DZ7SB1wyW1miaf',
+            key_id: import.meta.env.REACT_APP_RAZORPAY_KEY_ID, // in react your environment variable must start with REACT_APP_
+            key_secret: import.meta.env.REACT_APP_RAZORPAY_KEY_SECRET,
             amount: data.data.payment.amount,
             currency: "INR",
             name: "Realvedic",
@@ -174,7 +173,7 @@ const OrderAddPage = () => {
     useEffect(() => {
         let formdata = new FormData();
         formdata.append('token', localStorage.getItem('admin-token'))
-        axios.post(VITE_BASE_ADDRESS + 'cms/getProductList', formdata).then((response) => {
+        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/getProductList', formdata).then((response) => {
             console.log(response?.data)
             setOrderAddData(response?.data)
         })
@@ -229,7 +228,7 @@ const OrderAddPage = () => {
                         <div className='w-full'>
                             <h1 className='text-[13px] text-gray-600 py-2 border-b px-4 hover:bg-gray-100 cursor-pointer'
                                 onClick={() => {
-                                    axios.post(VITE_BASE_ADDRESS + 'cms/adminOrderMarkAsPaid', orderAddData).then((response) => {
+                                    axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminOrderMarkAsPaid', orderAddData).then((response) => {
                                         console.log(response?.data)
                                         setPaymentDropDown(false)
                                         if (response?.data?.status) {
@@ -308,7 +307,7 @@ const OrderAddPage = () => {
                                                         <div className='w-full hover:bg-gray-100 px-4 py-3 border-t flex items-center' onClick={() => searchVariants === null ? setSearchVariants(data?.title) : setSearchVariants(null)}>
                                                             <div className='w-full flex justify-start items-center gap-2'>
                                                                 <div className='w-fit'>
-                                                                    <img src={VITE_BASE_ADDRESS + data?.image} className='w-[55px]' alt="" />
+                                                                    <img src={import.meta.env.VITE_BASE_ADDRESS + data?.image} className='w-[55px]' alt="" />
                                                                 </div>
                                                                 <div className='w-full flex-col justify-start items-center'>
                                                                     <h1 className='text-[14px] text-gray-700'>{data?.title}</h1>
@@ -332,7 +331,7 @@ const OrderAddPage = () => {
                                                                                 formdata.append('size', size)
                                                                                 formdata.append('token', localStorage.getItem('admin-token'))
                                                                                 formdata.append('added_products', JSON.stringify(orderAddData?.added_products))
-                                                                                axios.post(VITE_BASE_ADDRESS + 'cms/updateAddedProducts', formdata).then((response) => {
+                                                                                axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/updateAddedProducts', formdata).then((response) => {
                                                                                     console.log(response?.data)
                                                                                     setOrderAddData({
                                                                                         ...orderAddData,
@@ -396,7 +395,7 @@ const OrderAddPage = () => {
                                             <div key={i} className='w-full grid grid-cols-[50%_1fr_1fr_1fr] py-2 border-t'>
                                                 <div className='w-full flex items-center gap-2'>
                                                     <div className='w-fit'>
-                                                        <img src={VITE_BASE_ADDRESS + data?.image} className='w-[60px]' alt="" />
+                                                        <img src={import.meta.env.VITE_BASE_ADDRESS + data?.image} className='w-[60px]' alt="" />
                                                     </div>
                                                     <div className='w-full flex flex-col items-start'>
                                                         <h1 className='text-[14px] text-gray-600 font-[600]'>{data?.name}</h1>
@@ -414,7 +413,7 @@ const OrderAddPage = () => {
                                                         formdata.append('index', i)
                                                         formdata.append('price', data?.net_price)
                                                         formdata.append('data', JSON.stringify(orderAddData?.added_products))
-                                                        axios.post(VITE_BASE_ADDRESS + 'cms/updateAddedProductsQuantity', formdata).then((response) => {
+                                                        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/updateAddedProductsQuantity', formdata).then((response) => {
                                                             console.log(response?.data)
                                                             setOrderAddData({
                                                                 ...orderAddData,
@@ -432,7 +431,7 @@ const OrderAddPage = () => {
                                                         formdata.append('index', i)
                                                         formdata.append('price', data?.net_price)
                                                         formdata.append('data', JSON.stringify(orderAddData?.added_products))
-                                                        axios.post(VITE_BASE_ADDRESS + 'cms/updateAddedProductsQuantity', formdata).then((response) => {
+                                                        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/updateAddedProductsQuantity', formdata).then((response) => {
                                                             console.log(response?.data)
                                                             setOrderAddData({
                                                                 ...orderAddData,
@@ -452,7 +451,7 @@ const OrderAddPage = () => {
                                                         formdata.append('token', localStorage.getItem('admin-token'))
                                                         formdata.append('index', i)
                                                         formdata.append('data', JSON.stringify(orderAddData?.added_products))
-                                                        axios.post(VITE_BASE_ADDRESS + 'cms/updateAddedProductsDelete', formdata).then((response) => {
+                                                        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/updateAddedProductsDelete', formdata).then((response) => {
                                                             console.log(response?.data)
                                                             setOrderAddData({
                                                                 ...orderAddData,
@@ -524,7 +523,7 @@ const OrderAddPage = () => {
                                                         let formdata = new FormData();
                                                         formdata.append('token', localStorage.getItem('admin-token'))
                                                         formdata.append('user_id', data?.id)
-                                                        axios.post(VITE_BASE_ADDRESS + 'cms/orderUserDetails', formdata).then((response) => {
+                                                        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/orderUserDetails', formdata).then((response) => {
                                                             console.log(response?.data)
                                                             setOrderAddData({
                                                                 ...orderAddData,

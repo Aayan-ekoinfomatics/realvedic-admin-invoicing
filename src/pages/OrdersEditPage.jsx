@@ -8,7 +8,6 @@ import profile from '../assets/icons/profile-circle.svg'
 import location from '../assets/icons/location.svg'
 import delivery from '../assets/icons/delivery.svg'
 import axios from 'axios';
-import { VITE_BASE_ADDRESS } from '../base_address/base_address';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -31,7 +30,7 @@ const OrdersEditPage = () => {
     formdata.append('order_status', selectedStatus)
     formdata.append('order_id', orderData?.order_id)
     formdata.append('token', localStorage.getItem('admin-token'))
-    axios.post(VITE_BASE_ADDRESS + 'cms/singleOrderEdit', formdata).then((response) => {
+    axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/singleOrderEdit', formdata).then((response) => {
       // console.log(response?.data)
       if (response?.data?.status) {
         toast.success(response?.data?.message, {
@@ -110,7 +109,7 @@ const OrdersEditPage = () => {
     let formdata = new FormData();
     formdata.append('order_id', params?.order_id)
     formdata.append('token', localStorage.getItem('admin-token'))
-    axios.post(VITE_BASE_ADDRESS + 'cms/singleOrderView', formdata).then((response) => {
+    axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/singleOrderView', formdata).then((response) => {
       console.log(response?.data)
       setOrderData(response?.data)
     })
@@ -223,7 +222,7 @@ const OrdersEditPage = () => {
                         <div className='w-full bg-white grid grid-cols-[45%_1fr_1fr_1fr] justify-center items-start py-2 px-4' key={i}>
                           <div className='flex justify-start items-center gap-3'>
                             <div className='w-fit'>
-                              <img src={VITE_BASE_ADDRESS + data?.image} className='w-[65px]' alt="" />
+                              <img src={import.meta.env.VITE_BASE_ADDRESS + data?.image} className='w-[65px]' alt="" />
                             </div>
                             <div className='flex flex-col justify-center items-start gap'>
                               <h1 className='text-[14px] font-[500] text-gray-700'>{data?.title}</h1>

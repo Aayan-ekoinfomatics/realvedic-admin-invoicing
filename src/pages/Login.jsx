@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 // icons
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
-import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -51,7 +50,7 @@ const Login = () => {
                 formdata?.append("email", emailRef?.current?.value);
                 formdata?.append("password", passwordRef?.current?.value);
 
-                axios.post(VITE_BASE_ADDRESS + "cms/login", formdata)?.then((response) => {
+                axios.post(import.meta.env.VITE_BASE_ADDRESS + "cms/login", formdata)?.then((response) => {
                   console.log(response);
                   if (response?.data?.status) {
                     localStorage.setItem('status', response?.data?.status)

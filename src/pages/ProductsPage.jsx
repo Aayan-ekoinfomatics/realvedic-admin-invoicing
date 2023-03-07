@@ -21,7 +21,6 @@ import { MonthList } from "../helpers/date_list/date_list";
 import product_data from "../mockApi/productPageApi";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 
 const ProductsPage = () => {
   // local states
@@ -81,7 +80,7 @@ const ProductsPage = () => {
   useEffect(() => {
     let formdata = new FormData;
     formdata.append('token', localStorage.getItem('admin-token'));
-    axios.post(VITE_BASE_ADDRESS + "cms/adminProductView", formdata)?.then((response) => {
+    axios.post(import.meta.env.VITE_BASE_ADDRESS + "cms/adminProductView", formdata)?.then((response) => {
       console.log("adminProductView response", response?.data);
       setPageData(response?.data);
     });
@@ -168,9 +167,6 @@ const ProductsPage = () => {
                       filterValue?.stock
                         ?.toString()
                         ?.toLowerCase()
-                        ?.includes(searchData?.toLowerCase()) ||
-                      filterValue?.status
-                        ?.toLowerCase()
                         ?.includes(searchData?.toLowerCase())
                     ) {
                       return filterValue;
@@ -235,10 +231,10 @@ const ProductsPage = () => {
                                 let formdata = new FormData;
                                 formdata.append('product_id', data?.product_id);
                                 formdata.append('token', localStorage.getItem('admin-token'));
-                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminProductDelete', formdata).then((response) => {
+                                await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminProductDelete', formdata).then((response) => {
                                   console.log(response?.data)
                                 })
-                                await axios.post(VITE_BASE_ADDRESS + "cms/adminProductView", formdata)?.then((response) => {
+                                await axios.post(import.meta.env.VITE_BASE_ADDRESS + "cms/adminProductView", formdata)?.then((response) => {
                                   console.log("adminProductView response", response?.data);
                                   setPageData(response?.data);
                                 });

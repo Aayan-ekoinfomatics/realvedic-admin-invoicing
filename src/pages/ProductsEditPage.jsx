@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import cross from "../assets/icons/cross.svg";
-import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -354,11 +353,11 @@ const ProductsEditPage = () => {
     let formdata = new FormData;
     formdata.append('token', localStorage.getItem('admin-token'))
     formdata.append('product_id', params?.product_id)
-    axios.post(VITE_BASE_ADDRESS + "cms/singleProductView", formdata)?.then((res) => {
+    axios.post(import.meta.env.VITE_BASE_ADDRESS + "cms/singleProductView", formdata)?.then((res) => {
       console.log("adminProductEditView response", res?.data);
       setPageData(res?.data);
     });
-    axios.post(VITE_BASE_ADDRESS + 'cms/siblingProductList', formdata).then((response) => {
+    axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/siblingProductList', formdata).then((response) => {
       // console.log(response?.data)
       setSiblingProduct(response?.data)
     })
@@ -366,7 +365,7 @@ const ProductsEditPage = () => {
   }, []);
 
   const submitPageData = async () => {
-    await axios.post(VITE_BASE_ADDRESS + 'cms/singleProductEdit', pageData).then((response) => {
+    await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/singleProductEdit', pageData).then((response) => {
       console.log(response?.data)
       if (response?.data?.status) {
         toast.success(response?.data?.message, {
@@ -384,7 +383,7 @@ const ProductsEditPage = () => {
     let formdata = new FormData;
     formdata.append('token', localStorage.getItem('admin-token'))
     formdata.append('product_id', params?.product_id)
-    await axios.post(VITE_BASE_ADDRESS + "cms/singleProductView", formdata)?.then((res) => {
+    await axios.post(import.meta.env.VITE_BASE_ADDRESS + "cms/singleProductView", formdata)?.then((res) => {
       console.log("adminProductEditView response", res?.data);
       setPageData(res?.data);
     });
@@ -442,7 +441,7 @@ const ProductsEditPage = () => {
                       formdata.append('file', e?.target?.files[0])
                       formdata.append('array', JSON.stringify(pageData?.images))
                       formdata.append('index', 0)
-                      axios.post(VITE_BASE_ADDRESS + 'cms/storeImage', formdata).then((response) => {
+                      axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/storeImage', formdata).then((response) => {
                         console.log(response?.data)
                         if (response?.data?.status) {
                           setPageData({
@@ -455,7 +454,7 @@ const ProductsEditPage = () => {
                   />
                   <img
                     id="file_image"
-                    src={VITE_BASE_ADDRESS + pageData?.images[0]}
+                    src={import.meta.env.VITE_BASE_ADDRESS + pageData?.images[0]}
                     className={`w-full absolute top-0 left-0 aspect-square z-[100] `}
                   />
                 </label>
@@ -486,7 +485,7 @@ const ProductsEditPage = () => {
                               formdata.append('file', e?.target?.files[0])
                               formdata.append('array', JSON.stringify(pageData?.images))
                               formdata.append('index', i)
-                              axios.post(VITE_BASE_ADDRESS + 'cms/storeImage', formdata).then((response) => {
+                              axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/storeImage', formdata).then((response) => {
                                 console.log(response?.data)
                                 if (response?.data?.status) {
                                   setPageData({
@@ -499,7 +498,7 @@ const ProductsEditPage = () => {
                           />
                           <img
                             id="file_image"
-                            src={VITE_BASE_ADDRESS + data}
+                            src={import.meta.env.VITE_BASE_ADDRESS + data}
                             className={`w-full absolute top-0 left-0 aspect-square z-[100] `}
                           />
                         </label>
@@ -1011,7 +1010,7 @@ const ProductsEditPage = () => {
                 >
                   <div className=" p-2 flex items-start gap-2">
                     <div className="aspect-square w-[40px]">
-                      <img src={VITE_BASE_ADDRESS + pageData?.sibling_product?.img} className='w-full' alt="" />
+                      <img src={import.meta.env.VITE_BASE_ADDRESS + pageData?.sibling_product?.img} className='w-full' alt="" />
                     </div>
 
                     <div>
@@ -1070,7 +1069,7 @@ const ProductsEditPage = () => {
                           })
                         }}>
                           <div className="w-full flex gap-2 justify-start items-center">
-                            <div className="w-fit"><img src={VITE_BASE_ADDRESS + data?.img} className='w-full max-w-[60px]' alt="" /></div>
+                            <div className="w-fit"><img src={import.meta.env.VITE_BASE_ADDRESS + data?.img} className='w-full max-w-[60px]' alt="" /></div>
                             <div className="w-full">
                               <h1 className="text-[15px]">{data?.product_name}</h1>
                               <h1 className="text-[12px] transition-all cursor-pointer text-gray-500">{data?.category}</h1>

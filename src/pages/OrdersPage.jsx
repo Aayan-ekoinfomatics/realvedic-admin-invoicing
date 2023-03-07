@@ -19,7 +19,6 @@ import { DateRange } from "react-date-range";
 import axios from "axios";
 import { MonthList } from "../helpers/date_list/date_list";
 import { Link } from "react-router-dom";
-import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 
 const OrdersPage = () => {
   // local states
@@ -79,7 +78,7 @@ const OrdersPage = () => {
   useEffect(() => {
     let formdata = new FormData();
     formdata.append('token', localStorage.getItem('admin-token'))
-    axios.post(VITE_BASE_ADDRESS + 'cms/adminOrderView', formdata).then((response) => {
+    axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminOrderView', formdata).then((response) => {
       console.log(response?.data)
       setOrderData(response?.data)
     })

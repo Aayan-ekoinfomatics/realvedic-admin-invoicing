@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import img from '../assets/img/mock-images/test_banner.png'
 import axios from 'axios';
-import { VITE_BASE_ADDRESS } from '../base_address/base_address';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -57,12 +56,12 @@ const Banners = () => {
         // })
         let formdata = new FormData();
         formdata.append('token', localStorage.getItem('admin-token'))
-        axios.post(VITE_BASE_ADDRESS + 'cms/bannerUploadCategoryProducts', formdata).then((response) => {
+        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/bannerUploadCategoryProducts', formdata).then((response) => {
             // console.log(response?.data)
             setDropDownData(response?.data)
         })
 
-        axios.post(VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
+        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
             console.log(response?.data)
             setBannerPageData(response?.data)
         })
@@ -263,7 +262,7 @@ const Banners = () => {
                                         let formdata = new FormData()
                                         formdata.append('file', e?.target?.files[0])
                                         formdata.append('token', localStorage.getItem('admin-token'))
-                                        axios.post(VITE_BASE_ADDRESS + 'cms/bannerImageUpload', formdata).then((response) => {
+                                        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/bannerImageUpload', formdata).then((response) => {
                                             console.log(response?.data)
                                             if (response?.data?.status) {
                                                 setUpdateData({
@@ -280,7 +279,7 @@ const Banners = () => {
                                     updateData?.desktop_image ?
                                         <img
                                             id="file_image"
-                                            src={VITE_BASE_ADDRESS + updateData?.desktop_image}
+                                            src={import.meta.env.VITE_BASE_ADDRESS + updateData?.desktop_image}
                                             className={`w-full absolute top-0 left-0 z-[100] inline-block origin-center`}
                                         />
                                         :
@@ -295,7 +294,7 @@ const Banners = () => {
                 </div>
                 <div className="w-full mt-5 flex justify-end">
                     <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all" onClick={async () => {
-                        await axios.post(VITE_BASE_ADDRESS + 'cms/largeCarousalImagesUpload', updateData).then((response) => {
+                        await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/largeCarousalImagesUpload', updateData).then((response) => {
                             // console.log(response?.data)
                             if (response?.data?.status) {
                                 toast.success(response?.data?.message, {
@@ -324,7 +323,7 @@ const Banners = () => {
                         setAddBannerPopUp(false)
                         let formdata = new FormData();
                         formdata.append('token', localStorage.getItem('admin-token'))
-                        axios.post(VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
+                        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
                             console.log(response?.data)
                             setBannerPageData(response?.data)
                         })
@@ -367,7 +366,7 @@ const Banners = () => {
                                         formdata.append('file', e?.target?.files[0])
                                         formdata.append('token', localStorage.getItem('admin-token'))
                                         formdata.append('banner_type', 'mobile')
-                                        axios.post(VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
+                                        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
                                             console.log(response?.data)
                                             if (response?.data?.status) {
                                                 setUpdateData({
@@ -384,7 +383,7 @@ const Banners = () => {
                                     updateData?.hero_mobile ?
                                         <img
                                             id="file_image"
-                                            src={VITE_BASE_ADDRESS + updateData?.hero_mobile}
+                                            src={import.meta.env.VITE_BASE_ADDRESS + updateData?.hero_mobile}
                                             className={`w-full absolute top-0 left-0 z-[100] inline-block origin-center`}
                                         />
                                         :
@@ -419,7 +418,7 @@ const Banners = () => {
                                         formdata.append('file', e?.target?.files[0])
                                         formdata.append('token', localStorage.getItem('admin-token'))
                                         formdata.append('banner_type', 'desktop')
-                                        axios.post(VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
+                                        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
                                             console.log(response?.data)
                                             if (response?.data?.status) {
                                                 setUpdateData({
@@ -436,7 +435,7 @@ const Banners = () => {
                                     updateData?.hero_desktop ?
                                         <img
                                             id="file_image"
-                                            src={VITE_BASE_ADDRESS + updateData?.hero_desktop}
+                                            src={import.meta.env.VITE_BASE_ADDRESS + updateData?.hero_desktop}
                                             className={`w-full absolute top-0 left-0 z-[100] inline-block origin-center`}
                                         />
                                         :
@@ -453,7 +452,7 @@ const Banners = () => {
                 {/* submit */}
                 <div className="w-full mt-5 flex justify-end">
                     <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all" onClick={async () => {
-                        await axios.post(VITE_BASE_ADDRESS + 'cms/bannerImagesUpload', updateData).then((response) => {
+                        await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/bannerImagesUpload', updateData).then((response) => {
                             // console.log(response?.data)
                             if (response?.data?.status) {
                                 toast.success(response?.data?.message, {
@@ -483,7 +482,7 @@ const Banners = () => {
                         setAddBannerPopUp(false)
                         let formdata = new FormData();
                         formdata.append('token', localStorage.getItem('admin-token'))
-                        await axios.post(VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
+                        await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
                             console.log(response?.data)
                             setBannerPageData(response?.data)
                         })
@@ -565,7 +564,7 @@ const Banners = () => {
                                                 >
                                                     <div className="w-full">
                                                         <div className="w-full flex justify-center ">
-                                                            <img src={VITE_BASE_ADDRESS + data?.image} className='' alt="" />
+                                                            <img src={import.meta.env.VITE_BASE_ADDRESS + data?.image} className='' alt="" />
                                                         </div>
                                                     </div>
                                                     <div className="w-full  flex justify-center items-center">
@@ -596,12 +595,12 @@ const Banners = () => {
                                                                     formdata.append('img_id', data?.img_id)
                                                                     formdata.append('token', localStorage.getItem('admin-token'))
                                                                     formdata.append('banner_type', 'h')
-                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/deleteBanner', formdata).then((response) => {
+                                                                    await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/deleteBanner', formdata).then((response) => {
                                                                         console.log(response?.data)
                                                                         alert(response?.data?.message)
                                                                         // setSingleUserData(response?.data)
                                                                     })
-                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
+                                                                    await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
                                                                         console.log(response?.data)
                                                                         setBannerPageData(response?.data)
                                                                     })
@@ -661,7 +660,7 @@ const Banners = () => {
                                                     >
                                                         <div className="w-full">
                                                             <div className="w-full flex justify-center ">
-                                                                <img src={VITE_BASE_ADDRESS + data?.image} className='' alt="" />
+                                                                <img src={import.meta.env.VITE_BASE_ADDRESS + data?.image} className='' alt="" />
                                                             </div>
                                                         </div>
                                                         <div className="w-full  flex justify-center items-center">
@@ -692,13 +691,13 @@ const Banners = () => {
                                                                         formdata.append('img_id', data?.img_id)
                                                                         formdata.append('token', localStorage.getItem('admin-token'))
                                                                         formdata.append('banner_type', 'o')
-                                                                        await axios.post(VITE_BASE_ADDRESS + 'cms/deleteBanner', formdata).then((response) => {
+                                                                        await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/deleteBanner', formdata).then((response) => {
                                                                             console.log(response?.data)
                                                                             alert(response?.data?.message)
 
                                                                             // setSingleUserData(response?.data)
                                                                         })
-                                                                        await axios.post(VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
+                                                                        await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminBannerView', formdata).then((response) => {
                                                                             console.log(response?.data)
                                                                             setBannerPageData(response?.data)
                                                                         })

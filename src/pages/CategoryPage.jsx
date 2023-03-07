@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { VITE_BASE_ADDRESS } from '../base_address/base_address';
 import eye_close from '../assets/icons/hidden.png'
 import { toast } from 'react-toastify';
 
@@ -60,7 +59,7 @@ const CategoryPage = () => {
         // })
         let formdata = new FormData();
         formdata.append('token', localStorage.getItem('admin-token'))
-        axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
             console.log(response?.data)
             setCategoryData(response?.data)
         })
@@ -154,10 +153,10 @@ const CategoryPage = () => {
                                                 </p>
                                             </div>
                                             <div className="w-full max-w-[300px] flex items-center justify-center">
-                                                <img src={VITE_BASE_ADDRESS + data?.desktop_banner} alt="" />
+                                                <img src={import.meta.env.VITE_BASE_ADDRESS + data?.desktop_banner} alt="" />
                                             </div>
                                             <div className="w-full flex items-center justify-center">
-                                                <img src={VITE_BASE_ADDRESS + data?.icon} className='w-[50px]' alt="" />
+                                                <img src={import.meta.env.VITE_BASE_ADDRESS + data?.icon} className='w-[50px]' alt="" />
                                             </div>
 
                                             <div className="w-full py-4 flex justify-center items-center gap-6 relative">
@@ -173,7 +172,7 @@ const CategoryPage = () => {
                                                             let formdata = new FormData();
                                                             formdata.append('cat_id', data?.id)
                                                             formdata.append('token', localStorage.getItem('admin-token'))
-                                                            await axios.post(VITE_BASE_ADDRESS + 'cms/adminEditCategory', formdata).then((response) => {
+                                                            await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminEditCategory', formdata).then((response) => {
                                                                 console.log(response?.data)
                                                                 // if (response?.data?.status) {
                                                                 //     alert(response?.data?.message)
@@ -184,7 +183,7 @@ const CategoryPage = () => {
                                                                 setSingleCategoryData(response?.data)
                                                             })
                                                             setViewCategory(!viewCategory)
-                                                            await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                                                            await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
                                                                 console.log(response?.data)
                                                                 setCategoryData(response?.data)
                                                             })
@@ -206,7 +205,7 @@ const CategoryPage = () => {
                                                                 let formdata = new FormData();
                                                                 formdata.append('token', localStorage.getItem('admin-token'))
                                                                 formdata.append('cat_id', data?.id)
-                                                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryActivate', formdata).then((response) => {
+                                                                await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryActivate', formdata).then((response) => {
                                                                     console.log(response?.data)
                                                                     if (response?.data?.status) {
                                                                         // alert(response?.data?.message)
@@ -223,7 +222,7 @@ const CategoryPage = () => {
                                                                     }
                                                                 })
                                                                 formdata.append('token', localStorage.getItem('admin-token'))
-                                                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                                                                await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
                                                                     console.log(response?.data)
                                                                     setCategoryData(response?.data)
                                                                 })
@@ -247,7 +246,7 @@ const CategoryPage = () => {
                                                                     formdata.append('token', localStorage.getItem('admin-token'))
                                                                     formdata.append('cat_id', data?.id)
                                                                     formdata.append('d_type', 'c')
-                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryDeactivate', formdata).then((response) => {
+                                                                    await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryDeactivate', formdata).then((response) => {
                                                                         if (response?.data?.status) {
                                                                             toast.success(response?.data?.message, {
                                                                                 position: "top-right",
@@ -274,7 +273,7 @@ const CategoryPage = () => {
                                                                         }
                                                                     })
                                                                     formdata.append('token', localStorage.getItem('admin-token'))
-                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                                                                    await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
                                                                         console.log(response?.data)
                                                                         setCategoryData(response?.data)
                                                                     })
@@ -286,7 +285,7 @@ const CategoryPage = () => {
                                                                     formdata.append('token', localStorage.getItem('admin-token'))
                                                                     formdata.append('cat_id', data?.id)
                                                                     formdata.append('d_type', 'b')
-                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryDeactivate', formdata).then((response) => {
+                                                                    await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryDeactivate', formdata).then((response) => {
                                                                         if (response?.data?.status) {
                                                                             toast.success(response?.data?.message, {
                                                                                 position: "top-right",
@@ -313,7 +312,7 @@ const CategoryPage = () => {
                                                                         }
                                                                     })
                                                                     formdata.append('token', localStorage.getItem('admin-token'))
-                                                                    await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                                                                    await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
                                                                         console.log(response?.data)
                                                                         setCategoryData(response?.data)
                                                                     })
@@ -341,7 +340,7 @@ const CategoryPage = () => {
                                                                 let formdata = new FormData();
                                                                 formdata.append('cat_id', data?.id)
                                                                 formdata.append('token', localStorage.getItem('admin-token'))
-                                                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminDeleteCategory', formdata).then((response) => {
+                                                                await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminDeleteCategory', formdata).then((response) => {
                                                                     console.log(response?.data)
                                                                     if (response?.data?.status) {
                                                                         toast.success(response?.data?.message, {
@@ -369,7 +368,7 @@ const CategoryPage = () => {
                                                                     }
                                                                 })
                                                                 formdata.append('token', localStorage.getItem('admin-token'))
-                                                                await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                                                                await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
                                                                     console.log(response?.data)
                                                                     setCategoryData(response?.data)
                                                                 })
@@ -433,7 +432,7 @@ const CategoryPage = () => {
                                             formdata.append('file', e?.target?.files[0])
                                             formdata.append('token', localStorage.getItem('admin-token'))
                                             formdata.append('banner_type', 'desktop')
-                                            axios.post(VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
+                                            axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
                                                 console.log(response?.data)
                                                 if (response?.data?.status) {
                                                     setSingleCategoryData({
@@ -450,7 +449,7 @@ const CategoryPage = () => {
                                         singleCategoryData?.desktop_banner ?
                                             <img
                                                 id="file_image"
-                                                src={VITE_BASE_ADDRESS + singleCategoryData?.desktop_banner}
+                                                src={import.meta.env.VITE_BASE_ADDRESS + singleCategoryData?.desktop_banner}
                                                 className={`w-full absolute top-0 left-0 z-[100] inline-block origin-center`}
                                             />
                                             :
@@ -487,7 +486,7 @@ const CategoryPage = () => {
                                             formdata.append('file', e?.target?.files[0])
                                             formdata.append('token', localStorage.getItem('admin-token'))
                                             formdata.append('banner_type', 'mobile')
-                                            axios.post(VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
+                                            axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
                                                 console.log(response?.data)
                                                 if (response?.data?.status) {
                                                     setSingleCategoryData({
@@ -504,7 +503,7 @@ const CategoryPage = () => {
                                         singleCategoryData?.mobile_banner ?
                                             <img
                                                 id="file_image"
-                                                src={VITE_BASE_ADDRESS + singleCategoryData?.mobile_banner}
+                                                src={import.meta.env.VITE_BASE_ADDRESS + singleCategoryData?.mobile_banner}
                                                 className={`w-full absolute top-0 left-0 z-[100] inline-block origin-center`}
                                             />
                                             :
@@ -540,7 +539,7 @@ const CategoryPage = () => {
                                             let formdata = new FormData()
                                             formdata.append('file', e?.target?.files[0])
                                             formdata.append('token', localStorage.getItem('admin-token'))
-                                            axios.post(VITE_BASE_ADDRESS + 'cms/categoryIconUpload', formdata).then((response) => {
+                                            axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/categoryIconUpload', formdata).then((response) => {
                                                 console.log(response?.data)
                                                 if (response?.data?.status) {
                                                     setSingleCategoryData({
@@ -557,7 +556,7 @@ const CategoryPage = () => {
                                         singleCategoryData?.icon ?
                                             <img
                                                 id="file_image"
-                                                src={VITE_BASE_ADDRESS + singleCategoryData?.icon}
+                                                src={import.meta.env.VITE_BASE_ADDRESS + singleCategoryData?.icon}
                                                 className={`w-full absolute top-0 left-0 z-[100] inline-block origin-center`}
                                             />
                                             :
@@ -573,7 +572,7 @@ const CategoryPage = () => {
                     {/* submit button */}
                     <div className="w-full mt-5 flex justify-end">
                         <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all" onClick={async () => {
-                            await axios.put(VITE_BASE_ADDRESS + 'cms/adminEditCategory', singleCategoryData).then((response) => {
+                            await axios.put(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminEditCategory', singleCategoryData).then((response) => {
                                 console.log(response?.data)
                                 if (response?.data?.status) {
                                     toast.success(response?.data?.message, {
@@ -603,7 +602,7 @@ const CategoryPage = () => {
 
                             let formdata = new FormData();
                             formdata.append('token', localStorage.getItem('admin-token'))
-                            await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                            await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
                                 console.log(response?.data)
                                 setCategoryData(response?.data)
                             })
@@ -661,7 +660,7 @@ const CategoryPage = () => {
                                             formdata.append('file', e?.target?.files[0])
                                             formdata.append('token', localStorage.getItem('admin-token'))
                                             formdata.append('banner_type', 'desktop')
-                                            axios.post(VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
+                                            axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
                                                 console.log(response?.data)
                                                 if (response?.data?.status) {
                                                     setAddCategoryData({
@@ -678,7 +677,7 @@ const CategoryPage = () => {
                                         addCategoryData?.desktop_banner ?
                                             <img
                                                 id="file_image"
-                                                src={VITE_BASE_ADDRESS + addCategoryData?.desktop_banner}
+                                                src={import.meta.env.VITE_BASE_ADDRESS + addCategoryData?.desktop_banner}
                                                 className={`w-full absolute top-0 left-0 z-[100] inline-block origin-center`}
                                             />
                                             :
@@ -713,7 +712,7 @@ const CategoryPage = () => {
                                             formdata.append('file', e?.target?.files[0])
                                             formdata.append('token', localStorage.getItem('admin-token'))
                                             formdata.append('banner_type', 'mobile')
-                                            axios.post(VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
+                                            axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/heroBannerImageUpload', formdata).then((response) => {
                                                 console.log(response?.data)
                                                 if (response?.data?.status) {
                                                     setAddCategoryData({
@@ -730,7 +729,7 @@ const CategoryPage = () => {
                                         addCategoryData?.mobile_banner ?
                                             <img
                                                 id="file_image"
-                                                src={VITE_BASE_ADDRESS + addCategoryData?.mobile_banner}
+                                                src={import.meta.env.VITE_BASE_ADDRESS + addCategoryData?.mobile_banner}
                                                 className={`w-full absolute top-0 left-0 z-[100] inline-block origin-center`}
                                             />
                                             :
@@ -764,7 +763,7 @@ const CategoryPage = () => {
                                             let formdata = new FormData()
                                             formdata.append('file', e?.target?.files[0])
                                             formdata.append('token', localStorage.getItem('admin-token'))
-                                            axios.post(VITE_BASE_ADDRESS + 'cms/categoryIconUpload', formdata).then((response) => {
+                                            axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/categoryIconUpload', formdata).then((response) => {
                                                 console.log(response?.data)
                                                 if (response?.data?.status) {
                                                     setAddCategoryData({
@@ -781,7 +780,7 @@ const CategoryPage = () => {
                                         addCategoryData?.icon ?
                                             <img
                                                 id="file_image"
-                                                src={VITE_BASE_ADDRESS + addCategoryData?.icon}
+                                                src={import.meta.env.VITE_BASE_ADDRESS + addCategoryData?.icon}
                                                 className={`w-full absolute top-0 left-0 z-[100] inline-block origin-center`}
                                             />
                                             :
@@ -797,7 +796,7 @@ const CategoryPage = () => {
 
                     <div className="w-full mt-5 flex justify-end">
                         <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all" onClick={async () => {
-                            await axios.post(VITE_BASE_ADDRESS + 'cms/adminCreateCategory', addCategoryData).then((response) => {
+                            await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCreateCategory', addCategoryData).then((response) => {
                                 // console.log(response?.data)
                                 if (response?.data?.status) {
                                     toast.success(response?.data?.message, {
@@ -826,7 +825,7 @@ const CategoryPage = () => {
                             })
                             let formdata = new FormData();
                             formdata.append('token', localStorage.getItem('admin-token'))
-                            await axios.post(VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
+                            await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminCategoryListView', formdata).then((response) => {
                                 console.log(response?.data)
                                 setCategoryData(response?.data)
                             })

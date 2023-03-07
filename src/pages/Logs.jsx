@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import search_icon from "../assets/img/mainPages/search_icon.svg";
 import axios from 'axios';
-import { VITE_BASE_ADDRESS } from '../base_address/base_address';
 
 const Logs = () => {
 
@@ -33,7 +32,7 @@ const Logs = () => {
         // })
         let formdata = new FormData();
         formdata.append('token', localStorage.getItem('admin-token'))
-        axios.post(VITE_BASE_ADDRESS + 'cms/adminLogView', formdata).then((response) => {
+        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/adminLogView', formdata).then((response) => {
             console.log(response?.data)
             setLogData(response?.data)
         })

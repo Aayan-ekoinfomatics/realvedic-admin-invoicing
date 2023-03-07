@@ -26,7 +26,6 @@ import { DateRange } from "react-date-range";
 import axios from "axios";
 import { MonthList } from "../helpers/date_list/date_list";
 import { useEffect } from "react";
-import { VITE_BASE_ADDRESS } from "../base_address/base_address";
 import { toast } from "react-toastify";
 
 const UsersPage = () => {
@@ -196,7 +195,7 @@ const UsersPage = () => {
     useEffect(() => {
         let formdata = new FormData();
         formdata.append('token', localStorage.getItem('admin-token'))
-        axios.post(VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
+        axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
             console.log(response?.data)
             setUserData(response?.data)
         })
@@ -416,7 +415,7 @@ const UsersPage = () => {
                                                             let formdata = new FormData();
                                                             formdata.append('user_id', data?.user_id)
                                                             formdata.append('token', localStorage.getItem('admin-token'))
-                                                            axios.post(VITE_BASE_ADDRESS + 'cms/singleUserView', formdata).then((response) => {
+                                                            axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/singleUserView', formdata).then((response) => {
                                                                 console.log(response?.data)
                                                                 setSingleUserData(response?.data)
                                                             })
@@ -431,7 +430,7 @@ const UsersPage = () => {
                                                         title="Block User"
                                                         alt=""
                                                         onClick={async () => {
-                                                            await axios.patch(VITE_BASE_ADDRESS + 'cms/userBlock', { user_id: data?.user_id, token: localStorage.getItem('admin-token') }).then((response) => {
+                                                            await axios.patch(import.meta.env.VITE_BASE_ADDRESS + 'cms/userBlock', { user_id: data?.user_id, token: localStorage.getItem('admin-token') }).then((response) => {
                                                                 console.log(response?.data)
                                                                 // alert(response?.data?.message)
                                                                 toast.success(response?.data?.message, {
@@ -447,7 +446,7 @@ const UsersPage = () => {
                                                             })
                                                             let formdata = new FormData();
                                                             formdata.append('token', localStorage.getItem('admin-token'))
-                                                            await axios.post(VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
+                                                            await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
                                                                 // console.log(response?.data)
                                                                 setUserData(response?.data)
                                                             })
@@ -461,13 +460,13 @@ const UsersPage = () => {
                                                         title="Delete User"
                                                         alt=""
                                                         onClick={async () => {
-                                                            await axios.delete(VITE_BASE_ADDRESS + 'cms/userDelete', {data: { user_id: data?.user_id, token: localStorage.getItem('admin-token') }}).then((response) => {
+                                                            await axios.delete(import.meta.env.VITE_BASE_ADDRESS + 'cms/userDelete', {data: { user_id: data?.user_id, token: localStorage.getItem('admin-token') }}).then((response) => {
                                                                 console.log(response?.data)
                                                                 alert(response?.data?.message)
                                                             })
                                                             let formdata = new FormData();
                                                             formdata.append('token', localStorage.getItem('admin-token'))
-                                                            await axios.post(VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
+                                                            await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
                                                                 // console.log(response?.data)
                                                                 setUserData(response?.data)
                                                             })
@@ -537,7 +536,7 @@ const UsersPage = () => {
                                                                             <div className='w-full bg-white grid grid-cols-[45%_1fr_1fr] justify-center items-start py-2 px-4' key={index}>
                                                                                 <div className='flex justify-start items-center gap-3'>
                                                                                     <div className='w-fit'>
-                                                                                        <img src={VITE_BASE_ADDRESS + items?.image} className='w-[65px]' alt="" />
+                                                                                        <img src={import.meta.env.VITE_BASE_ADDRESS + items?.image} className='w-[65px]' alt="" />
                                                                                     </div>
                                                                                     <div className='flex flex-col justify-center items-start gap'>
                                                                                         <h1 className='text-[13px] font-[500] text-gray-700'>{items?.title}</h1>
@@ -713,7 +712,7 @@ const UsersPage = () => {
                 </div>
                 <div className="w-full mt-5 flex justify-end">
                     <button className="px-4 py-[5px] rounded-[10px] bg-[#227638] text-white text-[14px] shadow-md active:scale-95 transition-all" onClick={async () => {
-                        await axios.post(VITE_BASE_ADDRESS + 'cms/addUser', userAddData).then((response) => {
+                        await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/addUser', userAddData).then((response) => {
                             console.log(response?.data)
                             // alert(response?.data?.message)
                             if (response?.data?.status) {
@@ -742,7 +741,7 @@ const UsersPage = () => {
                         })
                         let formdata = new FormData();
                         formdata.append('token', localStorage.getItem('admin-token'))
-                        await axios.post(VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
+                        await axios.post(import.meta.env.VITE_BASE_ADDRESS + 'cms/userView', formdata).then((response) => {
                             // console.log(response?.data)
                             setUserData(response?.data)
                         })
